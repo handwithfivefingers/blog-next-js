@@ -26,12 +26,14 @@ export default function Home() {
           <div className="row">
             <div className="col-md-6">
               <h3>About me</h3>
-              <p>
-                Let's be honest and cut through the marketing fluff. You need a
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: `Let's be honest and cut through the marketing fluff. You need a
                 website that looks amazing and actually works. The bottom line,
                 that's what I do. And if you want to learn more about working
-                with me, connect with me today.
-              </p>
+                with me, connect with me today.`,
+                }}
+              ></p>
               <button className="btn">Learn More</button>
             </div>
             <div className="col-md-6">
