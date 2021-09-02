@@ -12,7 +12,6 @@ const CardPost = ({ id, title, image, categories, link }) => {
     <Link
       href={{
         pathname: link,
-        query: { id },
       }}
     >
       <a>

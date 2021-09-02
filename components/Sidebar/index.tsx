@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
     let xhtml = null;
     xhtml = data.map((item, index) => {
       return (
-        <div key={item.node.id}>
+        <>
           {item.node.posts.edges.map((post, index) => {
             if (index > 4) {
               return;
@@ -30,18 +30,19 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
               return (
                 <>
                   <Link href={`${post.node.uri}`} key={post.node.uri}>
-                    <a className="row mb-3 sidebar-post">
-                      <div key={post.node.id} className="col-md-4 p-0">
+                    <a
+                      className="mb-3 sidebar-post"
+                      style={{ maxWidth: '100%' }}
+                    >
+                      <div className="sidebar-item">
                         <Image
                           src={post.node.featuredImage.node.mediaItemUrl}
-                          width={200}
-                          height={200}
                           layout="responsive"
+                          width="200"
+                          height="200"
                           alt="..."
                           unoptimized={true}
                         />
-                      </div>
-                      <div className="col-md-8" style={{ alignSelf: 'center' }}>
                         <h5 style={{ fontSize: 17, color: '#333' }}>
                           {post.node.title.length > 30
                             ? post.node.title.substring(0, 30).concat('...')
@@ -61,7 +62,7 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
               );
             }
           })}
-        </div>
+        </>
       );
     });
     return xhtml;
@@ -69,7 +70,7 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
   return (
     <div className="sticky">
       <h2>{loading ? <Skeleton /> : 'Post cùng danh mục'}</h2>
-      <ul>{data ? renderCategoriesList(data.categories.edges) : ''}</ul>
+      {data ? renderCategoriesList(data.categories.edges) : ''}
     </div>
   );
 };

@@ -78,8 +78,7 @@ const Blog = () => {
   };
   if (loading)
     return (
-      <div className="container">
-        <div className="row" style={{ padding: '50px 100px' }}>
+        <div className="row" style={{ padding: '50px 100px',  margin: 0  }}>
           <h2
             style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
           >
@@ -87,12 +86,11 @@ const Blog = () => {
           </h2>
           {renderLoading()}
         </div>
-      </div>
     );
   if (error) return `Error! ${error}`;
   return (
-    <div className="container">
-      <div className="row" style={{ padding: '50px 100px' }}>
+    <>
+      <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
         <h2
           style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
         >
@@ -126,7 +124,7 @@ const Blog = () => {
           Next
         </span>
       </div>
-    </div>
+    </>
   );
 };
 
