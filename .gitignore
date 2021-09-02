@@ -3,6 +3,8 @@
 # dependencies
 /node_modules
 /.env.local
+/./pages/api/connect.ts
+/./utils
 /.pnp
 .pnp.js
 
