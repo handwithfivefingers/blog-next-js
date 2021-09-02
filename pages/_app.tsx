@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-const client = new ApolloClient({ uri: `${process.env.WORDPRESS_API_URL}` });
+const client = new ApolloClient({ uri: `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}` });
 
 function MyApp({ Component, pageProps }) {
   return (
