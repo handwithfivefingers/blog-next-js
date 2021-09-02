@@ -1,6 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaGooglePlusG,
+  FaPinterestP,
+} from 'react-icons/fa';
 const CardPost = ({ id, title, image, categories, link }) => {
   return (
     <Link
@@ -15,10 +21,13 @@ const CardPost = ({ id, title, image, categories, link }) => {
             <div className="card-image">
               <Image src={image} layout="fill" unoptimized={true} alt="..." />
               <div className="card-social">
-                <span>F</span>
-                <span>G</span>
-                <span>I</span>
-                <span>P</span>
+                <FaFacebookF />
+
+                <FaInstagram />
+
+                <FaGooglePlusG />
+
+                <FaPinterestP />
               </div>
             </div>
             <div className="content">

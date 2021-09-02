@@ -43,39 +43,41 @@ query MyQuery($slug: String = "") {
             mediaItemUrl
           }
         }
+        categories {
+          edges {
+            node {
+              name
+            }
+          }
+        }
         content
+        link
       }
     }
 `;
 export const SearchPostQuery = gpl`
-query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after: String = "") {
-      posts(first: $first, after:$after, before:$before,last:$last) {
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-          startCursor
-          endCursor
-        }
-        edges {
-          node {
-            featuredImage {
-              node {
-                mediaItemUrl
-              }
-            }
-            link
-            title
+query MyQuery($search: String = "") {
+  posts(where: {search: $search}) {
+    edges {
+      node {
+        id
+        categories {
+          edges {
+           node {
             uri
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                }
-              }
-            }
+            name
+           }
+          }
+        }
+        title
+        uri
+        featuredImage {
+          node {
+            mediaItemUrl
           }
         }
       }
     }
+  }
+}
 `;

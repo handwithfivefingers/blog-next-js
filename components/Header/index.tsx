@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuLink from '../UI/MenuLink';
+import { useRouter } from 'next/router';
+import { AiOutlineSearch } from 'react-icons/ai';
 const linkList = [
   {
     path: '/',
@@ -19,6 +21,15 @@ const linkList = [
   },
 ];
 const Header = () => {
+  const [search, setSearch] = useState('');
+  const router = useRouter();
+  const searchPush = () => {
+    router.push({
+      pathname: '/search',
+      query: { search },
+    });
+  };
+
   return (
     <>
       <header>
@@ -26,8 +37,12 @@ const Header = () => {
           <span>Logo</span>
         </div>
         <div className="header-middle">
-          <label></label>
-          <input type="text" placeholder="Searching ... " />
+          <input
+            type="text"
+            placeholder="Searching ... "
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <AiOutlineSearch className="icon" onClick={searchPush} />
         </div>
         <div className="header-right">
           <span>Other project</span>

@@ -3,6 +3,7 @@ import { PostsQuery } from './../../constant/posts';
 import { useQuery } from '@apollo/react-hooks';
 import CardPost from '../../components/UI/CardPost';
 import Skeleton from 'react-loading-skeleton';
+
 type BLogType = {
   data: any;
   posts: any;
@@ -16,6 +17,10 @@ const Blog = () => {
   const { loading, error, data, refetch } = useQuery(PostsQuery, {
     variables: { after: '', before: '', first: 12, last: null },
   });
+  // const newdata = client.readQuery({
+  //   query: PostsQuery,,
+  //   variables: { after: '', before: '', first: 12, last: null },
+  // });
 
   useEffect(() => {
     if (data) {
@@ -75,6 +80,11 @@ const Blog = () => {
     return (
       <div className="container">
         <div className="row" style={{ padding: '50px 100px' }}>
+          <h2
+            style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
+          >
+            Our Blog
+          </h2>
           {renderLoading()}
         </div>
       </div>
@@ -83,9 +93,13 @@ const Blog = () => {
   return (
     <div className="container">
       <div className="row" style={{ padding: '50px 100px' }}>
+        <h2
+          style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
+        >
+          Our Blog
+        </h2>
         {data ? renderBlogPost(data.posts.edges) : ''}
       </div>
-
       <div className="pagination">
         <span
           className={`prev-pagination ${pagi.before ? 'active' : 'disabled'}`}

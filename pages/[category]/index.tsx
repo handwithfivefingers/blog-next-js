@@ -63,31 +63,27 @@ const Categories = () => {
     let xhtml = null;
     xhtml = categories.map((item) => {
       return (
-        <div key={item.node.id}>
-          <div className="container" style={{ padding: '25px 100px' }}>
-            <Link href={`${item.node.uri}`}>
-              <a className="custom-link">{item.node.name}</a>
-            </Link>
-          </div>
-          <div className="row" style={{ padding: '25px 100px' }}>
-            {item.node.posts.edges.map((post) => {
-              return (
-                <div
-                  key={post.node.id}
-                  className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
-                >
-                  <CardPost
-                    id={post.node.id}
-                    link={post.node.uri}
-                    title={post.node.title}
-                    image={post.node.featuredImage.node.mediaItemUrl}
-                    categories={post.node.categories.edges}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <>
+          <Link key={item.node.id} href={`${item.node.uri}`}>
+            <a className="custom-link">{item.node.name}</a>
+          </Link>
+          {item.node.posts.edges.map((post) => {
+            return (
+              <div
+                key={post.node.id}
+                className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+              >
+                <CardPost
+                  id={post.node.id}
+                  link={post.node.uri}
+                  title={post.node.title}
+                  image={post.node.featuredImage.node.mediaItemUrl}
+                  categories={post.node.categories}
+                />
+              </div>
+            );
+          })}
+        </>
       );
     });
     return xhtml;
@@ -97,14 +93,30 @@ const Categories = () => {
     return (
       <div className="container">
         <div className="row" style={{ padding: '50px 100px' }}>
-          {renderLoading()}
+          <h2
+            style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
+          >
+            Our Category
+          </h2>
+          ,{renderLoading()}
         </div>
       </div>
     );
   if (error) return `Error! ${error}`;
   return (
     <div className="container">
-      {data ? renderCategoriesList(data.categories.edges) : ''}
+      <div className="row" style={{ padding: '50px 100px' }}>
+        <h2
+          style={{
+            fontSize: '22px',
+            paddingBottom: '50px',
+            fontWeight: 400,
+          }}
+        >
+          Our Category
+        </h2>
+        {data ? renderCategoriesList(data.categories.edges) : ''}
+      </div>
     </div>
   );
 };
