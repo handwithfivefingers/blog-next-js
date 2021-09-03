@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MenuLink from '../UI/MenuLink';
 import { useRouter } from 'next/router';
 import { AiOutlineSearch } from 'react-icons/ai';
+import Image from 'next/image';
 const linkList = [
   {
     path: '/',
@@ -34,7 +35,7 @@ const Header = () => {
     <>
       <header>
         <div className="header-left">
-          <span>Logo</span>
+          <Image src="/image/logo192.png" width="50" height="50" layout="responsive" alt="favicon" />
         </div>
         <div className="header-middle">
           <input

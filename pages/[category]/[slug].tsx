@@ -47,6 +47,17 @@ const Post = () => {
           url: data?.postBy.link,
           title: data?.postBy.title,
           description: data?.postBy.title,
+          type: 'article',
+          article: {
+            publishedTime: '2017-06-21T23:04:13Z',
+            modifiedTime: '2018-01-21T18:04:43Z',
+            section: 'Section II',
+            // authors: [
+            //   'https://www.example.com/authors/@firstnameA-lastnameA',
+            //   'https://www.example.com/authors/@firstnameB-lastnameB',
+            // ],
+            // tags: ['Tag A', 'Tag B', 'Tag C'],
+          },
           images: [
             {
               url: data?.postBy.featuredImage.node.mediaItemUrl,
@@ -55,47 +66,14 @@ const Post = () => {
               alt: 'Featured Image',
             },
           ],
+        }}
+      />
+      {/* <NextSeo
+        openGraph={{
+          images: [],
           site_name: 'Truyền Mai Blog',
         }}
-        // twitter={{
-        //   handle: '@handle',
-        //   site: '@site',
-        //   cardType: 'summary_large_image',
-        // }}
-      />
-      <Head>
-        {/* <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="article" /> */}
-        {/* <meta
-          property="og:title"
-          content={` ${data?.postBy.title} - Truyền Mai`}
-        /> */}
-        {/* <meta
-          property="og:description"
-          content={`Truyền Mai - ${data?.postBy.title}`}
-        />
-        <meta property="og:url" content={data?.postBy.link} />
-        <meta property="og:site_name" content="Truyền Mai" />
-        <meta
-          property="article:section"
-          content={`${data?.postBy.categories.edges[0].node.name}`}
-        /> */}
-        {/* <meta
-          property="og:image:secure_url"
-          content={data?.postBy.featuredImage.node.mediaItemUrl}
-        /> */}
-        {/* <meta property="og:image:width" content="400" />
-        <meta property="og:image:height" content="200" /> */}
-        {/* <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:description" content={} />
-        <meta name="twitter:title" content={data?.postBy.title} />
-        <meta
-          name="twitter:image"
-          content={data?.postBy.featuredImage.node.mediaItemUrl}
-        />
-
-        <link rel="icon" href="/favicon.ico" /> */}
-      </Head>
+      /> */}
       <div className="post-content row" style={{ margin: 0 }}>
         <div className="col-12 post-header">
           <h2 className="title ">{data?.postBy.title || <Skeleton />}</h2>

@@ -5,7 +5,6 @@ import Footer from '../components/Footer';
 import ApolloClient from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-import { PostsQuery } from '../constant/posts';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 
@@ -18,6 +17,11 @@ function MyApp({ Component, pageProps }) {
     <ApolloProvider client={client}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta
+          name="google-site-verification"
+          content="tLgd15lMPuUM4Hhrq4nHs7ml7Xx8sntwYH0RjUJSq2k"
+        />
       </Head>
       <DefaultSeo
         openGraph={{
