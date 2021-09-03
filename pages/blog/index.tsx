@@ -3,7 +3,8 @@ import { PostsQuery } from './../../constant/posts';
 import { useQuery } from '@apollo/react-hooks';
 import CardPost from '../../components/UI/CardPost';
 import Skeleton from 'react-loading-skeleton';
-
+import Head from 'next/head';
+import { DefaultSeo } from 'next-seo';
 type BLogType = {
   data: any;
   posts: any;
@@ -78,7 +79,8 @@ const Blog = () => {
   };
   if (loading)
     return (
-        <div className="row" style={{ padding: '50px 100px',  margin: 0  }}>
+      <div style={{ padding: '25px 100px' }}>
+        <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
           <h2
             style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
           >
@@ -86,43 +88,46 @@ const Blog = () => {
           </h2>
           {renderLoading()}
         </div>
+      </div>
     );
   if (error) return `Error! ${error}`;
   return (
     <>
-      <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
-        <h2
-          style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
-        >
-          Our Blog
-        </h2>
-        {data ? renderBlogPost(data.posts.edges) : ''}
-      </div>
-      <div className="pagination">
-        <span
-          className={`prev-pagination ${pagi.before ? 'active' : 'disabled'}`}
-          onClick={() =>
-            data.posts.pageInfo.hasPreviousPage
-              ? onEventPagination({
-                  before: data.posts.pageInfo.startCursor,
-                  last: 12,
-                  first: null,
-                })
-              : ''
-          }
-        >
-          Previous
-        </span>
-        <span
-          className={`next-pagination ${pagi.after ? 'active' : 'disabled'}`}
-          onClick={() =>
-            data.posts.pageInfo.hasNextPage
-              ? onEventPagination({ after: data.posts.pageInfo.endCursor })
-              : ''
-          }
-        >
-          Next
-        </span>
+      <div style={{ padding: '25px 100px' }}>
+        <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
+          <h2
+            style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
+          >
+            Our Blog
+          </h2>
+          {data ? renderBlogPost(data.posts.edges) : ''}
+        </div>
+        <div className="pagination">
+          <span
+            className={`prev-pagination ${pagi.before ? 'active' : 'disabled'}`}
+            onClick={() =>
+              data.posts.pageInfo.hasPreviousPage
+                ? onEventPagination({
+                    before: data.posts.pageInfo.startCursor,
+                    last: 12,
+                    first: null,
+                  })
+                : ''
+            }
+          >
+            Previous
+          </span>
+          <span
+            className={`next-pagination ${pagi.after ? 'active' : 'disabled'}`}
+            onClick={() =>
+              data.posts.pageInfo.hasNextPage
+                ? onEventPagination({ after: data.posts.pageInfo.endCursor })
+                : ''
+            }
+          >
+            Next
+          </span>
+        </div>
       </div>
     </>
   );

@@ -44,12 +44,12 @@ const Categories = () => {
 
   const renderLoading = () => {
     let xhtml = [];
-    xhtml.push(<Skeleton />);
+    xhtml.push(<Skeleton style={{ margin: '20px 0' }} />);
     for (let i = 0; i < 12; i++) {
       xhtml.push(
         <div
           key={i + '-' + i}
-          className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+          className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4 "
         >
           <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
           <Skeleton duration={2} />
@@ -91,7 +91,7 @@ const Categories = () => {
 
   if (loading)
     return (
-      <>
+      <div style={{padding:'50px 100px'}}>
         <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
           <h2
             style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
@@ -100,11 +100,11 @@ const Categories = () => {
           </h2>
           ,{renderLoading()}
         </div>
-      </>
+      </div>
     );
   if (error) return `Error! ${error}`;
   return (
-    <>
+    <div style={{padding:'50px 100px'}}>
       <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
         <h2
           style={{
@@ -117,7 +117,7 @@ const Categories = () => {
         </h2>
         {data ? renderCategoriesList(data.categories.edges) : ''}
       </div>
-    </>
+    </div>
   );
 };
 
