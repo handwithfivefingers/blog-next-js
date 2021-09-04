@@ -83,9 +83,9 @@ header {
 .header-left {
   width: 50px;
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
-  transform: translate(50%, 50%);
+  transform: translate(50%, -50%);
 }
 .header-middle {
   position: absolute;
@@ -182,13 +182,13 @@ footer {
 }
 /*Card */
 .card-post,
-.sidebar-post {
+.sidebar-item {
   box-shadow: var(--main-box-shadow);
   transition: var(--main-transition);
   border-radius: 4px;
   z-index: 1;
 }
-.sidebar-post {
+.sidebar-item {
   padding: 4px;
 }
 .card-post {
@@ -311,7 +311,7 @@ footer {
   color: var(--main-primary-color);
 }
 .card-post:hover,
-.sidebar-post:hover {
+.sidebar-item:hover {
   transform: translate(0, -4px);
   opacity: 1;
   box-shadow: var(--main-box-shadow-hover);

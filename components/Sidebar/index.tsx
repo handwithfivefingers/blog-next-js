@@ -30,11 +30,8 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
               return (
                 <>
                   <Link href={`${post.node.uri}`} key={post.node.uri}>
-                    <a
-                      className="mb-3 sidebar-post"
-                      style={{ maxWidth: '100%' }}
-                    >
-                      <div className="sidebar-item">
+                    <a className="sidebar-post">
+                      <div className="sidebar-item mb-3 ">
                         <Image
                           src={post.node.featuredImage.node.mediaItemUrl}
                           layout="responsive"
@@ -68,7 +65,7 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
     return xhtml;
   };
   return (
-    <div className="sticky">
+    <div className="sticky" style={{ margin: '0 25px 0 0' }}>
       <h2>{loading ? <Skeleton /> : 'Post cùng danh mục'}</h2>
       {data ? renderCategoriesList(data.categories.edges) : ''}
     </div>

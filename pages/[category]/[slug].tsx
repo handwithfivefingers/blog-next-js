@@ -76,7 +76,7 @@ const Post = () => {
       /> */}
       <div className="post-content row" style={{ margin: 0 }}>
         <div className="col-12 post-header">
-          <h2 className="title ">{data?.postBy.title || <Skeleton />}</h2>
+          <h1 className="title ">{data?.postBy.title || <Skeleton />}</h1>
           {data ? (
             <Image
               src={data?.postBy.featuredImage.node.mediaItemUrl}
