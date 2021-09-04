@@ -1,7 +1,11 @@
+const path = require('path')
 module.exports = {
   reactStrictMode: true,
   images: {
     domains: ['bobo.muzlicdn.xyz']
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
   webpack: (config, options) => {
     config.module.rules.push({

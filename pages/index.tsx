@@ -8,6 +8,7 @@ import { DefaultSeo } from 'next-seo';
 import Iframe from 'react-iframe';
 import { useState } from 'react';
 import axios from './../helper/AxiosService';
+import Carousel from '../components/UI/Carousel';
 export default function Home() {
   const [name, setName] = useState('');
   const submitForm = async (e) => {
@@ -82,21 +83,143 @@ export default function Home() {
 
       <div className="wrapper" style={{ padding: '25px 100px', margin: 0 }}>
         <div className="row">
-          <h2 style={{ textAlign: 'center' }}>Tell me your story</h2>
-          <form onSubmit={submitForm}>
-            <input
-              type="text"
-              style={{ border: '1px solid red' }}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <button type="submit">Submit</button>
-          </form>
+          <div className="col-12">
+            <h2 style={{ textAlign: 'center' }}>Tell us your story</h2>
+            <form onSubmit={submitForm}>
+              <textarea
+                style={{ border: '1px solid red', height: 300, width: '100%' }}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <button className="btn" type="submit">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <Carousel item={null} column={4} />
+
+        <div className="row">
+          <h3 style={{ fontSize: '16px' }}> For Watching</h3>
+          <Carousel item={null} column={3} />
         </div>
 
         <div className="row">
+          <h3 style={{ fontSize: '16px' }}>For Reading</h3>
+          <Carousel item={null} column={4} />
+        </div>
+
+        <div className="row">
+          <h3 style={{ fontSize: '16px' }}>Project/Programs</h3>
+          <div className="col-md-3 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+        </div>
+
+        <div className="row">
+          <h3 style={{ fontSize: '16px' }}>English Preference</h3>
+          <div className="col-md-4 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-4 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+          <div className="col-md-4 mb-3">
+            <div
+              style={{
+                width: '100%',
+                height: 200,
+                backgroundColor: '#f9f9f9',
+              }}
+            ></div>
+          </div>
+        </div>
+
+        {/* <div className="row">
           <div className="col-md-6">
-            <h3>About me</h3>
+            <h3>For Reading</h3>
             <p
               dangerouslySetInnerHTML={{
                 __html: `Let's be honest and cut through the marketing fluff. You need a
@@ -117,89 +240,7 @@ export default function Home() {
             ></div>
           </div>
         </div>
-
-        <div className="row">
-          <h3>Our Project</h3>
-          <div className="col-md-3 mb-3">
-            <div
-              style={{
-                width: '100%',
-                height: 200,
-                backgroundColor: '#f9f9f9',
-              }}
-            ></div>
-          </div>
-
-          <div className="col-md-3 mb-3">
-            <div
-              style={{
-                width: '100%',
-                height: 200,
-                backgroundColor: '#f9f9f9',
-              }}
-            ></div>
-          </div>
-
-          <div className="col-md-3 mb-3">
-            <div
-              style={{
-                width: '100%',
-                height: 200,
-                backgroundColor: '#f9f9f9',
-              }}
-            ></div>
-          </div>
-
-          <div className="col-md-3 mb-3">
-            <div
-              style={{
-                width: '100%',
-                height: 200,
-                backgroundColor: '#f9f9f9',
-              }}
-            ></div>
-          </div>
-
-          <div className="col-md-3 mb-3">
-            <div
-              style={{
-                width: '100%',
-                height: 200,
-                backgroundColor: '#f9f9f9',
-              }}
-            ></div>
-          </div>
-
-          <div className="col-md-3 mb-3">
-            <div
-              style={{
-                width: '100%',
-                height: 200,
-                backgroundColor: '#f9f9f9',
-              }}
-            ></div>
-          </div>
-
-          <div className="col-md-3 mb-3">
-            <div
-              style={{
-                width: '100%',
-                height: 200,
-                backgroundColor: '#f9f9f9',
-              }}
-            ></div>
-          </div>
-
-          <div className="col-md-3 mb-3">
-            <div
-              style={{
-                width: '100%',
-                height: 200,
-                backgroundColor: '#f9f9f9',
-              }}
-            ></div>
-          </div>
-        </div>
+       */}
       </div>
     </div>
   );
