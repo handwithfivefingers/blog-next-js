@@ -12,18 +12,35 @@ export default function Home() {
   const [name, setName] = useState('');
   const submitForm = async (e) => {
     e.preventDefault();
-    console.log(e);
     const formData = new FormData();
     formData.append('entry.506450849', name);
-    const res = await axios.post(
+    // const res = await axios.post(
+    //   'https://docs.google.com/forms/u/0/d/e/1FAIpQLSevkiBjcpkKBwUzWlop904kB8-asiQiHl3eQLlHx90gcCSFOw/formResponse',
+    //   formData,
+    // );
+    const res = fetch(
       'https://docs.google.com/forms/u/0/d/e/1FAIpQLSevkiBjcpkKBwUzWlop904kB8-asiQiHl3eQLlHx90gcCSFOw/formResponse',
-      formData,
+      {
+        method: 'POST',
+        body: formData,
+        // headers: {
+        //   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        // },
+      },
     );
-    if (res.status === 200) {
-      console.log(res);
-    } else {
-      console.log('error');
-    }
+    res
+      .then((res) => {})
+      .catch((error) => {})
+      .finally(() => {
+        setName('');
+      });
+    // const data = await res.json();
+    // console.log(data);
+    // if (res.status === 200) {
+    //   console.log(res);
+    // } else {
+    //   console.log('error');
+    // }
   };
   return (
     <div>

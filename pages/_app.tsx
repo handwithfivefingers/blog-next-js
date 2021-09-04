@@ -8,6 +8,16 @@ import { ApolloProvider } from 'react-apollo';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 
+const noOverlayWorkaroundScript = `
+  window.addEventListener('error', event => {
+    event.stopImmediatePropagation()
+  })
+
+  window.addEventListener('unhandledrejection', event => {
+    event.stopImmediatePropagation()
+  })
+`;
+
 const client = new ApolloClient({
   uri: `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}`,
   cache: new InMemoryCache(),
@@ -16,6 +26,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
       <Head>
+        {process.env.NODE_ENV !== 'production' && (
+          <script
+            dangerouslySetInnerHTML={{ __html: noOverlayWorkaroundScript }}
+          />
+        )}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta
