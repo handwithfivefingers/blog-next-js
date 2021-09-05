@@ -20,6 +20,9 @@ query MyQuery($after: String, $before: String, $first: Int = 12, $last: Int = nu
                   link
                   title
                   uri
+                  views {
+                    views
+                  }
                   categories {
                         edges {
                               node {

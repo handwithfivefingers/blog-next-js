@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 import CardPost from '../components/UI/CardPost';
 import { SearchPostQuery } from '../constant/posts';
@@ -24,6 +24,7 @@ const Search = (props) => {
             title={item.node.title}
             image={item.node.featuredImage.node.mediaItemUrl}
             categories={item.node.categories}
+            views={item.node.views.views}
           />
         </div>
       );
