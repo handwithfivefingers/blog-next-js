@@ -46,7 +46,7 @@ const Header = () => {
           <AiOutlineSearch className="icon" onClick={searchPush} />
         </div>
         <div className="header-right">
-          <span>Other project</span>
+          <span>Project</span>
         </div>
       </header>
       <div className="menu">

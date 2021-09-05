@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { FetchSinglePost } from './../../constant/posts';
 import { AppQuery } from './../../constant/category';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -11,12 +11,28 @@ import Sidebar from '../../components/Sidebar';
 import { NextSeo } from 'next-seo';
 const Post = () => {
   const router = useRouter();
+  const [postId, setPostId] = useState(null);
   const { slug } = router.query;
-
   const { loading, error, data, refetch } = useQuery(FetchSinglePost, {
     variables: { slug },
   });
-
+  useEffect(() => {
+    if (postId) {
+      const res = fetch(
+        `${process.env.NEXT_PUBLIC_WORDPRESS_POST_VIEW_URL}/${postId}`,
+        {
+          method: 'GET',
+        },
+      );
+      res
+        .then((res) => {
+          console.clear();
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+    }
+  }, [postId]);
   if (loading) {
     return (
       <div className="post-content row" style={{ margin: 0 }}>
@@ -39,6 +55,9 @@ const Post = () => {
   }
   return (
     <div>
+      {loading === false && data.postBy.postId !== null && postId === null
+        ? setPostId(data.postBy.postId)
+        : ''}
       <NextSeo
         title={data?.postBy.title}
         description={data?.postBy.title}

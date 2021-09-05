@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppQuery } from './../../constant/category';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import CardPost from '../UI/CardPost';
 import Link from 'next/link';
 import Image from 'next/image';

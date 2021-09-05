@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { AppQuery } from './../../constant/category';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 import Link from 'next/link';
 import CardPost from '../../components/UI/CardPost';

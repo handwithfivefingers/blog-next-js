@@ -8,6 +8,11 @@ query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after:
       hasPreviousPage
       startCursor
       endCursor
+      seo {
+        schema {
+          raw
+        }
+      }
     }
     edges {
       node {
@@ -20,6 +25,9 @@ query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after:
         link
         title
         uri
+        views {
+          views
+        }
         categories {
           edges {
             node {
@@ -38,6 +46,9 @@ export const FetchSinglePost = gpl`
 query MyQuery($slug: String = "") {
       postBy(slug: $slug) {
         title
+        content
+        link
+        postId
         featuredImage {
           node {
             mediaItemUrl
@@ -50,8 +61,6 @@ query MyQuery($slug: String = "") {
             }
           }
         }
-        content
-        link
       }
     }
 `;
@@ -61,6 +70,11 @@ query MyQuery($search: String = "") {
     edges {
       node {
         id
+        title
+        uri
+        views {
+          views
+        }
         categories {
           edges {
            node {
@@ -69,8 +83,7 @@ query MyQuery($search: String = "") {
            }
           }
         }
-        title
-        uri
+
         featuredImage {
           node {
             mediaItemUrl

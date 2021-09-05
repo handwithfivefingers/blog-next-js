@@ -6,6 +6,7 @@ import Skeleton from 'react-loading-skeleton';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import styles from './style.module.scss';
+import parser from 'react-html-parser';
 type BLogType = {
   data: any;
   posts: any;
@@ -19,7 +20,7 @@ const Blog = () => {
   const { loading, error, data, refetch } = useQuery(PostsQuery, {
     variables: { after: '', before: '', first: 12, last: null },
   });
-
+  const { yoastSeo } = parser(data?.posts.pageInfo.seo.schema.raw);
   useEffect(() => {
     if (data) {
       setPagi({
@@ -43,6 +44,7 @@ const Blog = () => {
             title={item.node.title}
             image={item.node.featuredImage.node.mediaItemUrl}
             categories={item.node.categories}
+            views={item.node.views.views}
           />
         </div>
       );
@@ -90,6 +92,7 @@ const Blog = () => {
   if (error) return `Error! ${error}`;
   return (
     <>
+      <Head>{yoastSeo}</Head>
       <div className={styles.wrapper}>
         <div className="row">
           <h2

@@ -6,15 +6,16 @@ import {
   FaInstagram,
   FaGooglePlusG,
   FaPinterestP,
+  FaEye,
 } from 'react-icons/fa';
-const CardPost = ({ id, title, image, categories, link }) => {
+const CardPost = ({ id, title, image, categories, link, views }) => {
   return (
     <Link
       href={{
         pathname: link,
       }}
     >
-      <a>
+      <a style={{ display: 'block' }}>
         <div className="card-post">
           <div className="card-body">
             <div className="card-image">
@@ -51,7 +52,12 @@ const CardPost = ({ id, title, image, categories, link }) => {
                   })
                 : ''}
             </span>
-            <span> ... </span>
+            <span style={{ color: 'rgb( 0 0 0 / 50%)'}}>
+              {views}
+              <FaEye
+                style={{ paddingLeft: 5, transform: ' translate(0px ,2px)' }}
+              />
+            </span>
           </div>
         </div>
       </a>
