@@ -5,11 +5,12 @@ import { useQuery } from '@apollo/client';
 import { homeQuery } from './../constant/page';
 import parser from 'react-html-parser';
 import Head from 'next/head';
-export default function Home() {
+
+import { GetStaticProps } from 'next';
+
+export default function Home({ yoastSeo }) {
   const [name, setName] = useState('');
-  const { loading, error, data, refetch } = useQuery(homeQuery);
-  console.log(data);
-  const headerSeo = parser(data?.page.seo.fullHead);
+  const headerSeo = parser(yoastSeo);
   const submitForm = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -37,7 +38,7 @@ export default function Home() {
   };
   return (
     <div>
-      <Head>{headerSeo}</Head>
+      <Head>{yoastSeo}</Head>
       <div className="p-0">
         <div
           className="col-md-12 mb-3"
@@ -214,8 +215,14 @@ export default function Home() {
     </div>
   );
 }
-
-// export const getInitialProps = () => {
-//   const { loading, error, data, refetch } = useQuery(HomePage);
-//   return data;
-// };
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { data } = await homeQuery;
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { yoastSeo: data.page.seo.fullHead }, // will be passed to the page component as props
+  };
+};

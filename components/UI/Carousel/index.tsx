@@ -173,21 +173,18 @@ const Carousel = ({ item, column }) => {
         >
           {renderListSlider()}
         </div>
-        <div className={styles.dot_slider}>
-          {current <= 0 ? (
-            ''
-          ) : (
-            <div
-              className={`${styles.prev_btn}`}
-              onClick={prevEvent}
-            >{`<`}</div>
-          )}
-          {current + condition() >= 5 ? (
-            ''
-          ) : (
-            <div className={styles.next_btn} onClick={nextEvent}>{`>`}</div>
-          )}
-        </div>
+      </div>
+      <div className={styles.dot_slider}>
+        {current <= 0 ? (
+          ''
+        ) : (
+          <div className={`${styles.prev_btn}`} onClick={prevEvent}>{`<`}</div>
+        )}
+        {current + condition() >= 5 ? (
+          ''
+        ) : (
+          <div className={styles.next_btn} onClick={nextEvent}>{`>`}</div>
+        )}
       </div>
     </div>
   );

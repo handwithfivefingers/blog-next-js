@@ -54,7 +54,7 @@ const Search = (props) => {
   //     </div>
   //   );
   return (
-    <div className="container">
+    <div>
       <div className="row" style={{ padding: '50px 100px' }}>
         <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}>
           Tìm kiếm về: {router.query.search}

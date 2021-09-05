@@ -1,28 +1,15 @@
 .row {
   padding: 25px 100px;
-  .carousel {
-    display: block;
-    position: relative;
-    overflow-x: hidden;
-    background: transparent;
-    .sliders {
-      display: grid;
-      .slide {
-        width: calc(100% / var(--dir));
-        grid-area: 1/-1;
-        transform: translate(calc(var(--offset) * 100%), 0);
-        box-sizing: border-box;
-        transition: transform 0.3s ease-in;
-        .slide_wrapper {
-          max-width: 270px;
-          margin: 5px auto;
-          // margin: 5px;
-          padding: 15px;
-          padding-bottom: 64px;
-        }
-      }
-    }
-    // Btn
+  position: relative;
+  .dot_slider {
+    position: absolute;
+    content: '';
+    top: 50%;
+    width: 100%;
+    left: 0;
+    width: calc(100% - 40px);
+    margin: 0 20px;
+    transform: translate(0, -50%);
     .prev_btn,
     .next_btn {
       position: absolute;
@@ -48,6 +35,31 @@
     .next_btn {
       right: 0;
     }
+  }
+  .carousel {
+    display: block;
+    position: relative;
+    overflow-x: hidden;
+    background: transparent;
+    padding: 0 10px;
+    .sliders {
+      display: grid;
+      .slide {
+        width: calc(100% / var(--dir));
+        grid-area: 1/-1;
+        transform: translate(calc(var(--offset) * 100%), 0);
+        box-sizing: border-box;
+        transition: transform 0.3s ease-in;
+        .slide_wrapper {
+          max-width: 220px;
+          margin: 5px auto;
+          // margin: 5px;
+          padding: 15px;
+          padding-bottom: 64px;
+        }
+      }
+    }
+    // Btn
   }
   @media (max-width: 992px) {
     padding: 25px 50px;

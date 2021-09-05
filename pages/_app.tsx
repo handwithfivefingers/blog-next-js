@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
-
+import client from '../apollo-client';
 const noOverlayWorkaroundScript = `
   window.addEventListener('error', event => {
     event.stopImmediatePropagation()
@@ -19,10 +19,6 @@ const noOverlayWorkaroundScript = `
   })
 `;
 
-const client = new ApolloClient({
-  uri: `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}`,
-  cache: new InMemoryCache(),
-});
 function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>

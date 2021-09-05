@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { AppQuery } from './../../constant/category';
+import { AppQuery, CategoriesQuery } from '../../constant/category';
 import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 import Link from 'next/link';
 import CardPost from '../../components/UI/CardPost';
 import styles from './style.module.scss';
+import Head from 'next/head';
+import { categoriesPage } from '../../constant/page';
+import { GetStaticProps } from 'next';
+
 const Categories = () => {
   const [pagi, setPagi] = useState({
     before: '',
     after: '',
   });
-
   const router = useRouter();
   const { category } = router.query;
   console.log('categories', category);
@@ -106,6 +109,7 @@ const Categories = () => {
   if (error) return `Error! ${error}`;
   return (
     <div className={styles.wrapper}>
+      {/* <Head>{yoastSeo}</Head> */}
       <div className="row" style={{ margin: 0 }}>
         <h2
           style={{
@@ -122,4 +126,28 @@ const Categories = () => {
   );
 };
 
+// export const getStaticProps: GetStaticProps = async (params) => {
+//   const { data } = await CategoriesQuery;
+//   const paths = data.categories.edges.map((post) => ({
+//     cate: { name: post.node.name, post: post.node.posts },
+//   }));
+//   // console.log(paths);
+//   // return { params , fallback: false };
+//   if (!data) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+//   return {
+//     props: { paths }, // will be passed to the page component as props
+//   };
+// };
+// export async function getStaticPaths() {
+//   const { data } = await CategoriesQuery;
+//   const paths = data.categories.edges.map((post) => ({
+//     params: { category: post.node.name },
+//   }));
+//   console.log(paths);
+//   return { paths, fallback: false };
+// }
 export default Categories;

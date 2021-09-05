@@ -7,11 +7,17 @@ import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import styles from './style.module.scss';
 import parser from 'react-html-parser';
+import client from '../../apollo-client';
+import { BlogPage } from './../../constant/page';
+import { gql } from '@apollo/client';
+
+import { GetStaticProps } from 'next';
+
 type BLogType = {
   data: any;
   posts: any;
 };
-const Blog = () => {
+const Blog = ({ yoastSeo }) => {
   const [pagi, setPagi] = useState({
     before: '',
     after: '',
@@ -20,7 +26,8 @@ const Blog = () => {
   const { loading, error, data, refetch } = useQuery(PostsQuery, {
     variables: { after: '', before: '', first: 12, last: null },
   });
-  const { yoastSeo } = parser(data?.posts.pageInfo.seo.schema.raw);
+  // const { yoastSeo } = parser(data?.posts.pageInfo.seo.schema.raw);
+
   useEffect(() => {
     if (data) {
       setPagi({
@@ -90,6 +97,7 @@ const Blog = () => {
       </div>
     );
   if (error) return `Error! ${error}`;
+  // console.log(yoastSeo);
   return (
     <>
       <Head>{yoastSeo}</Head>
@@ -131,6 +139,18 @@ const Blog = () => {
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { data } = await BlogPage;
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { yoastSeo: data.page.seo.fullHead }, // will be passed to the page component as props
+  };
 };
 
 export default Blog;

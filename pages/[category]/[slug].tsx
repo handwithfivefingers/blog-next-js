@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { FetchSinglePost } from './../../constant/posts';
-import { AppQuery } from './../../constant/category';
-import { useQuery } from '@apollo/client';
+import { FetchSinglePost } from '../../constant/posts';
+import { AppQuery } from '../../constant/category';
+import { useQuery, gql } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -10,7 +10,9 @@ import Head from 'next/head';
 import Sidebar from '../../components/Sidebar';
 import { NextSeo } from 'next-seo';
 import styles from './style.module.scss';
-const Post = () => {
+
+const Post = ({ post }) => {
+  console.log('post', post);
   const router = useRouter();
   const [postId, setPostId] = useState(null);
   const { slug } = router.query;
@@ -39,14 +41,14 @@ const Post = () => {
       <div className="post-content row" style={{ margin: 0 }}>
         <div className={`col-12 post-header ${styles.header_content}`}>
           <h1 className={`title ${styles.title}`}>
-            <Skeleton width={200}/>
+            <Skeleton width={200} />
           </h1>
           <div className={styles.imageFeature}>
             <Skeleton height={200} />
           </div>
         </div>
         <div className="col-md-9 col-sm-12 col-xs-12">
-          <Skeleton count={10} delay={0.5} style={{margin:'0 auto'}} />
+          <Skeleton count={10} delay={0.5} style={{ margin: '0 auto' }} />
         </div>
         <div className="col-md-3 col-sm-12 col-xs-12">
           <Skeleton count={3} />
