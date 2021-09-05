@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Sidebar from '../../components/Sidebar';
 import { NextSeo } from 'next-seo';
+import styles from './style.module.scss';
 const Post = () => {
   const router = useRouter();
   const [postId, setPostId] = useState(null);
@@ -36,16 +37,16 @@ const Post = () => {
   if (loading) {
     return (
       <div className="post-content row" style={{ margin: 0 }}>
-        <div className="col-12 post-header">
-          <h2 className="title ">
-            <Skeleton />
-          </h2>
-          <div>
+        <div className={`col-12 post-header ${styles.header_content}`}>
+          <h1 className={`title ${styles.title}`}>
+            <Skeleton width={200}/>
+          </h1>
+          <div className={styles.imageFeature}>
             <Skeleton height={200} />
           </div>
         </div>
         <div className="col-md-9 col-sm-12 col-xs-12">
-          <Skeleton count={10} />
+          <Skeleton count={10} delay={0.5} style={{margin:'0 auto'}} />
         </div>
         <div className="col-md-3 col-sm-12 col-xs-12">
           <Skeleton count={3} />
@@ -94,16 +95,16 @@ const Post = () => {
         }}
       /> */}
       <div className="post-content row" style={{ margin: 0 }}>
-        <div className="col-12 post-header">
-          <h1 className="title ">{data?.postBy.title || <Skeleton />}</h1>
+        <div className={`col-12 post-header ${styles.header_content}`}>
+          <h1 className={`title ${styles.title}`}>
+            {data?.postBy.title || <Skeleton />}
+          </h1>
           {data ? (
-            <Image
-              src={data?.postBy.featuredImage.node.mediaItemUrl}
-              width={200}
-              height={200}
-              layout="responsive"
-              unoptimized={true}
-              alt="..."
+            <div
+              className={styles.imageFeature}
+              style={{
+                backgroundImage: `url(${data?.postBy.featuredImage.node.mediaItemUrl})`,
+              }}
             />
           ) : (
             <Skeleton height={200} />

@@ -65,7 +65,7 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
     return xhtml;
   };
   return (
-    <div className="sticky" style={{ margin: '0 25px 0 0' }}>
+    <div className="sticky" style={{ margin: '0' }}>
       <h2>{loading ? <Skeleton /> : 'Post cùng danh mục'}</h2>
       {data ? renderCategoriesList(data.categories.edges) : ''}
     </div>

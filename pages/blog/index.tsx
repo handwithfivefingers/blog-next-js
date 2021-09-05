@@ -78,8 +78,8 @@ const Blog = () => {
   };
   if (loading)
     return (
-      <div style={{ padding: '25px 100px' }}>
-        <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
+      <div className={styles.wrapper}>
+        <div className="row" style={{ margin: 0 }}>
           <h2
             style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
           >
@@ -94,7 +94,7 @@ const Blog = () => {
     <>
       <Head>{yoastSeo}</Head>
       <div className={styles.wrapper}>
-        <div className="row">
+        <div className="row" style={{ margin: 0 }}>
           <h2
             style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
           >

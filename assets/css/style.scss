@@ -343,28 +343,6 @@ footer {
     color: var(--main-second-color);
   }
 }
-.post-header {
-  display: flex;
-  padding: 50px;
-  width: auto;
-  max-width: 100%;
-  .title {
-    width: 50%;
-    align-self: center;
-    padding: 100px;
-  }
-  & > div {
-    max-height: 300px;
-    /* min-height: 300px; */
-    max-width: calc(50% - 50px);
-    min-width: calc(50% - 50px);
-    width: calc(50% - 50px);
-    padding: 100px;
-    & > img {
-      width: calc(50% - 50px);
-    }
-  }
-}
 
 .post-content {
   .title {

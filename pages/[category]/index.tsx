@@ -79,6 +79,7 @@ const Categories = () => {
                   title={post.node.title}
                   image={post.node.featuredImage.node.mediaItemUrl}
                   categories={post.node.categories}
+                  views={post.node.views.views}
                 />
               </div>
             );
