@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CardPost from './CardPost';
+import CardPost from './../CardPost';
 import styles from './Carousel.module.scss';
 const data = [
   {

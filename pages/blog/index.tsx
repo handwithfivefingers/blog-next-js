@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { PostsQuery } from './../../constant/posts';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import CardPost from '../../components/UI/CardPost';
 import Skeleton from 'react-loading-skeleton';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
+import styles from './style.module.scss';
 type BLogType = {
   data: any;
   posts: any;
@@ -18,10 +19,6 @@ const Blog = () => {
   const { loading, error, data, refetch } = useQuery(PostsQuery, {
     variables: { after: '', before: '', first: 12, last: null },
   });
-  // const newdata = client.readQuery({
-  //   query: PostsQuery,,
-  //   variables: { after: '', before: '', first: 12, last: null },
-  // });
 
   useEffect(() => {
     if (data) {
@@ -38,7 +35,7 @@ const Blog = () => {
       return (
         <div
           key={item.node.uri}
-          className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+          className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4"
         >
           <CardPost
             id={item.node.id}
@@ -93,8 +90,8 @@ const Blog = () => {
   if (error) return `Error! ${error}`;
   return (
     <>
-      <div style={{ padding: '25px 100px' }}>
-        <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
+      <div className={styles.wrapper}>
+        <div className="row">
           <h2
             style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
           >

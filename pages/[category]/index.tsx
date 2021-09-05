@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import Skeleton from 'react-loading-skeleton';
 import Link from 'next/link';
 import CardPost from '../../components/UI/CardPost';
-
+import styles from './style.module.scss';
 const Categories = () => {
   const [pagi, setPagi] = useState({
     before: '',
@@ -91,8 +91,8 @@ const Categories = () => {
 
   if (loading)
     return (
-      <div style={{padding:'50px 100px'}}>
-        <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
+      <div className={styles.wrapper}>
+        <div className="row" style={{ margin: 0 }}>
           <h2
             style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
           >
@@ -104,8 +104,8 @@ const Categories = () => {
     );
   if (error) return `Error! ${error}`;
   return (
-    <div style={{padding:'50px 100px'}}>
-      <div className="row" style={{ padding: '50px 100px', margin: 0 }}>
+    <div className={styles.wrapper}>
+      <div className="row" style={{ margin: 0 }}>
         <h2
           style={{
             fontSize: '22px',

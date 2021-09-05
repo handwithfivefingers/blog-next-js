@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.4.10",
     "apollo-boost": "^0.4.9",
     "axios": "^0.21.1",
     "gatsby": "^3.12.1",
@@ -20,15 +21,18 @@
     "react": "17.0.2",
     "react-apollo": "^3.1.5",
     "react-dom": "17.0.2",
+    "react-html-parser": "^2.0.2",
     "react-icons": "^4.2.0",
     "react-iframe": "^1.8.0",
     "react-loading-skeleton": "^2.2.0",
-    "sass": "^1.39.0"
+    "sass": "^1.39.0",
+    "svg-url-loader": "^7.1.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.19",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
+    "sass-loader": "^12.1.0",
     "typescript": "^4.4.2",
     "url-loader": "^4.1.1"
   }

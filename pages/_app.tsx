@@ -1,10 +1,11 @@
-import '../assets/css/style.css';
+import '../assets/css/style.scss';
 import '../assets/css/grid.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ApolloClient from 'apollo-boost';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
+// import ApolloClient from 'apollo-boost';
+// import { InMemoryCache } from 'apollo-cache-inmemory';
+// import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 

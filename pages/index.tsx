@@ -9,24 +9,20 @@ import Iframe from 'react-iframe';
 import { useState } from 'react';
 import axios from './../helper/AxiosService';
 import Carousel from '../components/UI/Carousel';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
+
 export default function Home() {
   const [name, setName] = useState('');
   const submitForm = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('entry.506450849', name);
-    // const res = await axios.post(
-    //   'https://docs.google.com/forms/u/0/d/e/1FAIpQLSevkiBjcpkKBwUzWlop904kB8-asiQiHl3eQLlHx90gcCSFOw/formResponse',
-    //   formData,
-    // );
     const res = fetch(
       'https://docs.google.com/forms/u/0/d/e/1FAIpQLSevkiBjcpkKBwUzWlop904kB8-asiQiHl3eQLlHx90gcCSFOw/formResponse',
       {
         method: 'POST',
         body: formData,
-        // headers: {
-        //   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        // },
       },
     );
     res
@@ -97,8 +93,9 @@ export default function Home() {
             </form>
           </div>
         </div>
-
-        <Carousel item={null} column={4} />
+        <div className="row">
+          <Carousel item={null} column={4} />
+        </div>
 
         <div className="row">
           <h3 style={{ fontSize: '16px' }}> For Watching</h3>
@@ -245,3 +242,8 @@ export default function Home() {
     </div>
   );
 }
+
+// export const getInitialProps = () => {
+//   const { loading, error, data, refetch } = useQuery(HomePage);
+//   return data;
+// };

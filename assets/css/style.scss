@@ -100,7 +100,7 @@ header {
   font-weight: 400;
   top: 2px;
   right: 5px;
-  color: rgb(255 255 255 / 100%);
+  color: rgb(255, 255, 255);
   transition: all 0.5s ease-out;
   background-color: var(--main-primary-color);
   padding: 5px 12px;
@@ -113,7 +113,7 @@ header {
   padding: var(--main-padding);
   width: 30vw;
   border-radius: 50px;
-  background-color: rgb(0 0 0/ 3%);
+  background-color: rgba(0, 0, 0, 0.03);
   letter-spacing: 1px;
   font-weight: 200;
   border: 1px solid transparent;
@@ -244,7 +244,7 @@ footer {
 }
 .card-body .content .author:before {
   position: absolute;
-  -webkit-mask-image: url('./../image/pattern.svg');
+  -webkit-mask-image: url('/image/pattern.svg');
   top: -5px;
   left: -25px;
   content: '';
@@ -305,7 +305,7 @@ footer {
   border-top: 1px solid #eee;
 }
 .card-action span a {
-  color: rgb(0 0 0 / 50%);
+  color: rgba(0, 0, 0, 0.5);
 }
 .card-action span a:hover {
   color: var(--main-primary-color);
@@ -338,7 +338,7 @@ footer {
   color: var(--main-second-color);
 }
 .disabled {
-  color: rgb(0 0 0 / 25%) !important;
+  color: rgba(0, 0, 0, 0.25) !important;
 }
 .active {
   cursor: pointer;
@@ -377,7 +377,7 @@ footer {
 }
 .post-content .title {
   font-size: 22px;
-  color: rgb(0 0 0 /85%);
+  color: rgba(0, 0, 0, 0.85);
   font-weight: 600;
 }
 .post-content .content {
@@ -389,24 +389,24 @@ footer {
   font-size: 22px;
   padding: 8px 0;
   font-weight: 700;
-  color: rgb(0 0 0 /80%);
+  color: rgba(0, 0, 0, 0.8);
 }
 .post-content h3 {
   font-size: 20px;
   padding: 8px 0;
   font-weight: 600;
-  color: rgb(0 0 0 /80%);
+  color: rgba(0, 0, 0, 0.8);
 }
 .post-content h4 {
   font-size: 18px;
   padding: 8px 0;
   font-weight: 600;
-  color: rgb(0 0 0 /80%);
+  color: rgba(0, 0, 0, 0.80);
 }
 .post-content p,
 .post-content li,
 .post-content pre {
-  color: rgb(0 0 0 /75%);
+  color: rgba(0, 0, 0, 0.75);
   font-size: 14x;
   font-weight: 400;
   line-height: 30px;
@@ -464,7 +464,7 @@ footer {
 }
 .about-page h2 {
   font-size: 22px;
-  color: rgb(0 0 0 / 75%);
+  color: rgba(0, 0, 0 , 75%);
 }
 .about-page ul {
   list-style: none;
