@@ -1,0 +1,17 @@
+.scroll_top {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 3px 8px;
+  border-radius: 99px;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: var(--main-box-shadow);
+  transition: all 0.3s ease-out;
+  border: 1px solid #fff;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.2);
+  }
+}

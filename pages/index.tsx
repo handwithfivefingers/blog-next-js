@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { homeQuery } from './../constant/page';
 import parser from 'react-html-parser';
 import Head from 'next/head';
-
+import styles from './styles.module.scss';
 import { GetStaticProps } from 'next';
 
 export default function Home({ yoastSeo }) {
@@ -50,7 +50,7 @@ export default function Home({ yoastSeo }) {
         </div>
       </div>
 
-      <div className="wrapper" style={{ padding: '25px 100px', margin: 0 }}>
+      <div className={styles.wrapper}>
         <div className="row">
           <div className="col-12">
             <h2 style={{ textAlign: 'center' }}>Tell us your story</h2>

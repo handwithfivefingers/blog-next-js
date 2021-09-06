@@ -1,9 +1,10 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
-import CardPost from '../components/UI/CardPost';
-import { SearchPostQuery } from '../constant/posts';
+import CardPost from '../../components/UI/CardPost';
+import { SearchPostQuery } from '../../constant/posts';
 import { useRouter } from 'next/router';
+import styles from './styles.module.scss';
 const Search = (props) => {
   const router = useRouter();
   const { loading, error, data } = useQuery(SearchPostQuery, {
@@ -54,8 +55,8 @@ const Search = (props) => {
   //     </div>
   //   );
   return (
-    <div>
-      <div className="row" style={{ padding: '50px 100px' }}>
+    <div className={styles.wrapper}>
+      <div className="row" style={{ margin: 0 }}>
         <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}>
           Tìm kiếm về: {router.query.search}
         </h2>

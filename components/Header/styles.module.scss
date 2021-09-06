@@ -1,0 +1,10 @@
+.active {
+  transform: translateY(0px);
+  transition: var(--main-transition);
+  opacity: 1;
+}
+.deactive {
+  transform: translateY(-65px);
+  transition: var(--main-transition);
+  opacity: 0.2;
+}

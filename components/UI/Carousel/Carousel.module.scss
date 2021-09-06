@@ -22,7 +22,7 @@
       transform: translate(0%, -50%);
       border-radius: 99px;
       box-shadow: var(--main-box-shadow);
-      transition: all 0.2s ease;
+      transition: var(--main-transition);
       border: 1px solid #fff;
       &:hover {
         background: rgba(255, 255, 255, 0.5);
@@ -94,7 +94,7 @@
         .slide {
           width: 100%;
           .slide_wrapper {
-            margin: 5px;
+            margin: 5px auto;
             padding: 10px;
             padding-bottom: 64px;
           }

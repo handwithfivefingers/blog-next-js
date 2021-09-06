@@ -1,29 +1,20 @@
 import React from 'react';
 import Image from 'next/image';
 import { FaChevronUp } from 'react-icons/fa';
+import styles from './styles.module.scss';
 const Footer: React.FC = () => {
   return (
     <>
       <div
-        id="scroll-top"
-        style={{
-          position: 'fixed',
-          bottom: 10,
-          right: 20,
-          backgroundColor: 'rgb(0 0 0 / 25%)',
-          padding: '4px 8px',
-          borderRadius: 6,
-          color: 'rgb(0 0 0 / 75%)',
+        className={styles.scroll_top}
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
         }}
       >
-        <FaChevronUp
-          onClick={() => {
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth',
-            });
-          }}
-        />
+        <FaChevronUp />
       </div>
       <footer
         style={{
