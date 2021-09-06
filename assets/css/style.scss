@@ -65,7 +65,7 @@ a {
   transition: var(--main-transition);
   font-size: var(--main-text-size);
   cursor: pointer;
-  border-radius:5px;
+  border-radius: 5px;
   &:hover {
     background-color: var(--main-second-color);
   }
@@ -417,11 +417,16 @@ footer {
   position: -webkit-sticky;
   position: sticky;
   top: 65px;
+  margin-right: 25px;
+  @media (max-width: 768px) {
+    margin: 25px;
+  }
 }
 
 .sidebar-item {
   display: flex;
   flex-direction: row;
+  max-height: 200px;
   & > div {
     width: 40%;
     padding: 5px;
@@ -477,7 +482,7 @@ footer {
   }
   .post-content .content {
     padding: 50px 25px;
-    margin: 0;
+    margin: 25px;
   }
 
   /*About*/

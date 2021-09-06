@@ -7,7 +7,7 @@ const data = [
     mediaItemUrl:
       'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
     id: 'cG9zdDoyNTc0',
-    link: 'https://truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
+    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
     title: 'Transform – Thủ Thuật CSS – 4',
     uri: '/tricks-css/transform-thu-thuat-css-4/',
     views: 1,
@@ -17,7 +17,7 @@ const data = [
     mediaItemUrl:
       'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
     id: 'cG9zdDoyNTc0',
-    link: 'https://truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
+    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
     title: 'Transform – Thủ Thuật CSS – 4',
     uri: '/tricks-css/transform-thu-thuat-css-4/',
     views: 1,
@@ -27,7 +27,7 @@ const data = [
     mediaItemUrl:
       'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
     id: 'cG9zdDoyNTc0',
-    link: 'https://truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
+    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
     title: 'Transform – Thủ Thuật CSS – 4',
     uri: '/tricks-css/transform-thu-thuat-css-4/',
     views: 1,
@@ -37,7 +37,7 @@ const data = [
     mediaItemUrl:
       'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
     id: 'cG9zdDoyNTc0',
-    link: 'https://truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
+    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
     title: 'Transform – Thủ Thuật CSS – 4',
     uri: '/tricks-css/transform-thu-thuat-css-4/',
     views: 1,
@@ -47,7 +47,7 @@ const data = [
     mediaItemUrl:
       'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
     id: 'cG9zdDoyNTc0',
-    link: 'https://truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
+    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
     title: 'Transform – Thủ Thuật CSS – 4',
     uri: '/tricks-css/transform-thu-thuat-css-4/',
     views: 1,
@@ -57,7 +57,7 @@ const data = [
     mediaItemUrl:
       'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
     id: 'cG9zdDoyNTc0',
-    link: 'https://truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
+    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
     title: 'Transform – Thủ Thuật CSS – 4',
     uri: '/tricks-css/transform-thu-thuat-css-4/',
     views: 1,

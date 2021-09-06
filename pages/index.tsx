@@ -74,7 +74,7 @@ export default function Home({ yoastSeo }) {
       <div className={styles.wrapper}>
         <div className="row" data-aos="fade-zoom-in">
           <div className="col-12">
-            <h2 style={{ textAlign: 'center', color: 'rgb(0 0 0/75%)' }}>
+            <h2 className={styles.title} style={{ textAlign: 'center', color: 'rgb(0 0 0/75%)' }}>
               Tell us your story
             </h2>
             <form onSubmit={submitForm} className={styles.form}>
@@ -160,56 +160,56 @@ export default function Home({ yoastSeo }) {
             </span>
           </div>
 
-          <div className="col-md-3 mb-3" data-aos="zoom-out">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="zoom-out">
             <CardProject
               img={
                 'https://cdn.dribbble.com/users/746931/screenshots/11132148/media/9777b75b94f416aff7f3f7e299adbb52.png?compress=1&resize=400x300'
               }
             />
           </div>
-          <div className="col-md-3 mb-3" data-aos="zoom-out">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="zoom-out">
             <CardProject
               img={
                 'https://i.pinimg.com/originals/d5/38/92/d53892ca116775c2c3ce77bd4c2d8cc9.jpg'
               }
             />
           </div>
-          <div className="col-md-3 mb-3" data-aos="zoom-out">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="zoom-out">
             <CardProject
               img={
                 'https://cdn.dribbble.com/users/610636/screenshots/11430667/artboard___4_2x_4x.jpg'
               }
             />
           </div>
-          <div className="col-md-3 mb-3" data-aos="zoom-out">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="zoom-out">
             <CardProject
               img={
                 'https://cdn.dribbble.com/users/1820876/screenshots/6201423/preview.jpg'
               }
             />
           </div>
-          <div className="col-md-3 mb-3" data-aos="zoom-out">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="zoom-out">
             <CardProject
               img={
                 'https://i.pinimg.com/originals/81/6f/e2/816fe20323ab2275bd3567cdec8f936f.png'
               }
             />
           </div>
-          <div className="col-md-3 mb-3" data-aos="zoom-out">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="zoom-out">
             <CardProject
               img={
                 'https://cdn.dribbble.com/users/3325754/screenshots/11289182/figo_-_dribble_cover_4x.png'
               }
             />
           </div>
-          <div className="col-md-3 mb-3" data-aos="zoom-out">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="zoom-out">
             <CardProject
               img={
                 'https://assets.materialup.com/uploads/0401769b-2a67-414d-82a4-07477811340b/preview.png'
               }
             />
           </div>
-          <div className="col-md-3 mb-3" data-aos="zoom-out">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="zoom-out">
             <CardProject
               img={
                 'https://cdn.dribbble.com/users/3235024/screenshots/15755387/media/fec1f523f4ac53b8b86cd9e6a21654be.png?compress=1&resize=400x300'
