@@ -9,6 +9,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import client from '../apollo-client';
+import { useRouter } from 'next/router';
 const noOverlayWorkaroundScript = `
   window.addEventListener('error', event => {
     event.stopImmediatePropagation()

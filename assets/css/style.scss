@@ -65,6 +65,7 @@ a {
   transition: var(--main-transition);
   font-size: var(--main-text-size);
   cursor: pointer;
+  border-radius:5px;
   &:hover {
     background-color: var(--main-second-color);
   }

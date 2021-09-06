@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.10",
+    "aos": "^2.3.4",
     "apollo-boost": "^0.4.9",
     "axios": "^0.21.1",
     "gatsby": "^3.12.1",

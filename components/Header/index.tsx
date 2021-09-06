@@ -89,11 +89,17 @@ const Header = () => {
           <span>Project</span>
         </div>
       </header>
-      <div className="menu" style={{ padding: '20px 0' }}>
-        {linkList.map((item) => {
-          return <MenuLink key={item.path} path={item.path} name={item.name} />;
-        })}
-      </div>
+      {router.route !== '/' ? (
+        <div className="menu" style={{ padding: '20px 0' }}>
+          {linkList.map((item) => {
+            return (
+              <MenuLink key={item.path} path={item.path} name={item.name} />
+            );
+          })}
+        </div>
+      ) : (
+        ''
+      )}
     </>
   );
 };

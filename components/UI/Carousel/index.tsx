@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CardPost from './../CardPost';
 import styles from './Carousel.module.scss';
 const data = [
@@ -67,7 +67,10 @@ const Carousel = ({ item, column }) => {
   const [current, setCurrent] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
-
+  const [winWidth, setWidth] = useState(null);
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, [winWidth]);
   const renderListSlider = () => {
     let xhtml = [];
     for (let i = 0; i < 6; i++) {
@@ -113,43 +116,65 @@ const Carousel = ({ item, column }) => {
   };
   const nextEvent = (width = null) => {
     const columnCondition = condition();
-    if (current + columnCondition >= 5) {
+    if (current + columnCondition >= data.length + 1) {
       return;
     } else {
-      if (width && width > 200) {
+      if (width && width >= 200) {
         let numState = Math.round(width / 200); // làm tròn số slide khi swipe
-        setCurrent((prevState) => prevState + numState);
+        setCurrent((prevState) => {
+          if (prevState + numState < data.length - condition()) {
+            return prevState + numState;
+          } else {
+            return data.length - condition();
+          }
+        });
       } else {
-        setCurrent((prevState) => prevState + 1);
+        setCurrent((prevState) => {
+          if (prevState >= data.length - condition()) {
+            return prevState;
+          } else if (prevState + 1 === data.length - condition()) {
+            return data.length - condition();
+          } else {
+            return prevState + 1;
+          }
+        });
       }
     }
   };
   const condition = () => {
-    switch (column) {
-      case 2: {
-        return 1;
-      }
-      case 3: {
-        return 2;
-      }
-      case 4: {
-        return 3;
-      }
-      case 5: {
-        return 4;
-      }
-      default:
-        return 2;
+    // Desktop low and high resolution
+    if (column === 2 && winWidth > 990) {
+      return 2;
+    } else if (column === 3 && winWidth > 990) {
+      return 3;
+    } else if (column === 4 && winWidth > 990) {
+      return 4;
+    } else if (column === 5 && winWidth > 990) {
+      return 5;
+    }
+    // Tablet high resolution
+    else if (column > 2 && winWidth <= 990 && winWidth > 768) {
+      return 2;
+    } else if (column === 2 && winWidth <= 990 && winWidth > 768) {
+      return 2;
+    }
+    // Tablet low resolution
+    else if (column > 1 && winWidth <= 768 && winWidth > 550) {
+      return 2;
+    } else if (column === 1 && winWidth <= 768 && winWidth > 550) {
+      return 1;
+    }
+    // Mobile
+    else if (column >= 1 && winWidth <= 550) {
+      return 1;
     }
   };
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
-
   const handleTouchMove = (e) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
-
   const handleTouchEnd = () => {
     let width = touchStart - touchEnd;
     if (touchStart - touchEnd > 75) {
@@ -164,6 +189,7 @@ const Carousel = ({ item, column }) => {
   };
   return (
     <div className={styles.row}>
+      {/* {current + '-' + condition() + '-' + data.length} */}
       <div className={styles.carousel}>
         <div
           className={styles.sliders}
@@ -180,7 +206,7 @@ const Carousel = ({ item, column }) => {
         ) : (
           <div className={`${styles.prev_btn}`} onClick={prevEvent}>{`<`}</div>
         )}
-        {current + condition() >= 5 ? (
+        {current >= data.length - condition() ? (
           ''
         ) : (
           <div className={styles.next_btn} onClick={nextEvent}>{`>`}</div>
