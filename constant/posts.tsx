@@ -1,5 +1,6 @@
 import gpl from 'graphql-tag';
-
+import { gql } from '@apollo/client';
+import client from '../apollo-client';
 export const PostsQuery = gpl`
 query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after: String = "") {
   posts(first: $first, after:$after, before:$before,last:$last) {
@@ -39,7 +40,8 @@ query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after:
       }
     }
   }
-}
+},
+
 `;
 
 export const FetchSinglePost = gpl`
@@ -94,3 +96,35 @@ query MyQuery($search: String = "") {
   }
 }
 `;
+
+export const FetchAllPost = client.query({
+  query: gql`
+    query MyQuery {
+      posts(first: 999) {
+        nodes {
+          ...PostFragment
+          title
+          categories {
+            ...PostToCategoryConnectionFragment
+          }
+          uri
+        }
+      }
+    }
+
+    fragment PostFragment on Post {
+      id
+    }
+
+    fragment CategoryFragment on Category {
+      name
+      uri
+    }
+
+    fragment PostToCategoryConnectionFragment on PostToCategoryConnection {
+      nodes {
+        ...CategoryFragment
+      }
+    }
+  `,
+});

@@ -2,14 +2,11 @@ import '../assets/css/style.scss';
 import '../assets/css/grid.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-// import ApolloClient from 'apollo-boost';
-// import { InMemoryCache } from 'apollo-cache-inmemory';
-// import { ApolloProvider } from 'react-apollo';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import client from '../apollo-client';
-import { useRouter } from 'next/router';
+import TransitionLayout from '../components/Transition';
 const noOverlayWorkaroundScript = `
   window.addEventListener('error', event => {
     event.stopImmediatePropagation()
@@ -29,7 +26,10 @@ function MyApp({ Component, pageProps }) {
             dangerouslySetInnerHTML={{ __html: noOverlayWorkaroundScript }}
           />
         )}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1"
+        />
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta
           name="google-site-verification"
@@ -49,7 +49,9 @@ function MyApp({ Component, pageProps }) {
       />
       <div className="container-fluid" style={{ padding: 0 }}>
         <Header />
-        <Component {...pageProps} />
+        <TransitionLayout>
+          <Component {...pageProps} />
+        </TransitionLayout>
         <Footer />
       </div>
     </ApolloProvider>

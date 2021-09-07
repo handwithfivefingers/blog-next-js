@@ -4,13 +4,10 @@ import { useQuery } from '@apollo/client';
 import CardPost from '../../components/UI/CardPost';
 import Skeleton from 'react-loading-skeleton';
 import Head from 'next/head';
-import { DefaultSeo } from 'next-seo';
 import styles from './style.module.scss';
-import parser from 'react-html-parser';
-import client from '../../apollo-client';
 import { BlogPage } from './../../constant/page';
-import { gql } from '@apollo/client';
-
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 import { GetStaticProps } from 'next';
 
 type BLogType = {
@@ -25,9 +22,11 @@ const Blog = ({ yoastSeo }) => {
 
   const { loading, error, data, refetch } = useQuery(PostsQuery, {
     variables: { after: '', before: '', first: 12, last: null },
+    notifyOnNetworkStatusChange: true,
   });
-  // const { yoastSeo } = parser(data?.posts.pageInfo.seo.schema.raw);
-
+  useEffect(() => {
+    Aos.init({ duration: 1200, delay: 100 });
+  }, []);
   useEffect(() => {
     if (data) {
       setPagi({
@@ -85,7 +84,7 @@ const Blog = ({ yoastSeo }) => {
   };
   if (loading)
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} data-aos="fade-zoom-in">
         <div className="row" style={{ margin: 0 }}>
           <h2
             style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}

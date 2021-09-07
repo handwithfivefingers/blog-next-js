@@ -41,7 +41,7 @@ export default function Home({ yoastSeo }) {
     Aos.init({ duration: 1200, delay: 100 });
   }, []);
   return (
-    <div>
+    <div data-aos="fade-zoom-in">
       <Head>{headerSeo}</Head>
       <div className="p-0">
         <div
@@ -151,7 +151,7 @@ export default function Home({ yoastSeo }) {
           </div>
         </div>
 
-        <div className="row" data-aos="fade-zoom-in">
+        <div className="row" data-aos="fade-zoom-in" data-aos-easing="ease-out-quart">
           <div className={`col-md-12 mb-4 ${styles.head_title}`}>
             <h3 className={styles.title}>Project/Programs</h3>
             <span>
