@@ -44,7 +44,7 @@ const CardPost = ({ id, title, image, categories, link, views }) => {
                     return (
                       <Link
                         key={item.node.uri + '-' + index}
-                        href={`${item.node.uri}`}
+                        href={`/blog${item.node.uri}`}
                       >
                         <a> {item.node.name}</a>
                       </Link>
@@ -52,7 +52,7 @@ const CardPost = ({ id, title, image, categories, link, views }) => {
                   })
                 : ''}
             </span>
-            <span style={{ color: 'rgb( 0 0 0 / 50%)'}}>
+            <span style={{ color: 'rgb( 0 0 0 / 50%)' }}>
               {views}
               <FaEye
                 style={{ paddingLeft: 5, transform: ' translate(0px ,2px)' }}
