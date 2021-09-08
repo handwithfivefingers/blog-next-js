@@ -11,8 +11,6 @@ import Sidebar from '../../../components/Sidebar';
 import { NextSeo } from 'next-seo';
 const Post = ({ postBy }) => {
   const router = useRouter();
-
-  console.log(postBy);
   if (router.isFallback) {
     return (
       <div className="post-content row" style={{ margin: 0 }}>
@@ -87,7 +85,6 @@ const Post = ({ postBy }) => {
 };
 
 export const getStaticProps = async (context) => {
-  console.log(context);
   const { data } = await client.query({
     query: gql`
       query MyQuery($slug: String = "") {
