@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
             } else {
               return (
                 <>
-                  <Link href={`${post.node.uri}`} key={post.node.uri}>
+                  <Link href={`/blog${post.node.uri}`} key={post.node.uri}>
                     <a className="sidebar-post">
                       <div className="sidebar-item mb-3 ">
                         <Image
@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
                           alt="..."
                           unoptimized={true}
                         />
-                        <h5 style={{ fontSize: 17, color: '#333' }}>
+                        <h5 style={{ fontSize: 14, color: '#333' }}>
                           {post.node.title.length > 30
                             ? post.node.title.substring(0, 30).concat('...')
                             : post.node.title}
@@ -49,7 +49,7 @@ const Sidebar: React.FC<SidebarType> = ({ categoryPost }) => {
                     </a>
                   </Link>
                   {index == 4 ? (
-                    <Link href={`${item.node.uri}`}>
+                    <Link href={`/blog${item.node.uri}`}>
                       <a className="btn">Xem thêm</a>
                     </Link>
                   ) : (

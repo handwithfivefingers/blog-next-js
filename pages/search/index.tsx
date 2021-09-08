@@ -21,7 +21,7 @@ const Search = (props) => {
         >
           <CardPost
             id={item.node.id}
-            link={item.node.uri}
+            link={`/blog${item.node.uri}`}
             title={item.node.title}
             image={item.node.featuredImage.node.mediaItemUrl}
             categories={item.node.categories}

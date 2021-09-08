@@ -17,7 +17,10 @@ body {
   line-height: 1.6;
   scroll-behavior: smooth;
 }
-
+.disabled-scroll {
+  height: 100vh;
+  overflow: hidden !important;
+}
 :root {
   --main-background: #eee;
   --main-text-black: #333;
@@ -416,7 +419,7 @@ footer {
 .sticky {
   position: -webkit-sticky;
   position: sticky;
-  top: 65px;
+  top: 0;
   margin-right: 25px;
   @media (max-width: 768px) {
     margin: 25px;

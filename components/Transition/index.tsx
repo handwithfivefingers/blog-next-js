@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
+import Router  from "next/router"
+
 export default function TransitionLayout({ children }) {
   const [displayChildren, setDisplayChildren] = useState(children);
   const [transitionStage, setTransitionStage] = useState('fadeOut');
+
   useEffect(() => {
     setTransitionStage('fadeIn');
   }, []);
+
   useEffect(() => {
     if (children !== displayChildren) setTransitionStage('fadeOut');
   }, [children, setDisplayChildren, displayChildren]);
+  
   return (
     <div
       onTransitionEnd={() => {

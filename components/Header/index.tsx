@@ -43,7 +43,7 @@ const Header = () => {
       // headerRef.current = currentScrollY;
       setTop((prevState) => {
         previousTop = prevState;
-        if (previousTop < currentScrollY) {
+        if (previousTop < currentScrollY && currentScrollY > 65) {
           setGoingUp(false);
         }
         if (previousTop > currentScrollY) {
