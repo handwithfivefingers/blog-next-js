@@ -8,7 +8,7 @@ import CardPost from '../../components/UI/CardPost';
 import Head from 'next/head';
 import { categoriesPage } from '../../constant/page';
 import { GetStaticProps } from 'next';
-import styles from './../blog/[category]/style.module.scss';
+import styles from './style.module.scss';
 const Categories = () => {
   const [pagi, setPagi] = useState({
     before: '',
