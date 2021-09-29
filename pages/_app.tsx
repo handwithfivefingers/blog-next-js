@@ -10,26 +10,21 @@ import TransitionLayout from '../components/Transition';
 import Router from 'next/router';
 import { useState, useEffect } from 'react';
 import Loading from './../components/Loading';
-// const noOverlayWorkaroundScript = `
-//   window.addEventListener('error', event => {
-//     event.stopImmediatePropagation()
-//   })
-
-//   window.addEventListener('unhandledrejection', event => {
-//     event.stopImmediatePropagation()
-//   })
-// `;
+import ModalVideos from '../components/UI/ModalVideo';
+import store from '../redux/store';
+import { Provider } from 'react-redux';
+import { UserProvider } from '../helper/Context';
 function MyApp({ Component, pageProps }) {
   const [loading, SetLoading] = useState(false);
-
+  const [rowLayout, setRowLayout] = useState(false);
+  const SetRow = () => {
+    setRowLayout(!rowLayout);
+  };
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
       SetLoading(true);
-      document
-        .getElementsByTagName('body')[0]
-        .classList.add('disabled-scroll');
+      document.getElementsByTagName('body')[0].classList.add('disabled-scroll');
     });
-
     Router.events.on('routeChangeComplete', (url) => {
       SetLoading(false);
       document
@@ -39,41 +34,33 @@ function MyApp({ Component, pageProps }) {
   }, []);
   return (
     <ApolloProvider client={client}>
-      <Head>
-        {/* {process.env.NODE_ENV !== 'production' && (
-          <script
-            dangerouslySetInnerHTML={{ __html: noOverlayWorkaroundScript }}
-          />
-        )} */}
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1"
-        />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta
-          name="google-site-verification"
-          content="tLgd15lMPuUM4Hhrq4nHs7ml7Xx8sntwYH0RjUJSq2k"
-        />
-      </Head>
-      <DefaultSeo
-        openGraph={{
-          type: 'website',
-          locale: 'en_IE',
-          url: 'https://truyenmai.com',
-          site_name: 'Truyền Mai',
-        }}
-        canonical="https://truyenmai.com"
-        description="Chia sẻ thông tin về html, css, javascript"
-        defaultTitle="Truyền Mai Blog"
-      />
-      <div className="container-fluid" style={{ padding: 0 }}>
-        <Header />
-        <TransitionLayout>
-          {loading && <Loading />}
-          <Component {...pageProps} />
-        </TransitionLayout>
-        <Footer />
-      </div>
+      <Provider store={store}>
+        <UserProvider
+          value={{ rowLayout, SetRow: () => setRowLayout(!rowLayout) }}
+        >
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1"
+            />
+            <link rel="shortcut icon" href="/favicon.ico" />
+            <meta
+              name="google-site-verification"
+              content="tLgd15lMPuUM4Hhrq4nHs7ml7Xx8sntwYH0RjUJSq2k"
+            />
+          </Head>
+          <div className="container-fluid" style={{ padding: 0 }}>
+            <Header />
+            {/* {loading && <Loading />} */}
+            {/* <Loading /> */}
+            {/* <TransitionLayout> */}
+            <Component {...pageProps} />
+            {/* </TransitionLayout> */}
+            <ModalVideos />
+            <Footer />
+          </div>
+        </UserProvider>
+      </Provider>
     </ApolloProvider>
   );
 }

@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.10",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@types/react-redux": "^7.1.18",
     "aos": "^2.3.4",
     "apollo-boost": "^0.4.9",
     "axios": "^0.21.1",
@@ -26,6 +28,10 @@
     "react-icons": "^4.2.0",
     "react-iframe": "^1.8.0",
     "react-loading-skeleton": "^2.2.0",
+    "react-modal-video": "^1.2.8",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
     "sass": "^1.39.0",
     "svg-url-loader": "^7.1.1"
   },

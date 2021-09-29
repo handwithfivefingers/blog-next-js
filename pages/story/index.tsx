@@ -1,32 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { PostsQuery } from './../../constant/posts';
+import React, { useState, useEffect, useContext } from 'react';
+import { PostsQuery } from '../../constant/posts';
 import { useQuery } from '@apollo/client';
-import CardPost from '../../components/UI/CardPost';
+import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
 import Skeleton from 'react-loading-skeleton';
 import Head from 'next/head';
 import styles from './style.module.scss';
-import { BlogPage } from './../../constant/page';
+import { BlogPage } from '../../constant/page';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import parser from 'react-html-parser';
 import { GetStaticProps } from 'next';
-
+import PageHeader from '../../components/UI/PageHeader';
+import UserContext from '../../helper/Context';
+import CardPostStyle2 from '../../components/UI/CardPost/CardPostStyle2';
 type BLogType = {
   data: any;
   posts: any;
 };
-const Blog = ({ yoastSeo }) => {
+const Blog = (props) => {
   const [pagi, setPagi] = useState({
     before: '',
     after: '',
   });
-
+  const { rowLayout } = useContext<any>(UserContext);
   const { loading, error, data, refetch } = useQuery(PostsQuery, {
     variables: { after: '', before: '', first: 12, last: null },
     notifyOnNetworkStatusChange: true,
   });
+
   useEffect(() => {
     Aos.init({ duration: 1200, delay: 100 });
   }, []);
+
   useEffect(() => {
     if (data) {
       setPagi({
@@ -37,21 +42,37 @@ const Blog = ({ yoastSeo }) => {
   }, [data]);
 
   const renderBlogPost = (posts) => {
+    console.log(posts);
     let xhtml = null;
     xhtml = posts.map((item) => {
       return (
         <div
           key={item.node.uri}
-          className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+          className={`${
+            rowLayout
+              ? 'col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4'
+              : 'col-md-12'
+          }`}
         >
-          <CardPost
-            id={item.node.id}
-            link={`/blog${item.node.uri}`}
-            title={item.node.title}
-            image={item.node.featuredImage.node.mediaItemUrl}
-            categories={item.node.categories}
-            views={item.node.views.views}
-          />
+          {rowLayout ? (
+            <CardPostStyle1
+              id={item.node.id}
+              link={`${item.node.uri}`}
+              title={item.node.title}
+              image={item.node.featuredImage?.node.mediaItemUrl}
+              categories={item.node.categories}
+              views={item.node.views.views}
+            />
+          ) : (
+            <CardPostStyle2
+              id={item.node.id}
+              link={`${item.node.uri}`}
+              title={item.node.title}
+              image={item.node.featuredImage?.node.mediaItemUrl}
+              categories={item.node.categories}
+              views={item.node.views.views}
+            />
+          )}
         </div>
       );
     });
@@ -96,17 +117,13 @@ const Blog = ({ yoastSeo }) => {
       </div>
     );
   if (error) return `Error! ${error}`;
-  // console.log(yoastSeo);
+  console.log(props, data);
   return (
     <>
-      <Head>{yoastSeo}</Head>
+      <Head>{parser(props.page.seo.fullHead)}</Head>
       <div className={styles.wrapper}>
         <div className="row" style={{ margin: 0 }}>
-          <h2
-            style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
-          >
-            Our Blog
-          </h2>
+          <PageHeader title="Our Story" />
           {data ? renderBlogPost(data.posts.edges) : ''}
         </div>
         <div className="pagination">
@@ -139,16 +156,10 @@ const Blog = ({ yoastSeo }) => {
     </>
   );
 };
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const { data } = await BlogPage;
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
   return {
-    props: { yoastSeo: data.page.seo.fullHead }, // will be passed to the page component as props
+    props: data,
   };
 };
 

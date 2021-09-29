@@ -4,14 +4,87 @@ import client from '../apollo-client';
 export const homeQuery = client.query({
   query: gql`
     query MyQuery {
-      page(id: "cG9zdDo5OTA=") {
-        isFrontPage
+      page(id: "cG9zdDoy") {
         title
-        id
+        frontpage {
+          section1 {
+            fieldGroupName
+            section1Title
+            section1Image {
+              sourceUrl
+            }
+          }
+          section2 {
+            ...Page_Frontpage_Section2Fragment
+          }
+          section3 {
+            ...Page_Frontpage_Section3Fragment
+          }
+        }
         seo {
           fullHead
         }
       }
+    }
+
+    fragment Page_Frontpage_Section3Fragment on Page_Frontpage_Section3 {
+      section3LinkForward
+      section3Slider {
+        ... on Post {
+          id
+          title
+          uri
+          slug
+          postId
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+          categories {
+            edges {
+              node {
+                uri
+                slug
+                name
+              }
+            }
+          }
+        }
+      }
+      section3Title
+    }
+
+    fragment Page_Frontpage_Section2Fragment on Page_Frontpage_Section2 {
+      section2Carousel
+      section2LinkForward
+      section2Linkid {
+        section2LinkItem
+      }
+      section2Post {
+        ... on Post {
+          id
+          title
+          uri
+          slug
+          postId
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+          categories {
+            edges {
+              node {
+                uri
+                slug
+                name
+              }
+            }
+          }
+        }
+      }
+      section2Title
     }
   `,
 });
@@ -19,7 +92,7 @@ export const homeQuery = client.query({
 export const BlogPage = client.query({
   query: gql`
     query MyQuery {
-      page(id: "cG9zdDoxMDI=") {
+      page(id: "cG9zdDo3") {
         seo {
           fullHead
         }
@@ -28,21 +101,21 @@ export const BlogPage = client.query({
   `,
 });
 
-export const categoriesPage = client.query({
-  query: gql`
-    query MyQuery {
-      categories {
-        pageInfo {
-          seo {
-            schema {
-              raw
-            }
-          }
-        }
-      }
-    }
-  `,
-});
+// export const contactPage = client.query({
+//   query: gql``,
+// });
+
+// export const forEnglishPage = client.query({
+//   query: gql``,
+// });
+
+// export const aboutUsPage = client.query({
+//   query: gql``,
+// });
+
+// export const projectPage = client.query({
+//   query: gql``,
+// });
 
 export const catePage = client.query({
   query: gql`

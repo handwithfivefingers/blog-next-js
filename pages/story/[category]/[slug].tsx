@@ -80,7 +80,7 @@ const Post = ({ postBy }) => {
           <div
             className={styles.imageFeature}
             style={{
-              backgroundImage: `url(${postBy?.featuredImage.node.mediaItemUrl})`,
+              backgroundImage: `url(${postBy?.featuredImage?.node.mediaItemUrl})`,
             }}
           />
         </div>
@@ -94,7 +94,7 @@ const Post = ({ postBy }) => {
             />
           </div>
           <div className="col-md-3 col-sm-12 col-xs-12">
-            <Sidebar categoryPost={router.query.category} />
+            {/* <Sidebar categoryPost={router.query.category} /> */}
           </div>
         </div>
       </div>
@@ -136,10 +136,12 @@ export const getStaticProps = async (context) => {
     },
   };
 };
+
 export const getStaticPaths = async () => {
   return {
     paths: [],
     fallback: true,
   };
 };
+
 export default Post;

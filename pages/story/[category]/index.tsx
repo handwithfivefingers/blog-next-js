@@ -3,17 +3,18 @@ import client from '../../../apollo-client';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import styles from './style.module.scss';
-import CardPost from '../../../components/UI/CardPost';
+import CardPostStyle1 from '../../../components/UI/CardPost/CardPostStyle1';
 import Link from 'next/link';
 const Categories = ({ cate }) => {
   const router = useRouter();
-  console.log(cate);
+  // console.log(cate);
   const renderCategoriesList = (categories) => {
     let xhtml = null;
     xhtml = categories.map((item) => {
+      let newUri = `/story${item.uri}`;
       return (
         <>
-          <Link key={item.id} href={`/blog${item.uri}`}>
+          <Link key={item.id} href={newUri}>
             <a className="custom-link">{item.name}</a>
           </Link>
           {item.posts.nodes.map((post) => {
@@ -22,11 +23,11 @@ const Categories = ({ cate }) => {
                 key={post.id}
                 className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
               >
-                <CardPost
+                <CardPostStyle1
                   id={post.id}
-                  link={`/blog${item.uri}${post.slug}`}
+                  link={`${newUri}${post.slug}`}
                   title={post.title}
-                  image={post.featuredImage.node.mediaItemUrl}
+                  image={post.featuredImage?.node.mediaItemUrl}
                   categories={post.categories}
                   views={post.views.views}
                 />

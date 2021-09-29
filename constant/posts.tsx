@@ -1,6 +1,7 @@
 import gpl from 'graphql-tag';
 import { gql } from '@apollo/client';
 import client from '../apollo-client';
+
 export const PostsQuery = gpl`
 query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after: String = "") {
   posts(first: $first, after:$after, before:$before,last:$last) {
@@ -41,7 +42,6 @@ query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after:
     }
   }
 },
-
 `;
 
 export const FetchSinglePost = gpl`

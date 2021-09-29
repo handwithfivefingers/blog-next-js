@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
-import CardPost from '../../components/UI/CardPost';
+import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
 import { SearchPostQuery } from '../../constant/posts';
 import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
@@ -19,7 +19,7 @@ const Search = (props) => {
           key={item.node.uri}
           className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
         >
-          <CardPost
+          <CardPostStyle1
             id={item.node.id}
             link={`/blog${item.node.uri}`}
             title={item.node.title}
@@ -45,15 +45,6 @@ const Search = (props) => {
     }
     return xhtml;
   };
-  console.log(router);
-  // if (loading)
-  //   return (
-  //     <div className="container">
-  //       <div className="row" style={{ padding: '50px 100px' }}>
-  //         {renderLoading()}
-  //       </div>
-  //     </div>
-  //   );
   return (
     <div className={styles.wrapper}>
       <div className="row" style={{ margin: 0 }}>

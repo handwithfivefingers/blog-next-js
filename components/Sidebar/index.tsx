@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppQuery } from './../../constant/category';
 import { useQuery } from '@apollo/client';
-import CardPost from '../UI/CardPost';
+import CardPost from '../UI/CardPost/CardPostStyle1';
 import Link from 'next/link';
 import Image from 'next/image';
 import Skeleton from 'react-loading-skeleton';

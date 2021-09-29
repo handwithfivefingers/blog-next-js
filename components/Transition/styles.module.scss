@@ -1,10 +1,9 @@
 .content {
   opacity: 0;
-  transform: translateX(-100%);
-  transition: 0.5s;
+  transition:0.3s;
+  overflow: hidden;
 }
 
 .fadeIn {
-  transform: translateX(0%);
   opacity: 1;
 }

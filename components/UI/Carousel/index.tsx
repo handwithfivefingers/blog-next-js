@@ -1,69 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import CardPost from './../CardPost';
+import CardPostStyle1 from '../CardPost/CardPostStyle1';
 import styles from './Carousel.module.scss';
-const data = [
-  {
-    name: 'Tricks CSS',
-    mediaItemUrl:
-      'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
-    id: 'cG9zdDoyNTc0',
-    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
-    title: 'Transform – Thủ Thuật CSS – 4',
-    uri: '/tricks-css/transform-thu-thuat-css-4/',
-    views: 1,
-  },
-  {
-    name: 'Tricks CSS',
-    mediaItemUrl:
-      'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
-    id: 'cG9zdDoyNTc0',
-    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
-    title: 'Transform – Thủ Thuật CSS – 4',
-    uri: '/tricks-css/transform-thu-thuat-css-4/',
-    views: 1,
-  },
-  {
-    name: 'Tricks CSS',
-    mediaItemUrl:
-      'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
-    id: 'cG9zdDoyNTc0',
-    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
-    title: 'Transform – Thủ Thuật CSS – 4',
-    uri: '/tricks-css/transform-thu-thuat-css-4/',
-    views: 1,
-  },
-  {
-    name: 'Tricks CSS',
-    mediaItemUrl:
-      'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
-    id: 'cG9zdDoyNTc0',
-    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
-    title: 'Transform – Thủ Thuật CSS – 4',
-    uri: '/tricks-css/transform-thu-thuat-css-4/',
-    views: 1,
-  },
-  {
-    name: 'Tricks CSS',
-    mediaItemUrl:
-      'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
-    id: 'cG9zdDoyNTc0',
-    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
-    title: 'Transform – Thủ Thuật CSS – 4',
-    uri: '/tricks-css/transform-thu-thuat-css-4/',
-    views: 1,
-  },
-  {
-    name: 'Tricks CSS',
-    mediaItemUrl:
-      'https://truyenmai.com/wp-content/uploads/2019/10/css-tricks-e1394062740966.png',
-    id: 'cG9zdDoyNTc0',
-    link: 'https://nextjs.truyenmai.com/tricks-css/transform-thu-thuat-css-4/',
-    title: 'Transform – Thủ Thuật CSS – 4',
-    uri: '/tricks-css/transform-thu-thuat-css-4/',
-    views: 1,
-  },
-];
-const Carousel = ({ item, column }) => {
+const Carousel = ({ item, column, type = null }) => {
   const [current, setCurrent] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -73,26 +11,43 @@ const Carousel = ({ item, column }) => {
   }, [winWidth]);
   const renderListSlider = () => {
     let xhtml = [];
-    for (let i = 0; i < 6; i++) {
-      let style = {
-        '--offset': i - current,
-        '--dir': column,
-      } as React.CSSProperties;
-      xhtml.push(
-        <div className={styles.slide} style={style} key={i}>
-          <div className={styles.slide_wrapper}>
-            <CardPost
-              id={data[i].id}
-              title={data[i].title}
-              image={data[i].mediaItemUrl}
-              categories={data[i].name}
-              link={data[i].link}
-              views={data[i].views}
-            />
-          </div>
-        </div>,
-      );
+    if (!type) {
+      for (let i = 0; i < item.length; i++) {
+        let style = {
+          '--offset': i - current,
+          '--dir': column,
+        } as React.CSSProperties;
+        xhtml.push(
+          <div className={styles.slide} style={style} key={i}>
+            <div className={styles.slide_wrapper}>
+              <CardPostStyle1
+                id={item[i].id}
+                title={item[i].title}
+                image={item[i].featuredImage?.node.sourceUrl}
+                categories={item[i].categories}
+                link={item[i].link}
+                views={item[i].views}
+              />
+            </div>
+          </div>,
+        );
+      }
+    } else if (type === 'link') {
+      for (let i = 0; i < item.length; i++) {
+        let style = {
+          '--offset': i - current,
+          '--dir': column,
+        } as React.CSSProperties;
+        xhtml.push(
+          <div className={styles.slide} style={style} key={i}>
+            <div className={styles.slide_wrapper}>
+              <CardPostStyle1 type="link" link={item[i]?.section2LinkItem} />
+            </div>
+          </div>,
+        );
+      }
     }
+
     return xhtml;
   };
   const prevEvent = (width = null) => {
@@ -116,24 +71,24 @@ const Carousel = ({ item, column }) => {
   };
   const nextEvent = (width = null) => {
     const columnCondition = condition();
-    if (current + columnCondition >= data.length + 1) {
+    if (current + columnCondition >= item.length + 1) {
       return;
     } else {
       if (width && width >= 200) {
         let numState = Math.round(width / 200); // làm tròn số slide khi swipe
         setCurrent((prevState) => {
-          if (prevState + numState < data.length - condition()) {
+          if (prevState + numState < item.length - columnCondition) {
             return prevState + numState;
           } else {
-            return data.length - condition();
+            return item.length - columnCondition;
           }
         });
       } else {
         setCurrent((prevState) => {
-          if (prevState >= data.length - condition()) {
+          if (prevState >= item.length - columnCondition) {
             return prevState;
-          } else if (prevState + 1 === data.length - condition()) {
-            return data.length - condition();
+          } else if (prevState + 1 === item.length - columnCondition) {
+            return item.length - columnCondition;
           } else {
             return prevState + 1;
           }
@@ -206,7 +161,7 @@ const Carousel = ({ item, column }) => {
         ) : (
           <div className={`${styles.prev_btn}`} onClick={prevEvent}>{`<`}</div>
         )}
-        {current >= data.length - condition() ? (
+        {current >= item.length - condition() ? (
           ''
         ) : (
           <div className={styles.next_btn} onClick={nextEvent}>{`>`}</div>

@@ -4,22 +4,28 @@ import { useRouter } from 'next/router';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Image from 'next/image';
 import styles from './styles.module.scss';
+import { menuQuery } from '../../constant/menu';
+import  Link from 'next/link';
 const linkList = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/about-us',
+    name: 'About Us',
   },
   {
-    path: '/blog',
-    name: 'Blog',
+    path: '/story',
+    name: 'Our Story',
   },
   {
-    path: '/category',
-    name: 'Category',
+    path: '/for-english',
+    name: 'For English',
   },
   {
-    path: '/about',
-    name: 'About',
+    path: '/project-program',
+    name: 'Project/Program',
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
   },
 ];
 const Header = () => {
@@ -63,13 +69,15 @@ const Header = () => {
         className={`${goingUp ? styles.active : styles.deactive}`}
       >
         <div className="header-left">
-          <Image
-            src="/image/logo192.png"
-            width="50"
-            height="50"
-            layout="responsive"
-            alt="favicon"
-          />
+          <Link href="/">
+            <Image
+              src="/image/logo192.png"
+              width="50"
+              height="50"
+              layout="responsive"
+              alt="favicon"
+            />
+          </Link>
         </div>
         <div className="header-middle">
           <input
@@ -105,3 +113,10 @@ const Header = () => {
 };
 
 export default Header;
+
+// export const getServerSideProps = async (context) => {
+//   const { data } = await menuQuery;
+//   return {
+//     props: data,
+//   };
+// };

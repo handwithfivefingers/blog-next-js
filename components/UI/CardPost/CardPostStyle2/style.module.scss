@@ -1,0 +1,178 @@
+// /*Card */
+// .card_post {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   box-shadow: var(--main-box-shadow);
+//   transition: var(--main-transition);
+//   border-radius: 4px;
+//   z-index: 1;
+//   .card_body {
+//     .card_image {
+//       position: relative;
+//       top: 0;
+//       background: #eee;
+//       border-top-left-radius: 4px;
+//       border-top-right-radius: 4px;
+//       &:before {
+//         content: '';
+//         display: block;
+//         padding-top: 75%;
+//       }
+//       img {
+//         height: 100%;
+//         width: 100%;
+//         object-position: center;
+//         object-fit: cover;
+//         border: 0;
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         border-top-left-radius: 4px;
+//         border-top-right-radius: 4px;
+//       }
+//       .card_social {
+//         position: absolute;
+//         content: '';
+//         width: 25px;
+//         right: 0;
+//         display: flex;
+//         flex-direction: column;
+//         top: 5px;
+//         opacity: 0;
+//         transition-delay: 0.1s;
+//         transition: opacity 0.3s ease-out, transform 0.3s ease-in;
+//         box-sizing: border-box;
+//         svg {
+//           border-radius: 100%;
+//           background-color: #fff;
+//           text-align: center;
+//           margin: 5px 0;
+//           color: #4f575b;
+//           padding: 6px;
+//         }
+//       }
+//     }
+//     .content {
+//       padding: 30px 15px 25px 15px;
+//       height: 40px;
+//       position: relative;
+//       .author {
+//         position: absolute;
+//         top: -12px;
+//         left: 15px;
+//         z-index: 1;
+//         &:before {
+//           position: absolute;
+//           -webkit-mask-image: url('/image/pattern.svg');
+//           top: -5px;
+//           left: -25px;
+//           content: '';
+//           display: block;
+//           width: 76px;
+//           height: 31px;
+//           clip: rect(0px, 76px, 26px, 10px);
+//           z-index: 0;
+//           background: #fff;
+//         }
+//         span {
+//           // background-image: url('https://image.flaticon.com/icons/png/512/145/145799.png');
+//           background-image: url('https://i.pinimg.com/originals/3b/44/d4/3b44d4a91a8cd625984fb30451cf6686.png');
+//           position: relative;
+//           display: block;
+//           background-repeat: no-repeat;
+//           background-position: center center;
+//           background-size: 26px auto;
+//           height: 26px;
+//           width: 26px;
+//           border-radius: 50%;
+//           z-index: 1;
+//           top: -1px;
+//         }
+//       }
+//     }
+//   }
+//   &:hover {
+//     .card_image {
+//       .card_social {
+//         opacity: 0.8;
+//         transform: translate(-10px, 0);
+//       }
+//     }
+//   }
+//   .card_action {
+//     font-size: 12px;
+//     letter-spacing: 0;
+//     padding: 8px;
+//     display: flex;
+//     justify-content: space-between;
+//     border-top: 1px solid #eee;
+//     span {
+//       a {
+//         color: rgba(0, 0, 0, 0.5);
+//         &:hover {
+//           color: var(--main-primary-color);
+//         }
+//       }
+//     }
+//   }
+// }
+// .card_post:hover {
+//   transform: translate(0, -4px);
+//   opacity: 1;
+//   box-shadow: var(--main-box-shadow-hover);
+// }
+// .content .title {
+//   font-size: 13px;
+//   font-weight: 400;
+//   line-height: 20px;
+//   overflow: hidden;
+//   white-space: normal;
+//   letter-spacing: 0.5px;
+//   display: -webkit-box;
+//   -webkit-line-clamp: 2;
+//   -webkit-box-orient: vertical;
+//   color: #000;
+//   text-shadow: none;
+//   text-transform: capitalize;
+// }
+.card_post {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 0 20px 0;
+  padding: 0 0 5px 0;
+  border-bottom: 2px solid #eee;
+  .card_image {
+    box-shadow: var(--main-box-shadow);
+    flex-basis: 25%;
+    position: relative;
+    top: 0;
+    background: #eee;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    flex-shrink: 1;
+    &:before {
+      padding-bottom: 45%;
+      content: '';
+      display: block;
+    }
+  }
+  .card_body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    .content {
+      flex-basis: 50%;
+    }
+    .card_action {
+      margin-top: auto;
+      background: #fff;
+      span {
+        padding:0 50px 0 0 ;
+      }
+    }
+  }
+}

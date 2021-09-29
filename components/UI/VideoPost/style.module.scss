@@ -1,0 +1,62 @@
+.default-hover {
+  transition: var(--main-transition);
+  box-shadow: var(--main-box-shadow);
+  transform: translateZ(0);
+  &:hover {
+    box-shadow: var(--main-box-shadow-hover);
+    transform: translateY(-3px);
+  }
+}
+
+.video_post {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+  @extend .default-hover;
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: '';
+    z-index: 1;
+    background-image: url('https://icon-library.com/images/play-icon-png/play-icon-png-6.jpg');
+    height: 50px;
+    width: 50px;
+    transform: translate(-50%, -50%);
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all 0.3s cubic-bezier(0, 1.29, 0.22, 0.21);
+    opacity: 1;
+    visibility: visible;
+  }
+  &:hover {
+    &:before {
+      filter: blur(20px);
+      -webkit-filter: blur(20px);
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  .video_post_img {
+    border-radius: 4px;
+    img {
+      border-radius: 4px;
+    }
+  }
+  .video_post_content {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 25%);
+    .title {
+      padding: 10px;
+      color: #fff;
+      font-size: 18px;
+    }
+  }
+}
