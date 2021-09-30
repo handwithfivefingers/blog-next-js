@@ -1,5 +1,5 @@
 import React from 'react';
-import { contactPage } from '../../constant/page';
+// import { contactPage } from '../../constant/page';
 
 const Contact = () => {
   return <div>Contact</div>;

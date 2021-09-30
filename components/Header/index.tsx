@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import Image from 'next/image';
 import styles from './styles.module.scss';
 import { menuQuery } from '../../constant/menu';
-import  Link from 'next/link';
+import Link from 'next/link';
 const linkList = [
   {
     path: '/about-us',
