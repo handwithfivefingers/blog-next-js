@@ -156,7 +156,7 @@ const Blog = (props) => {
     </>
   );
 };
-export const getServerSideProps = async (context) => {
+export async function getServerSideProps(context) {
   const { data } = await BlogPage;
   return {
     props: data,

@@ -126,7 +126,7 @@ export const BlogPage = client.query({
 // });
 
 // export const projectPage = client.query({
-//   query: gql``,
+//   query: gql``, 
 // });
 
 export const catePage = client.query({
