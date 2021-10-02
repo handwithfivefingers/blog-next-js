@@ -10,7 +10,7 @@ import parser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
 const Categories = ({ cate }) => {
   const router = useRouter();
-  const [data, setData] = useState(null);
+  const [post, setPost] = useState(null);
   useEffect(() => {
     const fetchPost = async () => {
       const { data } = await client.query({
@@ -65,10 +65,10 @@ const Categories = ({ cate }) => {
           slug: router.query.category,
         },
       });
-      setData(data);
+      setPost(data);
     };
     fetchPost();
-  }, [data]);
+  }, [post]);
 
   const renderCategoriesList = (postData) => {
     console.log(router.query.category);
@@ -111,14 +111,13 @@ const Categories = ({ cate }) => {
       <Head>{parser(cate[0].seo.fullHead)}</Head>
       <div className={styles.wrapper}>
         <div className="row" style={{ margin: 0 }}>
-          <PageHeader title={data?.categories.edges[0].node.name} />
-          {data ? renderCategoriesList(data?.categories) : renderLoading()}
+          <PageHeader title={post?.categories.edges[0].node.name} />
+          {post ? renderCategoriesList(post?.categories) : renderLoading()}
         </div>
       </div>
     </div>
   );
 };
-
 
 export default Categories;
 
