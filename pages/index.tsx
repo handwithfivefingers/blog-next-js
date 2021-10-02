@@ -318,18 +318,18 @@ export default function Home({ page }) {
   );
 }
 
-// export const getServerSideProps = async () => {
-//   const { data } = await homeSeoQuery;
-//   return {
-//     props: { page: data?.page },
-//   };
-// };
-
-export async function getStaticProps(context) {
+export const getServerSideProps = async () => {
   const { data } = await homeQuery;
   return {
-    props: {
-      page: data.page,
-    },
+    props: { page: data?.page },
   };
-}
+};
+
+// export async function getStaticProps(context) {
+//   const { data } = await homeQuery;
+//   return {
+//     props: {
+//       page: data.page,
+//     },
+//   };
+// }

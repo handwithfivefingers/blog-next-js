@@ -9,10 +9,10 @@ import { BlogPage } from '../../constant/page';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import parser from 'react-html-parser';
-import { GetStaticProps } from 'next';
 import PageHeader from '../../components/UI/PageHeader';
 import UserContext from '../../helper/Context';
 import CardPostStyle2 from '../../components/UI/CardPost/CardPostStyle2';
+import { GetServerSideProps } from 'next'
 type BLogType = {
   data: any;
   posts: any;
@@ -158,8 +158,7 @@ const Blog = (props) => {
 };
 
 export default Blog;
-
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data } = await BlogPage;
   return {
     props: data,
