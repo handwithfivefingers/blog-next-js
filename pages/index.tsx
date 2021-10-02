@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { homeQuery, homeSeoQuery } from './../constant/page';
 import parser from 'react-html-parser';
 import Head from 'next/head';
-import styles from './styles.module.scss';
+import styles from '../assets/css/home.module.scss';
 import CardProject from './../components/UI/CardProject';
 import { FaAngleDoubleRight, FaAngleDoubleDown } from 'react-icons/fa';
 import { useRouter } from 'next/router';

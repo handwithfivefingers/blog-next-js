@@ -119,6 +119,9 @@ const Categories = ({ cate }) => {
   );
 };
 
+
+export default Categories;
+
 export const getStaticProps = async (context) => {
   const { data } = await client.query({
     query: gql`
@@ -142,6 +145,7 @@ export const getStaticProps = async (context) => {
     },
   };
 };
+
 export const getStaticPaths = async () => {
   const { data } = await client.query({
     query: gql`
@@ -169,5 +173,3 @@ export const getStaticPaths = async () => {
     fallback: false,
   };
 };
-
-export default Categories;

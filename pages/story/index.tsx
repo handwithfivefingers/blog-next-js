@@ -156,6 +156,9 @@ const Blog = (props) => {
     </>
   );
 };
+
+export default Blog;
+
 export async function getServerSideProps(context) {
   const { data } = await BlogPage;
   return {
@@ -163,4 +166,4 @@ export async function getServerSideProps(context) {
   };
 };
 
-export default Blog;
+

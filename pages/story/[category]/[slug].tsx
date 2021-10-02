@@ -102,6 +102,8 @@ const Post = ({ postBy }) => {
   );
 };
 
+export default Post;
+
 export const getStaticProps = async (context) => {
   const { data } = await client.query({
     query: gql`
@@ -143,5 +145,3 @@ export const getStaticPaths = async () => {
     fallback: true,
   };
 };
-
-export default Post;
