@@ -68,7 +68,7 @@ const Categories = ({ cate }) => {
       setPost(data);
     };
     fetchPost();
-  }, [post]);
+  }, [router.query.category]);
 
   const renderCategoriesList = (postData) => {
     console.log(router.query.category);
@@ -106,18 +106,18 @@ const Categories = ({ cate }) => {
     }
     return xhtml;
   };
-  if (router.isFallback) {
-    let xhtml = [];
-    for (let i = 0; i < 12; i++) {
-      xhtml.push(
-        <div className="col-3" key={`skeleton-${i}`}>
-          <Skeleton count={1} height={200} />
-          <Skeleton count={4} />
-        </div>,
-      );
-    }
-    return xhtml;
-  }
+  // if (router.isFallback) {
+  //   let xhtml = [];
+  //   for (let i = 0; i < 12; i++) {
+  //     xhtml.push(
+  //       <div className="col-3" key={`skeleton-${i}`}>
+  //         <Skeleton count={1} height={200} />
+  //         <Skeleton count={4} />
+  //       </div>,
+  //     );
+  //   }
+  //   return xhtml;
+  // }
   return (
     <div>
       <Head>{parser(cate[0].seo.fullHead)}</Head>
@@ -181,6 +181,6 @@ export const getStaticPaths = async () => {
   });
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
