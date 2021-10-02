@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Carousel from '../components/UI/Carousel';
 import { useQuery } from '@apollo/client';
-import { homeQuery } from './../constant/page';
+import { homeQuery, homeSeoQuery } from './../constant/page';
 import parser from 'react-html-parser';
 import Head from 'next/head';
 import styles from './styles.module.scss';
@@ -34,9 +34,8 @@ export default function Home({ page }) {
   const [show, setShow] = useState(false); //show input
   const formRef = useRef<HTMLTextAreaElement>(null);
   const [modal, setModal] = useState('');
-  // const headerSeo = parser(yoastSeo);
   const section = page.frontpage;
-  // console.log(page);
+
   const router = useRouter();
   const submitForm = async (e) => {
     e.preventDefault();
@@ -82,7 +81,7 @@ export default function Home({ page }) {
               <button
                 className={styles.btn}
                 onClick={() => {
-                  router.push('/blog');
+                  router.push('/story');
                 }}
               >
                 Discover
@@ -319,6 +318,12 @@ export default function Home({ page }) {
   );
 }
 
+// export const getServerSideProps = async () => {
+//   const { data } = await homeSeoQuery;
+//   return {
+//     props: { page: data?.page },
+//   };
+// };
 export const getStaticProps = async (context) => {
   const { data } = await homeQuery;
   return {

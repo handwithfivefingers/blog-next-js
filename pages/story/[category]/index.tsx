@@ -1,61 +1,130 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import client from '../../../apollo-client';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import styles from './style.module.scss';
 import CardPostStyle1 from '../../../components/UI/CardPost/CardPostStyle1';
 import Link from 'next/link';
+import PageHeader from '../../../components/UI/PageHeader';
+import Head from 'next/head';
+import parser from 'react-html-parser';
+import Skeleton from 'react-loading-skeleton';
 const Categories = ({ cate }) => {
   const router = useRouter();
-  // console.log(cate);
-  const renderCategoriesList = (categories) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      setLoading(true);
+      const { data } = await client.query({
+        query: gql`
+          query MyQuery($slug: [String] = "") {
+            categories(where: { slug: $slug }) {
+              edges {
+                node {
+                  name
+                  uri
+                  posts(first: 12, before: "", after: "") {
+                    ...CategoryToPostConnectionFragment
+                    pageInfo {
+                      startCursor
+                      hasPreviousPage
+                      hasNextPage
+                      endCursor
+                    }
+                  }
+                }
+              }
+            }
+          }
+          fragment NodeWithFeaturedImageToMediaItemConnectionEdgeFragment on NodeWithFeaturedImageToMediaItemConnectionEdge {
+            node {
+              link
+            }
+          }
+          fragment CategoryToPostConnectionFragment on CategoryToPostConnection {
+            nodes {
+              title
+              uri
+              featuredImage {
+                ...NodeWithFeaturedImageToMediaItemConnectionEdgeFragment
+              }
+              categories {
+                edges {
+                  node {
+                    name
+                    uri
+                  }
+                }
+              }
+              views {
+                views
+              }
+            }
+          }
+        `,
+        variables: {
+          slug: router.query.category,
+        },
+      });
+      setData(data);
+      setLoading(false);
+    };
+    fetchPost();
+  }, []);
+
+  const renderCategoriesList = (postData) => {
+    console.log(router.query.category);
     let xhtml = null;
-    xhtml = categories.map((item) => {
-      let newUri = `/story${item.uri}`;
-      return (
-        <>
-          <Link key={item.id} href={newUri}>
-            <a className="custom-link">{item.name}</a>
-          </Link>
-          {item.posts.nodes.map((post) => {
-            return (
-              <div
-                key={post.id}
-                className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
-              >
-                <CardPostStyle1
-                  id={post.id}
-                  link={`${newUri}${post.slug}`}
-                  title={post.title}
-                  image={post.featuredImage?.node.mediaItemUrl}
-                  categories={post.categories}
-                  views={post.views.views}
-                />
-              </div>
-            );
-          })}
-        </>
-      );
+    console.log(postData); // -> postdata === categories
+    // // categories.edges                  -> Categories node array
+    // categories.edges[0].node.posts.nodes  -> Post node Array
+    xhtml = postData.edges.map((cate) => {
+      return cate.node.posts.nodes.map((post) => {
+        return (
+          <>
+            {/* <Link key={post.id} href={post.uri}>
+              <a className="custom-link">{post.name}</a>
+            </Link> */}
+            <div
+              key={post.id}
+              className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+            >
+              <CardPostStyle1
+                id={post.id}
+                link={post.uri}
+                title={post.title}
+                image={post.featuredImage?.node.link}
+                categories={post.categories}
+                views={post.views.views}
+              />
+            </div>
+          </>
+        );
+      });
     });
     return xhtml;
   };
-
-  if (router.isFallback) return 'loading ....';
+  const renderLoading = () => {
+    let xhtml = [];
+    for (let i = 0; i < 12; i++) {
+      xhtml.push(
+        <div className="col-3">
+          <Skeleton count={1} height={200} />
+          <Skeleton count={4} />
+        </div>,
+      );
+    }
+    return xhtml;
+  };
   return (
     <div>
+      <Head>{parser(cate[0].seo.fullHead)}</Head>
       <div className={styles.wrapper}>
-        {/* <Head>{yoastSeo}</Head> */}
         <div className="row" style={{ margin: 0 }}>
-          <h2
-            style={{
-              fontSize: '22px',
-              paddingBottom: '50px',
-              fontWeight: 400,
-            }}
-          >
-            Our Category
-          </h2>
-          {cate ? renderCategoriesList(cate) : ''}
+          <PageHeader title={data?.categories.edges[0].node.name} />
+          {data ? renderCategoriesList(data?.categories) : renderLoading()}
         </div>
       </div>
     </div>
@@ -68,38 +137,10 @@ export const getStaticProps = async (context) => {
       query MyQuery($slug: [String] = "") {
         categories(first: 999, where: { slug: $slug }) {
           nodes {
-            id
-            name
-            slug
-            uri
-            posts {
-              nodes {
-                ...PostFragment
-              }
+            seo {
+              fullHead
             }
           }
-        }
-      }
-      fragment PostFragment on Post {
-        title
-        slug
-        id
-        featuredImage {
-          node {
-            mediaItemUrl
-          }
-        }
-        categories {
-          edges {
-            node {
-              id
-              name
-              uri
-            }
-          }
-        }
-        views {
-          views
         }
       }
     `,
@@ -137,7 +178,7 @@ export const getStaticPaths = async () => {
   });
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 

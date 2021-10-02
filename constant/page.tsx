@@ -1,6 +1,18 @@
 import { gql } from '@apollo/client';
 import client from '../apollo-client';
 
+export const homeSeoQuery = client.query({
+  query: gql`
+    query MyQuery {
+      page(id: "cG9zdDoy") {
+        seo {
+          fullHead
+        }
+      }
+    }
+  `,
+});
+
 export const homeQuery = client.query({
   query: gql`
     query MyQuery {

@@ -54,7 +54,9 @@ function MyApp({ Component, pageProps }) {
             {/* {loading && <Loading />} */}
             {/* <Loading /> */}
             {/* <TransitionLayout> */}
-            <Component {...pageProps} />
+            <div className="wrapper">
+              <Component {...pageProps} />
+            </div>
             {/* </TransitionLayout> */}
             <ModalVideos />
             <Footer />
