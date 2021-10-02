@@ -135,7 +135,7 @@ export default function Home({ page }) {
 
   return (
     <div>
-      <Head>{parser(page?.seo.fullHead)}</Head>
+      <Head>{parser(page?.seo?.fullHead)}</Head>
       {section.section1 ? renderHomeBG() : ''}
       <div className={styles.wrapper}>
         {/** Form Section */}

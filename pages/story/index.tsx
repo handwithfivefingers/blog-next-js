@@ -12,7 +12,7 @@ import parser from 'react-html-parser';
 import PageHeader from '../../components/UI/PageHeader';
 import UserContext from '../../helper/Context';
 import CardPostStyle2 from '../../components/UI/CardPost/CardPostStyle2';
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next';
 type BLogType = {
   data: any;
   posts: any;
@@ -118,9 +118,10 @@ const Blog = (props) => {
     );
   if (error) return `Error! ${error}`;
   console.log(props, data);
+  console.log('seo props', props);
   return (
     <>
-      <Head>{parser(props.page.seo.fullHead)}</Head>
+      <Head>{parser(props?.page.seo.fullHead)}</Head>
       <div className={styles.wrapper}>
         <div className="row" style={{ margin: 0 }}>
           <PageHeader title="Our Story" />
@@ -164,5 +165,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: data,
   };
 };
-
-
