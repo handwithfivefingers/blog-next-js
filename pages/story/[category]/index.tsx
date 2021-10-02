@@ -68,7 +68,7 @@ const Categories = ({ cate }) => {
       setData(data);
     };
     fetchPost();
-  }, []);
+  }, [data]);
 
   const renderCategoriesList = (postData) => {
     console.log(router.query.category);
