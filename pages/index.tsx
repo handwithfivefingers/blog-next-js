@@ -134,7 +134,7 @@ export default function Home({ page }) {
   };
 
   return (
-    <div data-aos="fade-zoom-in">
+    <div>
       <Head>{parser(page?.seo.fullHead)}</Head>
       {section.section1 ? renderHomeBG() : ''}
       <div className={styles.wrapper}>

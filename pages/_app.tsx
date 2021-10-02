@@ -7,7 +7,7 @@ import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import client from '../apollo-client';
 import TransitionLayout from '../components/Transition';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Loading from './../components/Loading';
 import ModalVideos from '../components/UI/ModalVideo';
@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
   const SetRow = () => {
     setRowLayout(!rowLayout);
   };
+  const router = useRouter();
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
       SetLoading(true);
@@ -54,9 +55,14 @@ function MyApp({ Component, pageProps }) {
             {/* {loading && <Loading />} */}
             {/* <Loading /> */}
             {/* <TransitionLayout> */}
-            <div className="wrapper">
+            {router.pathname === '/' ? (
               <Component {...pageProps} />
-            </div>
+            ) : (
+              <div className="wrapper">
+                <Component {...pageProps} />
+              </div>
+            )}
+
             {/* </TransitionLayout> */}
             <ModalVideos />
             <Footer />

@@ -4,7 +4,6 @@ import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import styles from './style.module.scss';
 import CardPostStyle1 from '../../../components/UI/CardPost/CardPostStyle1';
-import Link from 'next/link';
 import PageHeader from '../../../components/UI/PageHeader';
 import Head from 'next/head';
 import parser from 'react-html-parser';
@@ -12,11 +11,8 @@ import Skeleton from 'react-loading-skeleton';
 const Categories = ({ cate }) => {
   const router = useRouter();
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     const fetchPost = async () => {
-      setLoading(true);
       const { data } = await client.query({
         query: gql`
           query MyQuery($slug: [String] = "") {
@@ -45,6 +41,7 @@ const Categories = ({ cate }) => {
           }
           fragment CategoryToPostConnectionFragment on CategoryToPostConnection {
             nodes {
+              id
               title
               uri
               featuredImage {
@@ -69,7 +66,6 @@ const Categories = ({ cate }) => {
         },
       });
       setData(data);
-      setLoading(false);
     };
     fetchPost();
   }, []);
@@ -78,31 +74,23 @@ const Categories = ({ cate }) => {
     console.log(router.query.category);
     let xhtml = null;
     console.log(postData); // -> postdata === categories
-    // // categories.edges                  -> Categories node array
     // categories.edges[0].node.posts.nodes  -> Post node Array
-    xhtml = postData.edges.map((cate) => {
-      return cate.node.posts.nodes.map((post) => {
-        return (
-          <>
-            {/* <Link key={post.id} href={post.uri}>
-              <a className="custom-link">{post.name}</a>
-            </Link> */}
-            <div
-              key={post.id}
-              className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
-            >
-              <CardPostStyle1
-                id={post.id}
-                link={post.uri}
-                title={post.title}
-                image={post.featuredImage?.node.link}
-                categories={post.categories}
-                views={post.views.views}
-              />
-            </div>
-          </>
-        );
-      });
+    xhtml = postData.edges[0].node.posts.nodes.map((post) => {
+      return (
+        <div
+          key={post.id}
+          className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+        >
+          <CardPostStyle1
+            id={post.id}
+            link={post.uri}
+            title={post.title}
+            image={post.featuredImage?.node.link}
+            categories={post.categories}
+            views={post.views.views}
+          />
+        </div>
+      );
     });
     return xhtml;
   };
@@ -110,7 +98,7 @@ const Categories = ({ cate }) => {
     let xhtml = [];
     for (let i = 0; i < 12; i++) {
       xhtml.push(
-        <div className="col-3">
+        <div className="col-3" key={`skeleton-${i}`}>
           <Skeleton count={1} height={200} />
           <Skeleton count={4} />
         </div>,

@@ -70,6 +70,7 @@ const Header = () => {
       >
         <div className="header-left">
           <Link href="/">
+            <a style={{cursor:'pointer'}}>
             <Image
               src="/image/logo192.png"
               width="50"
@@ -77,6 +78,7 @@ const Header = () => {
               layout="responsive"
               alt="favicon"
             />
+            </a>
           </Link>
         </div>
         <div className="header-middle">

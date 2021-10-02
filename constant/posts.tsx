@@ -128,3 +128,40 @@ export const FetchAllPost = client.query({
     }
   `,
 });
+
+export const searchQuery = (search) => {
+  const query = client.query({
+    query: gql`
+      query MyQuery($search: String = null) {
+        posts(first: 12, where: { search: $search }) {
+          edges {
+            node {
+              id
+              title
+              uri
+              views {
+                views
+              }
+              categories {
+                edges {
+                  node {
+                    uri
+                    name
+                  }
+                }
+              }
+
+              featuredImage {
+                node {
+                  mediaItemUrl
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {search},
+  });
+  return query;
+};
