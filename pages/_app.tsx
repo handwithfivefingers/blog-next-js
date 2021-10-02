@@ -15,16 +15,16 @@ import store from '../redux/store';
 import { Provider } from 'react-redux';
 import { UserProvider } from '../helper/Context';
 function MyApp({ Component, pageProps }) {
-  // const [loading, SetLoading] = useState(false);
+  const [loading, SetLoading] = useState(false);
   const [rowLayout, setRowLayout] = useState(false);
   const router = useRouter();
   useEffect(() => {
     Router.events.on('routeChangeStart', (url) => {
-      // SetLoading(true);
+      SetLoading(true);
       document.getElementsByTagName('body')[0].classList.add('disabled-scroll');
     });
     Router.events.on('routeChangeComplete', (url) => {
-      // SetLoading(false);
+      SetLoading(false);
       document
         .getElementsByTagName('body')[0]
         .classList.remove('disabled-scroll');
@@ -50,10 +50,13 @@ function MyApp({ Component, pageProps }) {
           <div className="container-fluid" style={{ padding: 0 }}>
             <Header />
             {/* {loading && <Loading />} */}
+
             {router.pathname === '/' ? (
               <Component {...pageProps} />
             ) : (
               <div className="wrapper">
+                {/* {loading && <Loading active={loading ? true : false} />} */}
+                <Loading active={loading} />
                 <Component {...pageProps} />
               </div>
             )}

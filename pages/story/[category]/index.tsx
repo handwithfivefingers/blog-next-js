@@ -8,10 +8,13 @@ import PageHeader from '../../../components/UI/PageHeader';
 import Head from 'next/head';
 import parser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
+import Loading from '../../../components/Loading';
 const Categories = ({ cate }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [post, setPost] = useState(null);
   useEffect(() => {
+    setLoading(true);
     const fetchPost = async () => {
       const { data } = await client.query({
         query: gql`
@@ -66,14 +69,15 @@ const Categories = ({ cate }) => {
         },
       });
       setPost(data);
+      setLoading(false);
     };
     fetchPost();
   }, [router.query.category]);
 
   const renderCategoriesList = (postData) => {
-    console.log(router.query.category);
+    // console.log(router.query.category);
     let xhtml = null;
-    console.log(postData); // -> postdata === categories
+    // console.log(postData); // -> postdata === categories
     // categories.edges[0].node.posts.nodes  -> Post node Array
     xhtml = postData.edges[0].node.posts.nodes.map((post) => {
       return (
@@ -94,6 +98,7 @@ const Categories = ({ cate }) => {
     });
     return xhtml;
   };
+  
   const renderLoading = () => {
     let xhtml = [];
     for (let i = 0; i < 12; i++) {
@@ -106,18 +111,7 @@ const Categories = ({ cate }) => {
     }
     return xhtml;
   };
-  // if (router.isFallback) {
-  //   let xhtml = [];
-  //   for (let i = 0; i < 12; i++) {
-  //     xhtml.push(
-  //       <div className="col-3" key={`skeleton-${i}`}>
-  //         <Skeleton count={1} height={200} />
-  //         <Skeleton count={4} />
-  //       </div>,
-  //     );
-  //   }
-  //   return xhtml;
-  // }
+
   return (
     <div>
       <Head>{parser(cate[0].seo.fullHead)}</Head>
