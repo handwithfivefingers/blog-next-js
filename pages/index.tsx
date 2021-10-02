@@ -13,29 +13,12 @@ import 'aos/dist/aos.css';
 import Link from 'next/link';
 import { useAppSelector } from '../redux/store/hook';
 
-const Readmore = ({ title, link }) => {
-  return (
-    <div className={`col-md-12 ${styles.head_title}`} style={{ zIndex: 2 }}>
-      <h3 data-aos="fade-zoom-in" className={styles.title}>
-        {title}
-      </h3>
-      <Link href={link} data-aos="fade-zoom-in">
-        <span>
-          Xem tất cả
-          <FaAngleDoubleRight />
-        </span>
-      </Link>
-    </div>
-  );
-};
-
 export default function Home({ page }) {
   const [name, setName] = useState('');
   const [show, setShow] = useState(false); //show input
   const formRef = useRef<HTMLTextAreaElement>(null);
-  const [modal, setModal] = useState('');
-  const section = page.frontpage;
-
+  // const [modal, setModal] = useState('');
+  const section = page?.frontpage;
   const router = useRouter();
   const submitForm = async (e) => {
     e.preventDefault();
@@ -55,11 +38,28 @@ export default function Home({ page }) {
         setName('');
       });
   };
-  const state = useAppSelector((state) => state.ModalReducer);
+  // const state = useAppSelector((state) => state.ModalReducer);
   // console.log(state);
   useEffect(() => {
     Aos.init({ duration: 600, offset: -100 });
   }, []);
+
+  const Readmore = ({ title, link }) => {
+    return (
+      <div className={`col-md-12 ${styles.head_title}`} style={{ zIndex: 2 }}>
+        <h3 data-aos="fade-zoom-in" className={styles.title}>
+          {title}
+        </h3>
+        <Link href={link} data-aos="fade-zoom-in">
+          <span>
+            Xem tất cả
+            <FaAngleDoubleRight />
+          </span>
+        </Link>
+      </div>
+    );
+  };
+
   // Section 1
   const renderHomeBG = () => {
     let xhtml = null;
@@ -324,11 +324,12 @@ export default function Home({ page }) {
 //     props: { page: data?.page },
 //   };
 // };
-export const getStaticProps = async (context) => {
+
+export async function getStaticProps(context) {
   const { data } = await homeQuery;
   return {
     props: {
       page: data.page,
     },
   };
-};
+}
