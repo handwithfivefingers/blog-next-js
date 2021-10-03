@@ -1,8 +1,7 @@
-import gpl from 'graphql-tag';
 import { gql } from '@apollo/client';
 import client from '../apollo-client';
 
-export const PostsQuery = gpl`
+export const PostsQuery = gql`
 query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after: String = "") {
   posts(first: $first, after:$after, before:$before,last:$last) {
     pageInfo {
@@ -44,7 +43,7 @@ query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after:
 },
 `;
 
-export const FetchSinglePost = gpl`
+export const FetchSinglePost = gql`
 query MyQuery($slug: String = "") {
       postBy(slug: $slug) {
         title
@@ -66,7 +65,7 @@ query MyQuery($slug: String = "") {
       }
     }
 `;
-export const SearchPostQuery = gpl`
+export const SearchPostQuery = gql`
 query MyQuery($search: String = "") {
   posts(where: {search: $search}) {
     edges {
