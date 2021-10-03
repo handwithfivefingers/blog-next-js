@@ -11,17 +11,17 @@ const index = (props) => {
         }}
       >
         <div className={styles.project_content}>
-          <h2>Title Project</h2>
-          <p>Author</p>
+          <h2>{props.title || 'Title'}</h2>
+          <p>{props.author || 'Author'}</p>
         </div>
       </div>
 
       <div className={styles.project_footer}>
         <span>
-          5 <FaHeart />
+          {props.like || '5'} <FaHeart />
         </span>
         <span>
-          15 <FaEye />
+          {props.views || '15'} <FaEye />
         </span>
         <span>
           <FaShare />

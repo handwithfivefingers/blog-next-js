@@ -108,6 +108,12 @@ export const BlogPage = client.query({
         seo {
           fullHead
         }
+        featuredImage {
+          node {
+            id
+            sourceUrl(size: MEDIUM_LARGE)
+          }
+        }
       }
     }
   `,
@@ -120,13 +126,43 @@ export const BlogPage = client.query({
 // export const forEnglishPage = client.query({
 //   query: gql``,
 // });
-
-// export const aboutUsPage = client.query({
-//   query: gql``,
-// });
+export const getSinglePage = (id) => {
+  const res = client.query({
+    query: gql`
+      query MyQuery($id: ID = "") {
+        page(id: $id) {
+          id
+          title
+          content(format: RENDERED)
+          seo {
+            fullHead
+          }
+        }
+      }
+    `,
+    variables: {
+      id,
+    },
+  });
+  return res;
+};
+export const aboutUsPage = client.query({
+  query: gql`
+    query MyQuery {
+      page(id: "cG9zdDoxMjk=") {
+        id
+        title
+        content(format: RENDERED)
+        seo {
+          fullHead
+        }
+      }
+    }
+  `,
+});
 
 // export const projectPage = client.query({
-//   query: gql``, 
+//   query: gql``,
 // });
 
 export const catePage = client.query({
@@ -144,3 +180,13 @@ export const catePage = client.query({
     }
   `,
 });
+
+export const Pages = {
+  Home: 'cG9zdDoy',
+  AboutUs: 'cG9zdDoxMjk=',
+  Story: 'cG9zdDo3',
+  Search: 'cG9zdDoyNTkz',
+  ForEnglish: '',
+  Project: 'cG9zdDo3Mg==',
+  ContactUs: 'cG9zdDoyMzA3',
+};

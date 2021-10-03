@@ -13,6 +13,7 @@ import PageHeader from '../../components/UI/PageHeader';
 import UserContext from '../../helper/Context';
 import CardPostStyle2 from '../../components/UI/CardPost/CardPostStyle2';
 import { GetServerSideProps } from 'next';
+import Content from '../../components/Content';
 type BLogType = {
   data: any;
   posts: any;
@@ -42,7 +43,6 @@ const Blog = (props) => {
   }, [data]);
 
   const renderBlogPost = (posts) => {
-    console.log(posts);
     let xhtml = null;
     xhtml = posts.map((item) => {
       return (
@@ -103,57 +103,59 @@ const Blog = (props) => {
     });
     refetch({ first, last, after, before });
   };
-  if (loading)
-    return (
-      <div className={styles.wrapper} data-aos="fade-zoom-in">
-        <div className="row" style={{ margin: 0 }}>
-          <h2
-            style={{ fontSize: '22px', paddingBottom: '50px', fontWeight: 400 }}
-          >
-            Our Blog
-          </h2>
-          {renderLoading()}
-        </div>
-      </div>
-    );
+
   if (error) return `Error! ${error}`;
-  console.log(props, data);
-  console.log('seo props', props);
   return (
     <>
       <Head>{parser(props?.page.seo.fullHead)}</Head>
-      <div className={styles.wrapper}>
-        <div className="row" style={{ margin: 0 }}>
-          <PageHeader title="Our Story" />
-          {data ? renderBlogPost(data.posts.edges) : ''}
-        </div>
-        <div className="pagination">
-          <span
-            className={`prev-pagination ${pagi.before ? 'active' : 'disabled'}`}
-            onClick={() =>
-              data.posts.pageInfo.hasPreviousPage
-                ? onEventPagination({
-                    before: data.posts.pageInfo.startCursor,
-                    last: 12,
-                    first: null,
-                  })
-                : ''
-            }
-          >
-            Previous
-          </span>
-          <span
-            className={`next-pagination ${pagi.after ? 'active' : 'disabled'}`}
-            onClick={() =>
-              data.posts.pageInfo.hasNextPage
-                ? onEventPagination({ after: data.posts.pageInfo.endCursor })
-                : ''
-            }
-          >
-            Next
-          </span>
-        </div>
-      </div>
+      <Content
+        img={props.page?.featuredImage?.node.sourceUrl}
+        alt={''}
+        title="Our Story"
+        content={
+          (loading && (
+            <div className="row" style={{ margin: 0 }}>
+              {renderLoading()}
+            </div>
+          )) || (
+            <div className="row" style={{ margin: 0 }}>
+              {data ? renderBlogPost(data.posts.edges) : ''}{' '}
+              <div className="pagination">
+                <span
+                  className={`prev-pagination ${
+                    pagi.before ? 'active' : 'disabled'
+                  }`}
+                  onClick={() =>
+                    data.posts.pageInfo.hasPreviousPage
+                      ? onEventPagination({
+                          before: data.posts.pageInfo.startCursor,
+                          last: 12,
+                          first: null,
+                        })
+                      : ''
+                  }
+                >
+                  Previous
+                </span>
+                <span
+                  className={`next-pagination ${
+                    pagi.after ? 'active' : 'disabled'
+                  }`}
+                  onClick={() =>
+                    data.posts.pageInfo.hasNextPage
+                      ? onEventPagination({
+                          after: data.posts.pageInfo.endCursor,
+                        })
+                      : ''
+                  }
+                >
+                  Next
+                </span>
+              </div>
+            </div>
+          )
+        }
+      />
     </>
   );
 };

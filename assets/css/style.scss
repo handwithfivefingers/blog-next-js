@@ -76,72 +76,72 @@ a {
 }
 
 /* Menu */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 65px;
-  background-color: #fff;
-  box-shadow: var(--main-box-shadow);
-  z-index: 9999;
-  .header-left {
-    width: 50px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(50%, -50%);
-  }
-  .header-middle {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    .icon {
-      position: absolute;
-      /* top: 6px;
-      left: 10px; */
-      font-weight: 400;
-      top: 2px;
-      right: 5px;
-      color: rgb(255, 255, 255);
-      transition: all 0.5s ease-out;
-      background-color: var(--main-primary-color);
-      padding: 5px 12px;
-      border-radius: 50px;
-      transform: translate(0px, 2px);
-      cursor: pointer;
-    }
-    input {
-      /* border: 1px solid #eee; */
-      padding: var(--main-padding);
-      width: 30vw;
-      border-radius: 50px;
-      background-color: rgba(0, 0, 0, 0.03);
-      letter-spacing: 1px;
-      font-weight: 200;
-      border: 1px solid transparent;
-      transition: all 0.3s ease;
-      &::-webkit-input-placeholder {
-        padding: 0 10px;
-      }
-      &:focus {
-        border: 1px solid var(--main-second-color);
-        & ~ .icon {
-          color: #fff;
-          background-color: var(--main-second-color);
-        }
-      }
-    }
-  }
-  .header-right {
-    float: right;
-    margin-right: 20px;
-    padding: 21px 0;
-    span {
-    }
-  }
-}
+// header {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 65px;
+//   background-color: #fff;
+//   box-shadow: var(--main-box-shadow);
+//   z-index: 9999;
+//   .header-left {
+//     width: 50px;
+//     position: absolute;
+//     top: 50%;
+//     left: 0;
+//     transform: translate(50%, -50%);
+//   }
+//   .header-middle {
+//     position: absolute;
+//     top: 0;
+//     left: 50%;
+//     transform: translate(-50%, 50%);
+//     .icon {
+//       position: absolute;
+//       /* top: 6px;
+//       left: 10px; */
+//       font-weight: 400;
+//       top: 2px;
+//       right: 5px;
+//       color: rgb(255, 255, 255);
+//       transition: all 0.5s ease-out;
+//       background-color: var(--main-primary-color);
+//       padding: 5px 12px;
+//       border-radius: 50px;
+//       transform: translate(0px, 2px);
+//       cursor: pointer;
+//     }
+//     input {
+//       /* border: 1px solid #eee; */
+//       padding: var(--main-padding);
+//       width: 30vw;
+//       border-radius: 50px;
+//       background-color: rgba(0, 0, 0, 0.03);
+//       letter-spacing: 1px;
+//       font-weight: 200;
+//       border: 1px solid transparent;
+//       transition: all 0.3s ease;
+//       &::-webkit-input-placeholder {
+//         padding: 0 10px;
+//       }
+//       &:focus {
+//         border: 1px solid var(--main-second-color);
+//         & ~ .icon {
+//           color: #fff;
+//           background-color: var(--main-second-color);
+//         }
+//       }
+//     }
+//   }
+//   .header-right {
+//     float: right;
+//     margin-right: 20px;
+//     padding: 21px 0;
+//     span {
+//     }
+//   }
+// }
 
 .menu {
   margin-top: 65px;

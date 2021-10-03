@@ -1,5 +1,6 @@
 import '../assets/css/style.scss';
 import '../assets/css/grid.css';
+import '../assets/css/wpblock.min.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { ApolloProvider } from '@apollo/client';
@@ -48,17 +49,9 @@ function MyApp({ Component, pageProps }) {
             />
           </Head>
           <div className="container-fluid" style={{ padding: 0 }}>
-            <Header />
-            {/* {loading && <Loading />} */}
-
-            {router.pathname === '/' ? (
+            <Header loading={loading} />
+            {(loading && <Loading active={loading} />) || (
               <Component {...pageProps} />
-            ) : (
-              <div className="wrapper">
-                {/* {loading && <Loading active={loading ? true : false} />} */}
-                <Loading active={loading} />
-                <Component {...pageProps} />
-              </div>
             )}
             <ModalVideos />
             <Footer />

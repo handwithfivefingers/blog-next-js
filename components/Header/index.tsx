@@ -28,7 +28,7 @@ const linkList = [
     name: 'Contact',
   },
 ];
-const Header = () => {
+const Header = ({loading}) => {
   const [search, setSearch] = useState('');
 
   const [top, setTop] = useState(0);
@@ -57,59 +57,70 @@ const Header = () => {
         }
         return currentScrollY;
       });
-      // console.log(goingUp, currentScrollY, '-', previousTop);
     };
+    // if (headerRef.current) {
+    //   if (top + 30 < headerRef.current.offsetHeight) {
+    //     headerRef.current.setAttribute('style', 'position:relative')
+    //   } else {
+    //     headerRef.current.setAttribute('style', 'position:fixed')
+    //   }
+    // }
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [top]);
+
   return (
     <>
       <header
         ref={headerRef}
-        className={`${goingUp ? styles.active : styles.deactive}`}
+        className={`${styles.header} ${
+          goingUp || loading ? styles.active : styles.deactive
+        }`}
       >
-        <div className="header-left">
+        <div className={styles.logo}>
           <Link href="/">
-            <a style={{cursor:'pointer'}}>
-            <Image
-              src="/image/logo192.png"
-              width="50"
-              height="50"
-              layout="responsive"
-              alt="favicon"
-            />
+            <a style={{ cursor: 'pointer' }}>
+              <Image
+                src="/image/logo192.png"
+                width="50"
+                height="50"
+                layout="responsive"
+                alt="favicon"
+              />
             </a>
           </Link>
         </div>
-        <div className="header-middle">
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyUp={(e) => {
-              if (e.keyCode === 13) {
-                event.preventDefault();
-                searchPush();
-              }
-            }}
-          />
-          <AiOutlineSearch className="icon" onClick={searchPush} />
-        </div>
-        <div className="header-right">
-          <span>Project</span>
+        <div className={styles.list_menu}>
+          {/* {router.route !== '/' ? (
+            <div className="menu" style={{ padding: '20px 0' }}>
+              {linkList.map((item) => {
+                return (
+                  <MenuLink key={item.path} path={item.path} name={item.name} />
+                );
+              })}
+            </div>
+          ) : (
+            ''
+          )} */}
+          <ul className={styles.menu_item}>
+            {linkList.map((item) => {
+              return (
+                // <MenuLink key={item.path} path={item.path} name={item.name} />
+                <li
+                  key={item.path}
+                  className={`${styles.item} a ${
+                    router.route === item.path ? styles.menu_active : ''
+                  }`}
+                >
+                  <Link href={item.path}>
+                    <a>{item.name}</a>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </header>
-      {router.route !== '/' ? (
-        <div className="menu" style={{ padding: '20px 0' }}>
-          {linkList.map((item) => {
-            return (
-              <MenuLink key={item.path} path={item.path} name={item.name} />
-            );
-          })}
-        </div>
-      ) : (
-        ''
-      )}
     </>
   );
 };
