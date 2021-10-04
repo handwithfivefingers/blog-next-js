@@ -27,7 +27,8 @@ body {
   --main-text-light: #fff;
   --main-text-size: 16px;
   --main-primary-color: #995b97;
-  --main-second-color: #649dd7;
+  // --main-second-color: #649dd7;
+  --main-second-color: #3498db;
   --main-third-color: #71d1d8;
   --main-transition: box-shadow 0.3s ease-out, transform 0.3s ease-out,
     opacity 0.2s ease-out;
@@ -229,9 +230,10 @@ footer {
     font-weight: 600;
   }
   .content {
-    padding: 50px 100px;
-    margin: 0 25px;
+    padding: 25px;
     box-shadow: var(--main-box-shadow);
+    box-sizing: border-box;
+    overflow: hidden;
   }
   h2 {
     font-size: 22px;
@@ -357,18 +359,9 @@ footer {
     width: 100% !important;
   }
   .post-content .content {
-    padding: 50px 25px;
-    margin: 25px;
+    padding: 10px;
   }
 
-  /*About*/
-  /* .about-page {
-    padding: 50px 100px;
-  } */
-  /* .about-page h2 {
-    font-size: 22px;
-    color: rgb(0 0 0 / 75%);
-  } */
   .about-page ul {
     list-style: none;
     display: flex;
@@ -386,7 +379,7 @@ footer {
 
 .wrapper {
   max-width: 1020px;
-  position:relative;
+  position: relative;
   margin: 0 auto;
   @media (max-width: 990px) {
     max-width: 760px;
@@ -401,29 +394,29 @@ footer {
     max-width: 425px;
   }
   @media (max-width: 425px) {
-    padding: 50px 50px;
+    padding: 25px;
   }
 }
 
 //scroll bar
 ::-webkit-scrollbar {
   width: 6px;
-  height:6px;
+  height: 6px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgb(0 0 0 / 36%); 
+  box-shadow: inset 0 0 5px rgb(0 0 0 / 36%);
   // border-radius: 5px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--main-second-color); 
+  background: var(--main-second-color);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--main-primary-color); 
+  background: var(--main-primary-color);
 }

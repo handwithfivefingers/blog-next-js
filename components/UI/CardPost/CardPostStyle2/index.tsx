@@ -15,7 +15,15 @@ const CardPostStyle2 = (props) => {
     <div className={style.card_post}>
       <div className={style.card_image}>
         {image ? (
-          <Image src={image} layout="fill" unoptimized={true} alt="..." />
+          <Link
+            href={{
+              pathname: link,
+            }}
+          >
+            <a>
+              <Image src={image} width={250} height={200} layout="responsive" unoptimized={true} alt="..." />
+            </a>
+          </Link>
         ) : (
           ''
         )}
@@ -26,7 +34,7 @@ const CardPostStyle2 = (props) => {
           <FaPinterestP />
         </div>
       </div>
-      
+
       <div className={style.card_body}>
         <div className={style.content}>
           <div className={style.author}>

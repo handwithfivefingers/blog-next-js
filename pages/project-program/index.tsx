@@ -6,6 +6,7 @@ import Head from 'next/head';
 import client from '../../apollo-client';
 import { gql, useQuery } from '@apollo/client';
 import CardProject from './../../components/UI/CardProject';
+import Content from '../../components/Content';
 const Project = (props) => {
   const { loading, error, data, refetch } = useQuery(
     gql`
@@ -40,26 +41,30 @@ const Project = (props) => {
     return (
       <>
         <Head>{parser(props?.data.page.seo.fullHead)}</Head>
-        <div className="row" style={{ margin: 0 }}>
-          <div className="about-page" style={{ minHeight: '100vh' }}>
-            <h2>Project/Program</h2>
-            <div className="wrapper">
+        <Content
+          title={'Project/Program'}
+          content={
+            <div className="row" style={{ margin: 0 }}>
               {/* {parser(props?.data.page.content)} */}
               {data.allProject.edges.map((project) => {
                 return (
-                  <CardProject
+                  <div
                     key={project.node.id}
-                    img={project.node.featuredImage?.node.sourceUrl}
-                    title={project.node.title}
-                    // author={project.author}
-                    // like={project.like}
-                    views={project.node.views.views}
-                  />
+                    className="col-lg-3 col-md-4 col-6"
+                  >
+                    <CardProject
+                      img={project.node.featuredImage?.node.sourceUrl}
+                      title={project.node.title}
+                      // author={project.author}
+                      // like={project.like}
+                      views={project.node.views.views}
+                    />
+                  </div>
                 );
               })}
             </div>
-          </div>
-        </div>
+          }
+        />
       </>
     );
   }

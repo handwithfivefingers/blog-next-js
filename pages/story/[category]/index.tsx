@@ -9,6 +9,7 @@ import Head from 'next/head';
 import parser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
 import Loading from '../../../components/Loading';
+import Content from '../../../components/Content';
 const Categories = ({ cate }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -98,7 +99,7 @@ const Categories = ({ cate }) => {
     });
     return xhtml;
   };
-  
+
   const renderLoading = () => {
     let xhtml = [];
     for (let i = 0; i < 12; i++) {
@@ -115,12 +116,34 @@ const Categories = ({ cate }) => {
   return (
     <div>
       <Head>{parser(cate[0].seo.fullHead)}</Head>
-      <div className={styles.wrapper}>
+      {/* <div className={styles.wrapper}>
         <div className="row" style={{ margin: 0 }}>
-          <PageHeader title={post?.categories.edges[0].node.name} />
-          {post ? renderCategoriesList(post?.categories) : renderLoading()}
-        </div>
-      </div>
+          <PageHeader title={post?.categories.edges[0].node.name} /> */}
+      {post ? (
+        <Content
+          title={post?.categories.edges[0].node.name}
+          content={
+            <div className={styles.wrapper}>
+              <div className="row" style={{ margin: 0 }}>
+                {renderCategoriesList(post?.categories)}
+              </div>
+            </div>
+          }
+        />
+      ) : (
+        <Content
+          title={post?.categories.edges[0].node.name}
+          content={
+            <div className={styles.wrapper}>
+              <div className="row" style={{ margin: 0 }}>
+                {renderLoading()}
+              </div>
+            </div>
+          }
+        />
+      )}
+      {/* </div>
+      </div> */}
     </div>
   );
 };

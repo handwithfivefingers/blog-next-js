@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MenuLink from '../UI/MenuLink';
 import { useRouter } from 'next/router';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import styles from './styles.module.scss';
 import { menuQuery } from '../../constant/menu';
@@ -28,15 +28,16 @@ const linkList = [
     name: 'Contact',
   },
 ];
-const Header = ({loading}) => {
+const Header = ({ loading }) => {
+  const [show, setShow] = useState(false);
   const [search, setSearch] = useState('');
-
   const [top, setTop] = useState(0);
   const [goingUp, setGoingUp] = useState(true);
 
   const headerRef = useRef<HTMLBaseElement>();
   const router = useRouter();
   const searchPush = () => {
+    setShow(false);
     router.push({
       pathname: '/search',
       query: { search },
@@ -68,59 +69,73 @@ const Header = ({loading}) => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [top]);
-
+  const renderSearchBar = () => {
+    let xhtml = null;
+    xhtml = (
+      <div className={styles.SearchModal}>
+        <div className={styles.SearchModalBody}>
+          <input
+            placeholder="Search here..."
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button onClick={() => searchPush()}>
+            <FaSearch />
+          </button>
+        </div>
+        <div className={styles.GoBack} onClick={() => setShow(!show)}>
+          <FaTimes />
+        </div>
+      </div>
+    );
+    return xhtml;
+  };
   return (
     <>
       <header
         ref={headerRef}
-        className={`${styles.header} ${
-          goingUp || loading ? styles.active : styles.deactive
+        className={`${goingUp || loading ? styles.active : styles.deactive} ${
+          styles.headerWrapper
         }`}
       >
-        <div className={styles.logo}>
-          <Link href="/">
-            <a style={{ cursor: 'pointer' }}>
-              <Image
-                src="/image/logo192.png"
-                width="50"
-                height="50"
-                layout="responsive"
-                alt="favicon"
-              />
-            </a>
-          </Link>
-        </div>
-        <div className={styles.list_menu}>
-          {/* {router.route !== '/' ? (
-            <div className="menu" style={{ padding: '20px 0' }}>
+        <div className={`${styles.header}`}>
+          <div className={styles.logo}>
+            <Link href="/">
+              <a style={{ cursor: 'pointer' }}>
+                <Image
+                  src="/image/logo192.png"
+                  width="50"
+                  height="50"
+                  layout="responsive"
+                  alt="favicon"
+                />
+              </a>
+            </Link>
+          </div>
+          <div className={styles.list_menu}>
+            <ul className={styles.menu_item}>
               {linkList.map((item) => {
                 return (
-                  <MenuLink key={item.path} path={item.path} name={item.name} />
+                  <li
+                    key={item.path}
+                    className={`${styles.item} a ${
+                      router.route === item.path ? styles.menu_active : ''
+                    }`}
+                  >
+                    <Link href={item.path}>
+                      <a>{item.name}</a>
+                    </Link>
+                  </li>
                 );
               })}
-            </div>
-          ) : (
-            ''
-          )} */}
-          <ul className={styles.menu_item}>
-            {linkList.map((item) => {
-              return (
-                // <MenuLink key={item.path} path={item.path} name={item.name} />
-                <li
-                  key={item.path}
-                  className={`${styles.item} a ${
-                    router.route === item.path ? styles.menu_active : ''
-                  }`}
-                >
-                  <Link href={item.path}>
-                    <a>{item.name}</a>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+            </ul>
+          </div>
+          <div className={styles.searchbar} onClick={() => setShow(!show)}>
+            <FaSearch />
+          </div>
         </div>
       </header>
+      {show ? renderSearchBar() : ''}
     </>
   );
 };

@@ -8,10 +8,11 @@ import styles from './style.module.scss';
 import Skeleton from 'react-loading-skeleton';
 import Sidebar from '../../../components/Sidebar';
 import { NextSeo } from 'next-seo';
+import Content from '../../../components/Content';
 const Post = ({ postBy }) => {
   const router = useRouter();
   useEffect(() => {
-    if (postBy?.postId ) {
+    if (postBy?.postId) {
       const res = fetch(
         `${process.env.NEXT_PUBLIC_WORDPRESS_POST_VIEW_URL}/${postBy.postId}`,
         {
@@ -73,31 +74,37 @@ const Post = ({ postBy }) => {
           ],
         }}
       />
-
-      <div className="post-content row" style={{ margin: 0 }}>
-        <div className={`col-12 post-header ${styles.header_content}`}>
-          <h1 className={`title ${styles.title}`}>{postBy?.title}</h1>
-          <div
-            className={styles.imageFeature}
-            style={{
-              backgroundImage: `url(${postBy?.featuredImage?.node.mediaItemUrl})`,
-            }}
-          />
-        </div>
-        <div className="row" style={{ padding: 0, margin: '0 auto' }}>
-          <div className="col-md-9 col-sm-12 col-xs-12">
-            <div
-              className="content"
-              dangerouslySetInnerHTML={{
-                __html: postBy?.content,
-              }}
-            />
+      <Content
+        singlePost
+        title={postBy?.title}
+        img={postBy?.featuredImage?.node.mediaItemUrl}
+        content={
+          <div className="post-content row" style={{ margin: 0 }}>
+            <div className={`col-12 post-header ${styles.header_content}`}>
+              <h1 className={`title ${styles.title}`}>{postBy?.title}</h1>
+              {/* <div
+                className={styles.imageFeature}
+                style={{
+                  backgroundImage: `url(${postBy?.featuredImage?.node.mediaItemUrl})`,
+                }}
+              /> */}
+            </div>
+            <div className="row" style={{ padding: 0, margin: '0 auto' }}>
+              <div className="col-md-12 col-sm-12 col-xs-12">
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{
+                    __html: postBy?.content,
+                  }}
+                />
+              </div>
+              <div className="col-md-3 col-sm-12 col-xs-12">
+                {/* <Sidebar categoryPost={router.query.category} /> */}
+              </div>
+            </div>
           </div>
-          <div className="col-md-3 col-sm-12 col-xs-12">
-            {/* <Sidebar categoryPost={router.query.category} /> */}
-          </div>
-        </div>
-      </div>
+        }
+      />
     </div>
   );
 };

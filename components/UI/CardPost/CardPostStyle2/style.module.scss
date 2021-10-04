@@ -4,8 +4,8 @@
   justify-content: flex-start;
   position: relative;
   box-sizing: border-box;
-  margin: 0 0 20px 0;
-  padding: 0 0 5px 0;
+  // margin: 0 0 20px 0;
+  padding: 10px 0;
   border-bottom: 2px solid #eee;
   .card_image {
     box-shadow: var(--main-box-shadow);
@@ -17,9 +17,36 @@
     border-top-right-radius: 4px;
     flex-shrink: 0;
     &:before {
-      padding-bottom: 45%;
+      // padding-bottom: 45%;
       content: '';
       display: block;
+    }
+    .card_social {
+      position: absolute;
+      content: '';
+      width: 25px;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      top: 5px;
+      opacity: 0;
+      transition-delay: 0.1s;
+      transition: opacity 0.3s ease-out, transform 0.3s ease-in;
+      box-sizing: border-box;
+      svg {
+        border-radius: 100%;
+        background-color: #fff;
+        text-align: center;
+        margin: 5px 0;
+        color: #4f575b;
+        padding: 6px;
+      }
+    }
+    &:hover {
+      .card_social {
+        opacity: 0.8;
+        transform: translate(-10px, 0);
+      }
     }
   }
   .card_body {
@@ -30,13 +57,44 @@
     .content {
       flex-basis: 50%;
     }
+    .title {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      overflow: hidden;
+      white-space: normal;
+      letter-spacing: 0.5px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-shadow: none;
+      text-transform: capitalize;
+      a {
+        color: #000;
+      }
+    }
     .card_action {
       margin-top: auto;
       background: #fff;
       display: flex;
       justify-content: space-between;
+      font-size: 12px;
+      letter-spacing: 0;
       span {
-        padding: 0 50px 0 0;
+        font-size: 13px;
+        // padding: 0 50px 0 0;
+        a {
+          color: rgb(0, 0, 0, 0.5);
+          &:hover {
+            color: var(--main-primary-color);
+          }
+        }
+      }
+
+      @media (max-width: 550px) {
+        span {
+          padding: 0;
+        }
       }
     }
   }

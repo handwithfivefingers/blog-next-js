@@ -49,9 +49,7 @@ const Blog = (props) => {
         <div
           key={item.node.uri}
           className={`${
-            rowLayout
-              ? 'col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4'
-              : 'col-md-12'
+            rowLayout ? 'col-lg-3 col-md-4 col-sm-6 col-6 mb-4' : 'col-md-12'
           }`}
         >
           {rowLayout ? (
@@ -80,14 +78,35 @@ const Blog = (props) => {
   };
   const renderLoading = () => {
     let xhtml = [];
-    for (let i = 0; i < 12; i++) {
-      xhtml.push(
-        <div key={i} className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
-          <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
-          <Skeleton duration={2} />
-          <Skeleton count={4} duration={2} />
-        </div>,
-      );
+    if (rowLayout) {
+      for (let i = 0; i < 12; i++) {
+        xhtml.push(
+          <div key={i} className="col-lg-3 col-md-4 col-sm-6 col-6 mb-4">
+            <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
+            <Skeleton duration={2} />
+            <Skeleton count={4} duration={2} />
+          </div>,
+        );
+      }
+    } else {
+      for (let i = 0; i < 12; i++) {
+        xhtml.push(
+          <div key={i} className="col-md-12">
+            <div className="row">
+              <div className="col-md-3 col-4">
+                <Skeleton height={150} duration={2} />
+              </div>
+              <div className="col-md-9 col-8">
+                <Skeleton count={2} duration={2} />
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Skeleton count={1} duration={2} />
+                  <Skeleton count={1} duration={2} />
+                </div>
+              </div>
+            </div>
+          </div>,
+        );
+      }
     }
     return xhtml;
   };

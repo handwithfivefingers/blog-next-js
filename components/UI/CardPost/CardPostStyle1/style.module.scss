@@ -115,6 +115,16 @@
         }
       }
     }
+    @media (max-width: 450px) {
+      display: grid;
+      grid-template-columns: repeat(4, 25%);
+      grid-template-rows: repeat(2, auto);
+      span:nth-child(1) {
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+        grid-column: 1/4;
+      }
+    }
   }
 }
 .card_post:hover {

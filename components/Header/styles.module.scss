@@ -20,17 +20,22 @@
     transform: translateY(65px);
   }
 }
-
+.headerWrapper {
+  height: 60px;
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  box-shadow: var(--main-box-shadow);
+  box-sizing: border-box;
+  padding: 0 20px;
+  background: #fff;
+}
 .header {
   display: flex;
   flex-direction: row;
-  padding: 0px 20px;
-  box-shadow: var(--main-box-shadow);
-  position: fixed;
-  width: 100%;
-  z-index: 9;
-  background: #fff;
-  height: 60px;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
   .logo {
     width: 50px;
     // align-items: center;
@@ -84,9 +89,76 @@
       }
     }
   }
+  .searchbar {
+    width: 16px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    padding: 15px;
+    color: rgb(0, 0, 0, 0.7);
+    cursor: pointer;
+    &:hover {
+      color: var(--main-second-color);
+    }
+  }
 }
+.SearchModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(255, 255, 255, 0.9);
+  z-index: 10;
+  .SearchModalBody {
+    top: 50%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    transform: translateY(-50%);
+    height: 40px;
 
-.header {
+    box-sizing: border-box;
+    input {
+      max-width: 400px;
+      min-width: 300px;
+      border: 1px solid transparent;
+      background: rgb(0, 0, 0, 0.1);
+      padding: 8px 20px;
+
+      border-radius: 5px 0 0 5px;
+    }
+    button {
+      width: 50px;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      svg {
+        transform: translateY(2px);
+      }
+      &:hover {
+        svg {
+          color: var(--main-second-color);
+        }
+      }
+    }
+  }
+}
+.GoBack {
+  right: 30px;
+  position: absolute;
+  top: 30px;
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    svg {
+      color: var(--main-second-color);
+    }
+  }
+}
+.headerWrapper {
   top: 0;
   left: 0;
   align-items: center;

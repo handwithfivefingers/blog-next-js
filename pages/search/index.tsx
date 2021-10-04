@@ -5,6 +5,7 @@ import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
 import { SearchPostQuery, searchQuery } from '../../constant/posts';
 import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
+import Content from '../../components/Content';
 const Search = (props) => {
   const [data, setData] = useState(null);
   const router = useRouter();
@@ -51,14 +52,17 @@ const Search = (props) => {
   };
   console.log('router', router.query.search, data);
   return (
-    <div className={styles.wrapper}>
-      <div className="row" style={{ margin: 0 }}>
-        <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}>
-          Tìm kiếm về: {router.query.search}
-        </h2>
-        {data ? renderBlogPost(data.posts.edges) : renderLoading()}
-      </div>
-    </div>
+    <Content
+      title={`Tìm kiếm về: ${router.query.search}`}
+      content={
+        <div className={styles.wrapper}>
+          <div className="row" style={{ margin: 0 }}>
+            <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}></h2>
+            {data ? renderBlogPost(data.posts.edges) : renderLoading()}
+          </div>
+        </div>
+      }
+    />
   );
 };
 

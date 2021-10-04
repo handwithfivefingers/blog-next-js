@@ -3,16 +3,21 @@ import { getSinglePage, Pages } from '../../constant/page';
 // import { contactPage } from '../../constant/page';
 import parser from 'react-html-parser';
 import Head from 'next/head';
+import Content from '../../components/Content';
 const Contact = (props) => {
   return (
     <>
       <Head>{parser(props?.data.page.seo.fullHead)}</Head>
-      <div className="row" style={{ margin: 0 }}>
-        <div className="about-page" style={{ minHeight: '100vh' }}>
-          <h2>About us</h2>
-          <div className="wrapper">{parser(props?.data.page.content)}</div>
-        </div>
-      </div>
+      <Content
+        singlePost
+        title={'Contact'}
+        content={
+          <div className="row" style={{ margin: 0 }}>
+            <h2>Contact</h2>
+            {parser(props?.data.page.content)}
+          </div>
+        }
+      />
     </>
   );
 };
