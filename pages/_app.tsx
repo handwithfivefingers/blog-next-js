@@ -15,6 +15,9 @@ import ModalVideos from '../components/UI/ModalVideo';
 import store from '../redux/store';
 import { Provider } from 'react-redux';
 import { UserProvider } from '../helper/Context';
+import * as gtag from '../helper/Gtag';
+const isProduction = process.env.NODE_ENV === 'production';
+
 function MyApp({ Component, pageProps }) {
   const [loading, SetLoading] = useState(false);
   const [rowLayout, setRowLayout] = useState(false);
@@ -30,6 +33,17 @@ function MyApp({ Component, pageProps }) {
         .getElementsByTagName('body')[0]
         .classList.remove('disabled-scroll');
     });
+    const handleRouteChange = (url: URL) => {
+      /* invoke analytics function only for production */
+      if (isProduction) gtag.pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
   }, []);
   return (
     <ApolloProvider client={client}>
@@ -37,17 +51,6 @@ function MyApp({ Component, pageProps }) {
         <UserProvider
           value={{ rowLayout, SetRow: () => setRowLayout(!rowLayout) }}
         >
-          <Head>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1.0, maximum-scale=1"
-            />
-            <link rel="shortcut icon" href="/favicon.ico" />
-            <meta
-              name="google-site-verification"
-              content="tLgd15lMPuUM4Hhrq4nHs7ml7Xx8sntwYH0RjUJSq2k"
-            />
-          </Head>
           <div className="container-fluid" style={{ padding: 0 }}>
             <Header loading={loading} />
             {(loading && <Loading active={loading} />) || (
