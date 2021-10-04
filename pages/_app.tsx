@@ -41,10 +41,7 @@ function MyApp({ Component, pageProps }) {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, []);
+  }, [router.events]);
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
