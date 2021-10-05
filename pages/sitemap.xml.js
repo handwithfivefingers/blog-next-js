@@ -5,12 +5,15 @@ const Sitemap = () => { };
 
 export const getServerSideProps = ({ res }) => {
   const baseUrl = {
-    development: "http://localhost:5000",
-    production: "https://mydomain.com",
+    development: "http://localhost:3000",
+    production: "https://nextjs.truyenmai.com",
   }[process.env.NODE_ENV];
 
   const staticPages = fs
-    .readdirSync("pages")
+    .readdirSync({
+      development: 'pages',
+      production: './',
+    }[process.env.NODE_ENV])
     .filter((staticPage) => {
       return ![
         "_app.js",
@@ -27,19 +30,7 @@ export const getServerSideProps = ({ res }) => {
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${staticPages
       .map((url) => {
-        if (url.includes('app.tsx') || url.includes('document.tsx')) {
-          return ``
-        } if (url.includes('index.tsx')) {
-          return `
-              <url>
-                <loc>${'https://nextjs.truyenmai.com/'}</loc>
-                <lastmod>${new Date().toISOString()}</lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-              </url>
-              `;
-        } else {
-          return `
+        return `
           <url>
             <loc>${url}</loc>
             <lastmod>${new Date().toISOString()}</lastmod>
@@ -47,7 +38,6 @@ export const getServerSideProps = ({ res }) => {
             <priority>1.0</priority>
           </url>
         `;
-        }
       })
       .join("")}
     </urlset>
