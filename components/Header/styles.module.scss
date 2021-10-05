@@ -21,21 +21,40 @@
   }
 }
 .headerWrapper {
+  align-items: center;
   height: 60px;
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 9;
   width: 100%;
-  box-shadow: var(--main-box-shadow);
   box-sizing: border-box;
-  padding: 0 20px;
   background: #fff;
+  box-shadow: var(--main-box-shadow);
+  @media (max-width: 990px) {
+  }
+  @media (max-width: 768px) {
+    top: unset;
+    bottom: 0;
+    background: transparent;
+  }
+  @media (max-width: 625px) {
+  }
+  @media (max-width: 550px) {
+  }
+  @media (max-width: 425px) {
+  }
 }
-.header {
+.header_destop {
   display: flex;
   flex-direction: row;
   justify-content: center;
   max-width: 1100px;
   margin: 0 auto;
+  padding: 0 20px;
+  @media (max-width: 768px) {
+    display: none;
+  }
   .logo {
     width: 50px;
     // align-items: center;
@@ -103,6 +122,125 @@
     }
   }
 }
+.headerWrapper {
+  @media (max-width: 768px) {
+    bottom: 0px;
+    box-shadow: unset;
+  }
+}
+.header_mobile {
+  display: none;
+  list-style-type: none;
+  grid-template-columns: repeat(5, 1fr);
+  @media (max-width: 768px) {
+    display: grid;
+  }
+  margin: 0 5px;
+  .menu_item {
+    display: flex;
+    flex: 1;
+    position: relative;
+    .menu_dropdown {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(0, calc(-100% - 10px));
+      width: 120px;
+      a {
+        display: flex;
+        flex-direction: row;
+        padding: 8px 4px;
+        width: 100%;
+        border:1px solid #eee;
+        span:nth-child(1) {
+          width: 24px;
+          flex-shrink: 0;
+        }
+        span:nth-child(2) {
+          flex: 1;
+          text-align: left;
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+  .menu_item a,
+  .menu_item .other_item {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    overflow: hidden;
+    span {
+      text-align: center;
+      width: auto;
+    }
+    span:nth-child(1) {
+      font-size: 16px;
+      svg {
+        color: rgb(0, 0, 0, 0.5);
+      }
+    }
+    span:nth-child(2) {
+      font-size: 12px;
+      color: rgb(0, 0, 0, 0.5);
+    }
+  }
+  .menu_item:nth-child(1),
+  .menu_item:nth-child(4) {
+    border-radius: 4px 0 0 4px;
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
+  }
+  .menu_item:nth-child(2),
+  .menu_item:nth-child(5) {
+    border-radius: 0 4px 4px 0;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+  }
+  .menu_item:nth-child(3) {
+    border: none;
+    background-color: unset;
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    z-index:1;
+    span {
+      height: unset;
+      svg {
+        color: #fff;
+      }
+    }
+    &::before {
+      border-radius: 4px;
+      border:1px solid #fff;
+      z-index: -1;
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      background-color: var(--main-second-color);
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+  }
+
+  .menu_active {
+    a {
+      background-color: var(--main-second-color);
+      span {
+        color: #fff !important;
+        svg {
+          color: #fff !important;
+        }
+      }
+    }
+  }
+}
 .SearchModal {
   position: fixed;
   top: 0;
@@ -120,16 +258,16 @@
     justify-content: center;
     transform: translateY(-50%);
     height: 40px;
-
     box-sizing: border-box;
     input {
       max-width: 400px;
-      min-width: 300px;
+      min-width: 200px;
+      width: calc(100% - 60px);
       border: 1px solid transparent;
       background: rgb(0, 0, 0, 0.1);
       padding: 8px 20px;
-
       border-radius: 5px 0 0 5px;
+      box-sizing: border-box;
     }
     button {
       width: 50px;
@@ -156,22 +294,5 @@
     svg {
       color: var(--main-second-color);
     }
-  }
-}
-.headerWrapper {
-  top: 0;
-  left: 0;
-  align-items: center;
-  @media (max-width: 990px) {
-  }
-  @media (max-width: 768px) {
-    top: unset;
-    bottom: 0;
-  }
-  @media (max-width: 625px) {
-  }
-  @media (max-width: 550px) {
-  }
-  @media (max-width: 425px) {
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MenuLink from '../UI/MenuLink';
 import { useRouter } from 'next/router';
-import { FaSearch, FaTimes } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaHome, FaEllipsisH } from 'react-icons/fa';
 import Image from 'next/image';
 import styles from './styles.module.scss';
 import { menuQuery } from '../../constant/menu';
@@ -28,8 +28,10 @@ const linkList = [
     name: 'Contact',
   },
 ];
+
 const Header = ({ loading }) => {
   const [show, setShow] = useState(false);
+  const [mMenu, setMMenu] = useState(false);
   const [search, setSearch] = useState('');
   const [top, setTop] = useState(0);
   const [goingUp, setGoingUp] = useState(true);
@@ -44,6 +46,9 @@ const Header = ({ loading }) => {
     });
   };
   let previousTop = 0;
+  useEffect(() => {
+    setMMenu(false);
+  }, [router.route]);
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY; // current
@@ -98,7 +103,7 @@ const Header = ({ loading }) => {
           styles.headerWrapper
         }`}
       >
-        <div className={`${styles.header}`}>
+        <div className={`${styles.header_destop}`}>
           <div className={styles.logo}>
             <Link href="/">
               <a style={{ cursor: 'pointer' }}>
@@ -118,7 +123,7 @@ const Header = ({ loading }) => {
                 return (
                   <li
                     key={item.path}
-                    className={`${styles.item} a ${
+                    className={`${styles.item} ${
                       router.route === item.path ? styles.menu_active : ''
                     }`}
                   >
@@ -134,6 +139,93 @@ const Header = ({ loading }) => {
             <FaSearch />
           </div>
         </div>
+        <ul className={`${styles.header_mobile}`}>
+          <li
+            className={`${styles.menu_item} ${
+              router.route === '/' ? styles.menu_active : ''
+            } `}
+          >
+            <Link href="/">
+              <a>
+                <span>
+                  <FaHome />
+                </span>
+                <span>Home</span>
+              </a>
+            </Link>
+          </li>
+          <li
+            className={`${styles.menu_item} ${
+              router.route === '/story' ? styles.menu_active : ''
+            } `}
+          >
+            <Link href="/story">
+              <a>
+                <span>
+                  <FaHome />
+                </span>
+                <span>Blog</span>
+              </a>
+            </Link>
+          </li>
+          <li className={`${styles.menu_item}`}>
+            <span>
+              <FaSearch onClick={() => setShow(!show)} />
+            </span>
+          </li>
+          <li
+            className={`${styles.menu_item} ${
+              router.route === '/about-us' ? styles.menu_active : ''
+            } `}
+          >
+            <Link href="/about-us">
+              <a>
+                <span>
+                  <FaHome />
+                </span>
+                <span>About</span>
+              </a>
+            </Link>
+          </li>
+          <li className={styles.menu_item}>
+            <span
+              className={styles.other_item}
+              onClick={() => setMMenu(!mMenu)}
+            >
+              <FaEllipsisH />
+            </span>
+            {mMenu ? (
+              <span className={styles.menu_dropdown}>
+                <Link href="/project-program">
+                  <a>
+                    <span>
+                      <FaHome />
+                    </span>
+                    <span>Project</span>
+                  </a>
+                </Link>
+                <Link href="/for-english">
+                  <a>
+                    <span>
+                      <FaHome />
+                    </span>
+                    <span>For English</span>
+                  </a>
+                </Link>
+                <Link href="/contact">
+                  <a>
+                    <span>
+                      <FaHome />
+                    </span>
+                    <span>Contact</span>
+                  </a>
+                </Link>
+              </span>
+            ) : (
+              ''
+            )}
+          </li>
+        </ul>
       </header>
       {show ? renderSearchBar() : ''}
     </>

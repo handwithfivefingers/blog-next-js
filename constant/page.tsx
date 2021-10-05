@@ -186,7 +186,7 @@ export const Pages = {
   AboutUs: 'cG9zdDoxMjk=',
   Story: 'cG9zdDo3',
   Search: 'cG9zdDoyNTkz',
-  ForEnglish: '',
+  ForEnglish: 'cG9zdDoyNjEz',
   Project: 'cG9zdDo3Mg==',
   ContactUs: 'cG9zdDoyMzA3',
 };
