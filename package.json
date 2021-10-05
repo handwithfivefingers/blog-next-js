@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@apollo/client": "^3.4.10",
@@ -38,6 +39,7 @@
     "@types/react": "^17.0.19",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
+    "next-sitemap": "^1.6.173",
     "sass-loader": "^12.1.0",
     "typescript": "^4.4.2",
     "url-loader": "^4.1.1"

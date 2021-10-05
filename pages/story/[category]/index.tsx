@@ -40,7 +40,7 @@ const Categories = ({ cate }) => {
           }
           fragment NodeWithFeaturedImageToMediaItemConnectionEdgeFragment on NodeWithFeaturedImageToMediaItemConnectionEdge {
             node {
-              link
+              mediaItemUrl
             }
           }
           fragment CategoryToPostConnectionFragment on CategoryToPostConnection {
@@ -90,7 +90,7 @@ const Categories = ({ cate }) => {
             id={post.id}
             link={post.uri}
             title={post.title}
-            image={post.featuredImage?.node.link}
+            image={post.featuredImage?.node.mediaItemUrl}
             categories={post.categories}
             views={post.views.views}
           />
