@@ -2,98 +2,103 @@ import { gql } from '@apollo/client';
 import client from '../apollo-client';
 
 export const PostsQuery = gql`
-query MyQuery($first: Int = 12, $last: Int = null, $before: String = "", $after: String = "") {
-  posts(first: $first, after:$after, before:$before,last:$last) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-      startCursor
-      endCursor
-      seo {
-        schema {
-          raw
-        }
-      }
-    }
-    edges {
-      node {
-        featuredImage {
-          node {
-            mediaItemUrl
+  query MyQuery(
+    $first: Int = 12
+    $last: Int = null
+    $before: String = ""
+    $after: String = ""
+  ) {
+    posts(first: $first, after: $after, before: $before, last: $last) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+        seo {
+          schema {
+            raw
           }
         }
-        id
-        link
-        title
-        uri
-        views {
-          views
-        }
-        categories {
-          edges {
+      }
+      edges {
+        node {
+          featuredImage {
             node {
-              name
-              uri
+              mediaItemUrl
+            }
+          }
+          id
+          link
+          title
+          uri
+          views {
+            views
+          }
+          categories {
+            edges {
+              node {
+                name
+                uri
+              }
             }
           }
         }
       }
     }
   }
-},
 `;
 
 export const FetchSinglePost = gql`
-query MyQuery($slug: String = "") {
-      postBy(slug: $slug) {
-        title
-        content
-        link
-        postId
-        featuredImage {
-          node {
-            mediaItemUrl
-          }
-        }
-        categories {
-          edges {
-            node {
-              name
-            }
-          }
+  query MyQuery($slug: String = "") {
+    postBy(slug: $slug) {
+      title
+      content
+      link
+      postId
+      featuredImage {
+        node {
+          mediaItemUrl
         }
       }
-    }
-`;
-export const SearchPostQuery = gql`
-query MyQuery($search: String = "") {
-  posts(where: {search: $search}) {
-    edges {
-      node {
-        id
-        title
-        uri
-        views {
-          views
-        }
-        categories {
-          edges {
-           node {
-            uri
-            name
-           }
-          }
-        }
-
-        featuredImage {
+      categories {
+        edges {
           node {
-            mediaItemUrl
+            name
           }
         }
       }
     }
   }
-}
+`;
+export const SearchPostQuery = gql`
+  query MyQuery($search: String = "") {
+    posts(where: { search: $search }) {
+      edges {
+        node {
+          id
+          title
+          uri
+          views {
+            views
+          }
+          categories {
+            edges {
+              node {
+                uri
+                name
+              }
+            }
+          }
+
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const FetchAllPost = client.query({
@@ -128,11 +133,23 @@ export const FetchAllPost = client.query({
   `,
 });
 
-export const searchQuery = (search) => {
+export const searchQuery = ({ search, first, last, before, after }) => {
   const query = client.query({
     query: gql`
-      query MyQuery($search: String = null) {
-        posts(first: 12, where: { search: $search }) {
+      query MyQuery(
+        $search: String = null
+        $after: String
+        $before: String
+        $first: Int = 12
+        $last: Int = null
+      ) {
+        posts(
+          first: $first
+          last: $last
+          before: $before
+          after: $after
+          where: { search: $search }
+        ) {
           edges {
             node {
               id
@@ -149,7 +166,6 @@ export const searchQuery = (search) => {
                   }
                 }
               }
-
               featuredImage {
                 node {
                   mediaItemUrl
@@ -157,10 +173,16 @@ export const searchQuery = (search) => {
               }
             }
           }
+          pageInfo {
+            endCursor
+            hasNextPage
+            hasPreviousPage
+            startCursor
+          }
         }
       }
     `,
-    variables: {search},
+    variables: { search, first, last, before, after },
   });
   return query;
 };

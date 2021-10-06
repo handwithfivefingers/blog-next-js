@@ -7,15 +7,31 @@ import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
 import Content from '../../components/Content';
 const Search = (props) => {
-  const [data, setData] = useState(null);
+  const [post, setPost] = useState(null);
   const router = useRouter();
+
+  const [pagi, setPagi] = useState({
+    before: false,
+    after: false,
+    start: '',
+    end: '',
+  });
+
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await searchQuery(router.query.search);
-      setData(data);
-    };
-    fetchData();
+    fetchData({});
   }, [router.query.search]);
+
+  useEffect(() => {
+    let pageInfo = post?.posts.pageInfo;
+    pageInfo &&
+      setPagi({
+        before: pageInfo.hasPreviousPage,
+        start: pageInfo.startCursor,
+        end: pageInfo.endCursor,
+        after: pageInfo.hasNextPage,
+      });
+  }, [post]);
+
   const renderBlogPost = (posts) => {
     let xhtml = null;
     xhtml = posts.map((item) => {
@@ -37,6 +53,27 @@ const Search = (props) => {
     });
     return xhtml;
   };
+
+  const fetchData = async ({
+    first = 12,
+    last = null,
+    before = '',
+    after = '',
+  }) => {
+    scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    const { data } = await searchQuery({
+      first,
+      last,
+      before,
+      after,
+      search: router.query.search,
+    });
+    setPost(data);
+  };
+
   const renderLoading = () => {
     let xhtml = [];
     for (let i = 0; i < 12; i++) {
@@ -50,15 +87,53 @@ const Search = (props) => {
     }
     return xhtml;
   };
-  console.log('router', router.query.search, data);
-  return (
+  return post ? (
     <Content
       title={`Tìm kiếm về: ${router.query.search}`}
       content={
         <div className={styles.wrapper}>
           <div className="row" style={{ margin: 0 }}>
             <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}></h2>
-            {data ? renderBlogPost(data.posts.edges) : renderLoading()}
+            {renderBlogPost(post.posts.edges)}
+            <div className="pagination">
+              <span
+                className={`prev-pagination ${
+                  pagi.before ? 'active' : 'disabled'
+                }`}
+                onClick={() => {
+                  pagi?.before
+                    ? fetchData({
+                        first: null,
+                        last: 12,
+                        before: pagi?.start,
+                      })
+                    : '';
+                }}
+              >
+                Previous
+              </span>
+              <span
+                className={`next-pagination ${
+                  pagi.after ? 'active' : 'disabled'
+                }`}
+                onClick={() => {
+                  pagi?.end ? fetchData({ after: pagi?.end }) : '';
+                }}
+              >
+                Next
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+    />
+  ) : (
+    <Content
+      content={
+        <div className={styles.wrapper}>
+          <div className="row" style={{ margin: 0 }}>
+            <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}></h2>
+            {renderLoading()}
           </div>
         </div>
       }

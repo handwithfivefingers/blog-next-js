@@ -168,9 +168,9 @@ const Header = ({ loading }) => {
               </a>
             </Link>
           </li>
-          <li className={`${styles.menu_item}`}>
+          <li className={`${styles.menu_item}`} onClick={() => setShow(!show)}>
             <span>
-              <FaSearch onClick={() => setShow(!show)} />
+              <FaSearch />
             </span>
           </li>
           <li

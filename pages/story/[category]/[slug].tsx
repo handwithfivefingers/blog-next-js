@@ -11,7 +11,7 @@ import { NextSeo } from 'next-seo';
 import Content from '../../../components/Content';
 const Post = ({ postBy }) => {
   const router = useRouter();
-  useEffect(() => {
+  useEffect(() => { // Count views
     if (postBy?.postId) {
       const res = fetch(
         `${process.env.NEXT_PUBLIC_WORDPRESS_POST_VIEW_URL}/${postBy.postId}`,
@@ -98,7 +98,8 @@ const Post = ({ postBy }) => {
                   }}
                 />
               </div>
-              <div className="col-md-3 col-sm-12 col-xs-12">
+              <div className="col-md-12 col-sm-12 col-xs-12">
+                Related Post
                 {/* <Sidebar categoryPost={router.query.category} /> */}
               </div>
             </div>

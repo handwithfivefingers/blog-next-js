@@ -10,70 +10,31 @@ import parser from 'react-html-parser';
 import Skeleton from 'react-loading-skeleton';
 import Loading from '../../../components/Loading';
 import Content from '../../../components/Content';
+import { getCategoriesBySlug } from '../../../constant/category';
 const Categories = ({ cate }) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [post, setPost] = useState(null);
+  const [pagi, setPagi] = useState({
+    before: false,
+    after: false,
+    start: '',
+    end: '',
+  });
+
   useEffect(() => {
-    setLoading(true);
-    const fetchPost = async () => {
-      const { data } = await client.query({
-        query: gql`
-          query MyQuery($slug: [String] = "") {
-            categories(where: { slug: $slug }) {
-              edges {
-                node {
-                  name
-                  uri
-                  posts(first: 12, before: "", after: "") {
-                    ...CategoryToPostConnectionFragment
-                    pageInfo {
-                      startCursor
-                      hasPreviousPage
-                      hasNextPage
-                      endCursor
-                    }
-                  }
-                }
-              }
-            }
-          }
-          fragment NodeWithFeaturedImageToMediaItemConnectionEdgeFragment on NodeWithFeaturedImageToMediaItemConnectionEdge {
-            node {
-              mediaItemUrl
-            }
-          }
-          fragment CategoryToPostConnectionFragment on CategoryToPostConnection {
-            nodes {
-              id
-              title
-              uri
-              featuredImage {
-                ...NodeWithFeaturedImageToMediaItemConnectionEdgeFragment
-              }
-              categories {
-                edges {
-                  node {
-                    name
-                    uri
-                  }
-                }
-              }
-              views {
-                views
-              }
-            }
-          }
-        `,
-        variables: {
-          slug: router.query.category,
-        },
-      });
-      setPost(data);
-      setLoading(false);
-    };
-    fetchPost();
+    fetchPost({});
   }, [router.query.category]);
+
+  useEffect(() => {
+    let pageInfo = post?.categories.edges[0].node.posts.pageInfo;
+    pageInfo &&
+      setPagi({
+        before: pageInfo.hasPreviousPage,
+        start: pageInfo.startCursor,
+        end: pageInfo.endCursor,
+        after: pageInfo.hasNextPage,
+      });
+  }, [post]);
 
   const renderCategoriesList = (postData) => {
     // console.log(router.query.category);
@@ -112,13 +73,28 @@ const Categories = ({ cate }) => {
     }
     return xhtml;
   };
-
+  const fetchPost = async ({
+    first = 12,
+    last = null,
+    before = '',
+    after = '',
+  }) => {
+    scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    const { data } = await getCategoriesBySlug({
+      first,
+      last,
+      slug: router.query.category,
+      before,
+      after,
+    });
+    setPost(data);
+  };
   return (
     <div>
       <Head>{parser(cate[0].seo.fullHead)}</Head>
-      {/* <div className={styles.wrapper}>
-        <div className="row" style={{ margin: 0 }}>
-          <PageHeader title={post?.categories.edges[0].node.name} /> */}
       {post ? (
         <Content
           title={post?.categories.edges[0].node.name}
@@ -126,6 +102,35 @@ const Categories = ({ cate }) => {
             <div className={styles.wrapper}>
               <div className="row" style={{ margin: 0 }}>
                 {renderCategoriesList(post?.categories)}
+
+                <div className="pagination">
+                  <span
+                    className={`prev-pagination ${
+                      pagi.before ? 'active' : 'disabled'
+                    }`}
+                    onClick={() => {
+                      pagi?.before
+                        ? fetchPost({
+                            first: null,
+                            last: 12,
+                            before: pagi?.start,
+                          })
+                        : '';
+                    }}
+                  >
+                    Previous
+                  </span>
+                  <span
+                    className={`next-pagination ${
+                      pagi.after ? 'active' : 'disabled'
+                    }`}
+                    onClick={() => {
+                      pagi?.end ? fetchPost({ after: pagi?.end }) : '';
+                    }}
+                  >
+                    Next
+                  </span>
+                </div>
               </div>
             </div>
           }

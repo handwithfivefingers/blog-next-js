@@ -161,10 +161,6 @@ export const aboutUsPage = client.query({
   `,
 });
 
-// export const projectPage = client.query({
-//   query: gql``,
-// });
-
 export const catePage = client.query({
   query: gql`
     query MyQuery($slug: [String] = null) {

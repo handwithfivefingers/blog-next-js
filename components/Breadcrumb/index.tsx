@@ -5,7 +5,7 @@ import { RouterPath } from './../../constant/router';
 import Link from 'next/link';
 const Breadcrumb = (props) => {
   const router = useRouter();
-  console.log(router);
+  // console.log(router);
   const SlicePath = () => {
     let xhtml = null;
     let path = router.asPath;
@@ -14,10 +14,9 @@ const Breadcrumb = (props) => {
       let alotOfPath = RouterPath.filter(
         (routerItem) => routerItem.path === item,
       );
-      // console.log(index, path.split('/').length);
       if (index === path.split('/').length - 1) {
         return (
-          <li>
+          <li key={index}>
             <span className={styles.title}>
               <p>{props.title}</p>
             </span>
