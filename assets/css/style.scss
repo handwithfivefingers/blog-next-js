@@ -264,9 +264,12 @@ footer {
   pre {
     white-space: inherit;
   }
+  ul,
+  ol {
+    padding-left: 15px;
+  }
   ul {
     list-style-type: '- ';
-    padding-left: 15px;
   }
   .demo {
     text-overflow: ellipsis;

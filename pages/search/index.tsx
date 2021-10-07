@@ -76,6 +76,7 @@ const Search = (props) => {
               dataLength={post?.length}
               next={() => fetchData({ after: pagi?.end })}
               hasMore={pagi.after}
+              endMessage={<p>Found Nothing ...</p>}
               loader={
                 <>
                   <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
