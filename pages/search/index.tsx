@@ -6,14 +6,13 @@ import { SearchPostQuery, searchQuery } from '../../constant/posts';
 import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
 import Content from '../../components/Content';
+import InfiniteScroll from 'react-infinite-scroll-component';
 const Search = (props) => {
   const [post, setPost] = useState(null);
   const router = useRouter();
 
   const [pagi, setPagi] = useState({
-    before: false,
     after: false,
-    start: '',
     end: '',
   });
 
@@ -21,49 +20,12 @@ const Search = (props) => {
     fetchData({});
   }, [router.query.search]);
 
-  useEffect(() => {
-    let pageInfo = post?.posts.pageInfo;
-    pageInfo &&
-      setPagi({
-        before: pageInfo.hasPreviousPage,
-        start: pageInfo.startCursor,
-        end: pageInfo.endCursor,
-        after: pageInfo.hasNextPage,
-      });
-  }, [post]);
-
-  const renderBlogPost = (posts) => {
-    let xhtml = null;
-    xhtml = posts.map((item) => {
-      return (
-        <div
-          key={item.node.uri}
-          className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
-        >
-          <CardPostStyle1
-            id={item.node?.id}
-            link={`${item.node?.uri}`}
-            title={item.node?.title}
-            image={item.node?.featuredImage?.node?.mediaItemUrl}
-            categories={item.node?.categories}
-            views={item.node?.views.views}
-          />
-        </div>
-      );
-    });
-    return xhtml;
-  };
-
   const fetchData = async ({
     first = 12,
     last = null,
     before = '',
     after = '',
   }) => {
-    scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
     const { data } = await searchQuery({
       first,
       last,
@@ -71,7 +33,21 @@ const Search = (props) => {
       after,
       search: router.query.search,
     });
-    setPost(data);
+    let defaultData = data.posts.edges;
+    let pageInfo = data.posts.pageInfo;
+    setPagi((prevState) => {
+      if (prevState.end == pageInfo.endCursor) {
+        return prevState;
+      } else {
+        return {
+          end: pageInfo.endCursor,
+          after: pageInfo.hasNextPage,
+        };
+      }
+    });
+    let newData =
+      post?.length > 0 ? post.concat(defaultData) : defaultData || defaultData;
+    setPost(() => Array.from(new Set(newData)));
   };
 
   const renderLoading = () => {
@@ -94,8 +70,55 @@ const Search = (props) => {
         <div className={styles.wrapper}>
           <div className="row" style={{ margin: 0 }}>
             <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}></h2>
-            {renderBlogPost(post.posts.edges)}
-            <div className="pagination">
+            <InfiniteScroll
+              className="row"
+              dataLength={post?.length}
+              next={() => fetchData({ after: pagi?.end })}
+              hasMore={pagi.after}
+              loader={
+                <>
+                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                    <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
+                    <Skeleton duration={2} />
+                    <Skeleton count={4} duration={2} />
+                  </div>
+                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                    <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
+                    <Skeleton duration={2} />
+                    <Skeleton count={4} duration={2} />
+                  </div>
+                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                    <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
+                    <Skeleton duration={2} />
+                    <Skeleton count={4} duration={2} />
+                  </div>
+                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                    <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
+                    <Skeleton duration={2} />
+                    <Skeleton count={4} duration={2} />
+                  </div>
+                </>
+              }
+            >
+              {post?.map((item) => {
+                return (
+                  <div
+                    key={item.node.uri}
+                    className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+                  >
+                    <CardPostStyle1
+                      id={item.node?.id}
+                      link={`${item.node?.uri}`}
+                      title={item.node?.title}
+                      image={item.node?.featuredImage?.node?.mediaItemUrl}
+                      categories={item.node?.categories}
+                      views={item.node?.views.views}
+                    />
+                  </div>
+                );
+              })}
+            </InfiniteScroll>
+            {/* <div className="pagination">
               <span
                 className={`prev-pagination ${
                   pagi.before ? 'active' : 'disabled'
@@ -123,6 +146,7 @@ const Search = (props) => {
                 Next
               </span>
             </div>
+           */}
           </div>
         </div>
       }
