@@ -138,7 +138,7 @@ const Blog = (props) => {
             </div>
           )) || (
             <div className="row" style={{ margin: 0 }}>
-              {data ? renderBlogPost(data.posts.edges) : ''}{' '}
+              {data ? renderBlogPost(data.posts.edges) : ''}
               <div className="pagination">
                 <span
                   className={`prev-pagination ${

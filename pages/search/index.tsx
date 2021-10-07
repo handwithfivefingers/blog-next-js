@@ -63,6 +63,7 @@ const Search = (props) => {
     }
     return xhtml;
   };
+
   return post ? (
     <Content
       title={`Tìm kiếm về: ${router.query.search}`}
@@ -77,21 +78,6 @@ const Search = (props) => {
               hasMore={pagi.after}
               loader={
                 <>
-                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
-                    <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
-                    <Skeleton duration={2} />
-                    <Skeleton count={4} duration={2} />
-                  </div>
-                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
-                    <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
-                    <Skeleton duration={2} />
-                    <Skeleton count={4} duration={2} />
-                  </div>
-                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
-                    <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
-                    <Skeleton duration={2} />
-                    <Skeleton count={4} duration={2} />
-                  </div>
                   <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
                     <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
                     <Skeleton duration={2} />
@@ -118,35 +104,6 @@ const Search = (props) => {
                 );
               })}
             </InfiniteScroll>
-            {/* <div className="pagination">
-              <span
-                className={`prev-pagination ${
-                  pagi.before ? 'active' : 'disabled'
-                }`}
-                onClick={() => {
-                  pagi?.before
-                    ? fetchData({
-                        first: null,
-                        last: 12,
-                        before: pagi?.start,
-                      })
-                    : '';
-                }}
-              >
-                Previous
-              </span>
-              <span
-                className={`next-pagination ${
-                  pagi.after ? 'active' : 'disabled'
-                }`}
-                onClick={() => {
-                  pagi?.end ? fetchData({ after: pagi?.end }) : '';
-                }}
-              >
-                Next
-              </span>
-            </div>
-           */}
           </div>
         </div>
       }
