@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 import {
-  FaFacebookF,
-  FaInstagram,
-  FaGooglePlusG,
-  FaPinterestP,
-  FaEye,
+  FaEye, FaFacebookF, FaGooglePlusG, FaInstagram, FaPinterestP
 } from 'react-icons/fa';
 import style from './style.module.scss';
 const CardPostStyle2 = (props) => {
@@ -21,11 +17,25 @@ const CardPostStyle2 = (props) => {
             }}
           >
             <a>
-              <Image src={image} width={250} height={200} layout="responsive" unoptimized={true} alt="..." />
+              <Image
+                src={image}
+                width={250}
+                height={200}
+                layout="responsive"
+                unoptimized={true}
+                alt="..."
+              />
             </a>
           </Link>
         ) : (
-          ''
+          <Image
+            src={`https://i.ytimg.com/vi/L1tx-wAI6Nw/maxresdefault.jpg`}
+            width={250}
+            height={200}
+            layout="responsive"
+            unoptimized={true}
+            alt="..."
+          />
         )}
         <div className={style.card_social}>
           <FaFacebookF />

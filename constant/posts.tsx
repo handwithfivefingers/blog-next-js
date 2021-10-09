@@ -1,52 +1,59 @@
 import { gql } from '@apollo/client';
 import client from '../apollo-client';
 
-export const PostsQuery = gql`
-  query MyQuery(
-    $first: Int = 12
-    $last: Int = null
-    $before: String = ""
-    $after: String = ""
-  ) {
-    posts(first: $first, after: $after, before: $before, last: $last) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-        seo {
-          schema {
-            raw
-          }
-        }
-      }
-      edges {
-        node {
-          featuredImage {
-            node {
-              mediaItemUrl
+export const getPostQuery = ({ after, before, last, first }) => {
+  const res = client.query({
+    query: gql`
+      query MyQuery(
+        $first: Int = 12
+        $last: Int = null
+        $before: String = ""
+        $after: String = ""
+      ) {
+        posts(first: $first, after: $after, before: $before, last: $last) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+            seo {
+              schema {
+                raw
+              }
             }
           }
-          id
-          link
-          title
-          uri
-          views {
-            views
-          }
-          categories {
-            edges {
-              node {
-                name
-                uri
+          edges {
+            node {
+              featuredImage {
+                node {
+                  mediaItemUrl
+                }
+              }
+              id
+              link
+              title
+              uri
+              views {
+                views
+              }
+              categories {
+                edges {
+                  node {
+                    name
+                    uri
+                  }
+                }
               }
             }
           }
         }
       }
-    }
-  }
-`;
+    `,
+    variables: { after, before, first, last },
+    notifyOnNetworkStatusChange: true,
+  });
+  return res;
+};
 
 export const FetchSinglePost = gql`
   query MyQuery($slug: String = "") {

@@ -35,6 +35,7 @@ const Search = (props) => {
     });
     let defaultData = data.posts.edges;
     let pageInfo = data.posts.pageInfo;
+
     setPagi((prevState) => {
       if (prevState.end == pageInfo.endCursor) {
         return prevState;
@@ -70,7 +71,6 @@ const Search = (props) => {
       content={
         <div className={styles.wrapper}>
           <div className="row" style={{ margin: 0 }}>
-            <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}></h2>
             <InfiniteScroll
               className="row"
               dataLength={post?.length}

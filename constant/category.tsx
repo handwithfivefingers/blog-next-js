@@ -136,9 +136,7 @@ export const CategoriesQuery = ({
 
 export const getCategoriesBySlug = ({
   after = '',
-  before = '',
   first = 12,
-  last = null,
   slug = null,
 }) => {
   const query = client.query({
@@ -204,9 +202,7 @@ export const getCategoriesBySlug = ({
     `,
     variables: {
       after,
-      before,
       first,
-      last,
       slug,
     },
   });

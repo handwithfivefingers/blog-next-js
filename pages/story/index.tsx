@@ -1,81 +1,70 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { PostsQuery } from '../../constant/posts';
-import { useQuery } from '@apollo/client';
-import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
-import Skeleton from 'react-loading-skeleton';
-import Head from 'next/head';
-import styles from './style.module.scss';
-import { BlogPage } from '../../constant/page';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-import parser from 'react-html-parser';
-import PageHeader from '../../components/UI/PageHeader';
-import UserContext from '../../helper/Context';
-import CardPostStyle2 from '../../components/UI/CardPost/CardPostStyle2';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import React, { useContext, useEffect, useState } from 'react';
+import parser from 'react-html-parser';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Skeleton from 'react-loading-skeleton';
 import Content from '../../components/Content';
+import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
+import CardPostStyle2 from '../../components/UI/CardPost/CardPostStyle2';
+import { BlogPage } from '../../constant/page';
+import { getPostQuery } from '../../constant/posts';
+import UserContext from '../../helper/Context';
+import styles from './style.module.scss';
+
 type BLogType = {
   data: any;
   posts: any;
 };
+
 const Blog = (props) => {
   const [pagi, setPagi] = useState({
-    before: '',
-    after: '',
+    after: false,
+    end: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState(null);
   const { rowLayout } = useContext<any>(UserContext);
-  const { loading, error, data, refetch } = useQuery(PostsQuery, {
-    variables: { after: '', before: '', first: 12, last: null },
-    notifyOnNetworkStatusChange: true,
-  });
 
   useEffect(() => {
     Aos.init({ duration: 1200, delay: 100 });
   }, []);
 
   useEffect(() => {
-    if (data) {
-      setPagi({
-        before: data.posts.pageInfo.hasPreviousPage,
-        after: data.posts.pageInfo.hasNextPage,
-      });
-    }
-  }, [data]);
+    fetchSinglePost({});
+  }, []);
 
-  const renderBlogPost = (posts) => {
-    let xhtml = null;
-    xhtml = posts.map((item) => {
-      return (
-        <div
-          key={item.node.uri}
-          className={`${
-            rowLayout ? 'col-lg-3 col-md-4 col-sm-6 col-6 mb-4' : 'col-md-12'
-          }`}
-        >
-          {rowLayout ? (
-            <CardPostStyle1
-              id={item.node.id}
-              link={`${item.node.uri}`}
-              title={item.node.title}
-              image={item.node.featuredImage?.node.mediaItemUrl}
-              categories={item.node.categories}
-              views={item.node.views.views}
-            />
-          ) : (
-            <CardPostStyle2
-              id={item.node.id}
-              link={`${item.node.uri}`}
-              title={item.node.title}
-              image={item.node.featuredImage?.node.mediaItemUrl}
-              categories={item.node.categories}
-              views={item.node.views.views}
-            />
-          )}
-        </div>
-      );
+  const fetchSinglePost = async ({
+    first = 12,
+    last = null,
+    before = '',
+    after = '',
+  }) => {
+    setLoading(true);
+
+    const { data } = await getPostQuery({ first, last, before, after });
+    let defaultData = data.posts.edges;
+    let pageInfo = data.posts.pageInfo;
+    setPagi((prevState) => {
+      if (prevState.end == pageInfo.endCursor) {
+        return prevState;
+      } else {
+        return {
+          end: pageInfo.endCursor,
+          after: pageInfo.hasNextPage,
+        };
+      }
     });
-    return xhtml;
+    let newData =
+      posts?.length > 0
+        ? posts.concat(defaultData)
+        : defaultData || defaultData;
+    setPosts(() => Array.from(new Set(newData)));
+    setLoading(false);
   };
+
   const renderLoading = () => {
     let xhtml = [];
     if (rowLayout) {
@@ -110,71 +99,82 @@ const Blog = (props) => {
     }
     return xhtml;
   };
-  const onEventPagination = ({
-    first = 12,
-    last = null,
-    before = '',
-    after = '',
-  }) => {
-    scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-    refetch({ first, last, after, before });
-  };
 
-  if (error) return `Error! ${error}`;
   return (
     <>
       <Head>{parser(props?.page.seo.fullHead)}</Head>
-      <Content
-        img={props.page?.featuredImage?.node.sourceUrl}
-        alt={''}
-        title="Our Story"
-        content={
-          (loading && (
-            <div className="row" style={{ margin: 0 }}>
-              {renderLoading()}
+      {posts ? (
+        <Content
+          img={props.page?.featuredImage?.node.sourceUrl}
+          alt={''}
+          title="Our Story"
+          content={
+            <div className={styles.wrapper}>
+              <InfiniteScroll
+                className="row"
+                style={{ overflow: 'unset' }}
+                dataLength={posts?.length}
+                next={() => fetchSinglePost({ after: pagi?.end })}
+                hasMore={pagi.after}
+                endMessage={<p>Found Nothing ...</p>}
+                loader={
+                  <>
+                    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                      <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
+                      <Skeleton duration={2} />
+                      <Skeleton count={4} duration={2} />
+                    </div>
+                  </>
+                }
+              >
+                {posts?.map((item) => {
+                  return (
+                    <div
+                      key={item.node.uri}
+                      className={`${
+                        rowLayout
+                          ? 'col-lg-3 col-md-4 col-sm-6 col-6 mb-4'
+                          : 'col-md-12'
+                      }`}
+                    >
+                      {rowLayout ? (
+                        <CardPostStyle1
+                          id={item.node.id}
+                          link={`${item.node.uri}`}
+                          title={item.node.title}
+                          image={item.node.featuredImage?.node.mediaItemUrl}
+                          categories={item.node.categories}
+                          views={item.node.views.views}
+                        />
+                      ) : (
+                        <CardPostStyle2
+                          id={item.node.id}
+                          link={`${item.node.uri}`}
+                          title={item.node.title}
+                          image={item.node.featuredImage?.node.mediaItemUrl}
+                          categories={item.node.categories}
+                          views={item.node.views.views}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </InfiniteScroll>
             </div>
-          )) || (
-            <div className="row" style={{ margin: 0 }}>
-              {data ? renderBlogPost(data.posts.edges) : ''}
-              <div className="pagination">
-                <span
-                  className={`prev-pagination ${
-                    pagi.before ? 'active' : 'disabled'
-                  }`}
-                  onClick={() =>
-                    data.posts.pageInfo.hasPreviousPage
-                      ? onEventPagination({
-                          before: data.posts.pageInfo.startCursor,
-                          last: 12,
-                          first: null,
-                        })
-                      : ''
-                  }
-                >
-                  Previous
-                </span>
-                <span
-                  className={`next-pagination ${
-                    pagi.after ? 'active' : 'disabled'
-                  }`}
-                  onClick={() =>
-                    data.posts.pageInfo.hasNextPage
-                      ? onEventPagination({
-                          after: data.posts.pageInfo.endCursor,
-                        })
-                      : ''
-                  }
-                >
-                  Next
-                </span>
+          }
+        />
+      ) : (
+        <Content
+          content={
+            <div className={styles.wrapper}>
+              <div className="row" style={{ margin: 0 }}>
+                <h2 style={{ fontSize: '22px', paddingBottom: '50px' }}></h2>
+                {renderLoading()}
               </div>
             </div>
-          )
-        }
-      />
+          }
+        />
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import client from '../../../apollo-client';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
@@ -11,13 +11,16 @@ import Skeleton from 'react-loading-skeleton';
 import Loading from '../../../components/Loading';
 import Content from '../../../components/Content';
 import { getCategoriesBySlug } from '../../../constant/category';
+import UserContext from '../../../helper/Context';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import CardPostStyle2 from '../../../components/UI/CardPost/CardPostStyle2';
 const Categories = ({ cate }) => {
   const router = useRouter();
   const [post, setPost] = useState(null);
+  const { rowLayout } = useContext<any>(UserContext);
+  const [title, setTitle] = useState('');
   const [pagi, setPagi] = useState({
-    before: false,
     after: false,
-    start: '',
     end: '',
   });
 
@@ -25,113 +28,125 @@ const Categories = ({ cate }) => {
     fetchPost({});
   }, [router.query.category]);
 
-  useEffect(() => {
-    let pageInfo = post?.categories.edges[0].node.posts.pageInfo;
-    pageInfo &&
-      setPagi({
-        before: pageInfo.hasPreviousPage,
-        start: pageInfo.startCursor,
-        end: pageInfo.endCursor,
-        after: pageInfo.hasNextPage,
-      });
-  }, [post]);
-
-  const renderCategoriesList = (postData) => {
-    // console.log(router.query.category);
-    let xhtml = null;
-    // console.log(postData); // -> postdata === categories
-    // categories.edges[0].node.posts.nodes  -> Post node Array
-    xhtml = postData.edges[0].node.posts.nodes.map((post) => {
-      return (
-        <div
-          key={post.id}
-          className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
-        >
-          <CardPostStyle1
-            id={post.id}
-            link={post.uri}
-            title={post.title}
-            image={post.featuredImage?.node.mediaItemUrl}
-            categories={post.categories}
-            views={post.views.views}
-          />
-        </div>
-      );
+  const fetchPost = async ({ first = 12, after = '' }) => {
+    const { data } = await getCategoriesBySlug({
+      first,
+      slug: router.query.category,
+      after,
     });
-    return xhtml;
+    let defaultData = data.categories.edges[0].node.posts.nodes;
+    let pageInfo = data.categories.edges[0].node.posts.pageInfo;
+    title == data.categories.edges[0].node.name
+      ? ''
+      : setTitle(data.categories.edges[0].node.name);
+    setPagi((prevState) => {
+      if (prevState.end == pageInfo.endCursor) {
+        return prevState;
+      } else {
+        return {
+          end: pageInfo.endCursor,
+          after: pageInfo.hasNextPage,
+        };
+      }
+    });
+    let newData =
+      post?.length > 0 ? post.concat(defaultData) : defaultData || defaultData;
+    setPost(() => Array.from(new Set(newData)));
   };
 
   const renderLoading = () => {
     let xhtml = [];
-    for (let i = 0; i < 12; i++) {
-      xhtml.push(
-        <div className="col-3" key={`skeleton-${i}`}>
-          <Skeleton count={1} height={200} />
-          <Skeleton count={4} />
-        </div>,
-      );
+    if (rowLayout) {
+      for (let i = 0; i < 12; i++) {
+        xhtml.push(
+          <div key={i} className="col-lg-3 col-md-4 col-sm-6 col-6 mb-4">
+            <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
+            <Skeleton duration={2} />
+            <Skeleton count={4} duration={2} />
+          </div>,
+        );
+      }
+    } else {
+      for (let i = 0; i < 12; i++) {
+        xhtml.push(
+          <div key={i} className="col-md-12">
+            <div className="row">
+              <div className="col-md-3 col-4">
+                <Skeleton height={150} duration={2} />
+              </div>
+              <div className="col-md-9 col-8">
+                <Skeleton count={2} duration={2} />
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Skeleton count={1} duration={2} />
+                  <Skeleton count={1} duration={2} />
+                </div>
+              </div>
+            </div>
+          </div>,
+        );
+      }
     }
     return xhtml;
   };
-  const fetchPost = async ({
-    first = 12,
-    last = null,
-    before = '',
-    after = '',
-  }) => {
-    scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-    const { data } = await getCategoriesBySlug({
-      first,
-      last,
-      slug: router.query.category,
-      before,
-      after,
-    });
-    setPost(data);
-  };
+
   return (
     <div>
       <Head>{parser(cate[0].seo.fullHead)}</Head>
       {post ? (
         <Content
-          title={post?.categories.edges[0].node.name}
+          title={title}
           content={
             <div className={styles.wrapper}>
-              <div className="row" style={{ margin: 0 }}>
-                {renderCategoriesList(post?.categories)}
-
-                <div className="pagination">
-                  <span
-                    className={`prev-pagination ${
-                      pagi.before ? 'active' : 'disabled'
-                    }`}
-                    onClick={() => {
-                      pagi?.before
-                        ? fetchPost({
-                            first: null,
-                            last: 12,
-                            before: pagi?.start,
-                          })
-                        : '';
-                    }}
-                  >
-                    Previous
-                  </span>
-                  <span
-                    className={`next-pagination ${
-                      pagi.after ? 'active' : 'disabled'
-                    }`}
-                    onClick={() => {
-                      pagi?.end ? fetchPost({ after: pagi?.end }) : '';
-                    }}
-                  >
-                    Next
-                  </span>
-                </div>
-              </div>
+              <InfiniteScroll
+                className="row"
+                style={{ overflow: 'unset' }}
+                dataLength={post?.length}
+                next={() => fetchPost({ after: pagi?.end })}
+                hasMore={pagi.after}
+                endMessage={<p>Found Nothing ...</p>}
+                loader={
+                  <>
+                    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                      <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
+                      <Skeleton duration={2} />
+                      <Skeleton count={4} duration={2} />
+                    </div>
+                  </>
+                }
+              >
+                {post?.map((item) => {
+                  return (
+                    <div
+                      key={item.uri}
+                      className={`${
+                        rowLayout
+                          ? 'col-lg-3 col-md-4 col-sm-6 col-6 mb-4'
+                          : 'col-md-12'
+                      }`}
+                    >
+                      {rowLayout ? (
+                        <CardPostStyle1
+                          id={item.id}
+                          link={item.uri}
+                          title={item.title}
+                          image={item.featuredImage?.node.mediaItemUrl}
+                          categories={item.categories}
+                          views={item.views.views}
+                        />
+                      ) : (
+                        <CardPostStyle2
+                          id={item.id}
+                          link={`${item.uri}`}
+                          title={item.title}
+                          image={item.featuredImage?.node.mediaItemUrl}
+                          categories={item.categories}
+                          views={item.views.views}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </InfiniteScroll>
             </div>
           }
         />
@@ -147,8 +162,6 @@ const Categories = ({ cate }) => {
           }
         />
       )}
-      {/* </div>
-      </div> */}
     </div>
   );
 };
