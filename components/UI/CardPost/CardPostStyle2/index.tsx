@@ -2,7 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import {
-  FaEye, FaFacebookF, FaGooglePlusG, FaInstagram, FaPinterestP
+  FaEye,
+  FaFacebookF,
+  FaGooglePlusG,
+  FaInstagram,
+  FaPinterestP,
 } from 'react-icons/fa';
 import style from './style.module.scss';
 const CardPostStyle2 = (props) => {
@@ -10,12 +14,12 @@ const CardPostStyle2 = (props) => {
   return (
     <div className={style.card_post}>
       <div className={style.card_image}>
-        {image ? (
-          <Link
-            href={{
-              pathname: link,
-            }}
-          >
+        <Link
+          href={{
+            pathname: link,
+          }}
+        >
+          {image ? (
             <a>
               <Image
                 src={image}
@@ -26,17 +30,19 @@ const CardPostStyle2 = (props) => {
                 alt="..."
               />
             </a>
-          </Link>
-        ) : (
-          <Image
-            src={`https://i.ytimg.com/vi/L1tx-wAI6Nw/maxresdefault.jpg`}
-            width={250}
-            height={200}
-            layout="responsive"
-            unoptimized={true}
-            alt="..."
-          />
-        )}
+          ) : (
+            <a>
+              <Image
+                src={`https://i.ytimg.com/vi/L1tx-wAI6Nw/maxresdefault.jpg`}
+                width={250}
+                height={200}
+                layout="responsive"
+                unoptimized={true}
+                alt="..."
+              />
+            </a>
+          )}
+        </Link>
         <div className={style.card_social}>
           <FaFacebookF />
           <FaInstagram />
@@ -63,8 +69,8 @@ const CardPostStyle2 = (props) => {
 
         <div className={style.card_action}>
           <span>
-            {categories.edges !== undefined
-              ? categories.edges.map((item, index) => {
+            {categories?.edges !== undefined
+              ? categories?.edges.map((item, index) => {
                   return (
                     <Link
                       key={item.node.uri + '-' + index}

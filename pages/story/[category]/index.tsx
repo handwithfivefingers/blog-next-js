@@ -14,6 +14,7 @@ import { getCategoriesBySlug } from '../../../constant/category';
 import UserContext from '../../../helper/Context';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CardPostStyle2 from '../../../components/UI/CardPost/CardPostStyle2';
+import SkeletonLoading from '../../../components/UI/SkeletonLoading';
 const Categories = ({ cate }) => {
   const router = useRouter();
   const [post, setPost] = useState(null);
@@ -104,15 +105,7 @@ const Categories = ({ cate }) => {
                 next={() => fetchPost({ after: pagi?.end })}
                 hasMore={pagi.after}
                 endMessage={<p>Found Nothing ...</p>}
-                loader={
-                  <>
-                    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
-                      <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
-                      <Skeleton duration={2} />
-                      <Skeleton count={4} duration={2} />
-                    </div>
-                  </>
-                }
+                loader={<SkeletonLoading />}
               >
                 {post?.map((item) => {
                   return (

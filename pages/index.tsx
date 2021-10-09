@@ -12,6 +12,7 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import Link from 'next/link';
 import { useAppSelector } from '../redux/store/hook';
+import CarouselBanner from '../components/UI/CarouselBanner';
 
 export default function Home({ page }) {
   const [name, setName] = useState('');
@@ -38,8 +39,6 @@ export default function Home({ page }) {
         setName('');
       });
   };
-  // const state = useAppSelector((state) => state.ModalReducer);
-  // console.log(state);
   useEffect(() => {
     Aos.init({ duration: 600, offset: -100 });
   }, []);
@@ -115,6 +114,7 @@ export default function Home({ page }) {
   };
   //Section 3
   const renderSection3 = () => {
+    console.log(section?.section3);
     let xhtml = null;
     let section3 = section?.section3;
     xhtml = (
@@ -143,7 +143,11 @@ export default function Home({ page }) {
           <div className="col-12">
             <h2
               className={styles.title}
-              style={{ textAlign: 'center', color: 'rgb(0 0 0/75%)' }}
+              style={{
+                textAlign: 'center',
+                color: 'rgb(0 0 0/75%)',
+                fontSize: '22px',
+              }}
             >
               Tell us your story
             </h2>
@@ -195,6 +199,7 @@ export default function Home({ page }) {
          */}
         {section.section3 ? renderSection3() : ''}
 
+    
         <div
           className="row"
           data-aos="fade-zoom-in"

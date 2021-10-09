@@ -23,8 +23,8 @@ export const RouterPath = [
     name: 'Chia Sẻ',
   },
   {
-    path: 'for-english',
-    pathname: '/for-english',
+    path: 'english',
+    pathname: '/english',
     name: 'For English',
   },
   {
@@ -33,8 +33,8 @@ export const RouterPath = [
     name: 'About Us',
   },
   {
-    path: 'project-program',
-    pathname: '/project-program',
+    path: 'project',
+    pathname: '/project',
     name: 'Project/Programs',
   },
   {

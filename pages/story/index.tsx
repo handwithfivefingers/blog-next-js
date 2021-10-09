@@ -9,6 +9,7 @@ import Skeleton from 'react-loading-skeleton';
 import Content from '../../components/Content';
 import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
 import CardPostStyle2 from '../../components/UI/CardPost/CardPostStyle2';
+import SkeletonLoading from '../../components/UI/SkeletonLoading';
 import { BlogPage } from '../../constant/page';
 import { getPostQuery } from '../../constant/posts';
 import UserContext from '../../helper/Context';
@@ -117,15 +118,7 @@ const Blog = (props) => {
                 next={() => fetchSinglePost({ after: pagi?.end })}
                 hasMore={pagi.after}
                 endMessage={<p>Found Nothing ...</p>}
-                loader={
-                  <>
-                    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
-                      <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
-                      <Skeleton duration={2} />
-                      <Skeleton count={4} duration={2} />
-                    </div>
-                  </>
-                }
+                loader={<SkeletonLoading />}
               >
                 {posts?.map((item) => {
                   return (

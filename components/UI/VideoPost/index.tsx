@@ -15,7 +15,7 @@ const VideoPost = ({ link }) => {
           src={`https://img.youtube.com/vi/${link}/0.jpg`}
           layout="responsive"
           width="250"
-          height="300"
+          height="200"
           unoptimized={true}
           alt="..."
           onClick={(e) => {

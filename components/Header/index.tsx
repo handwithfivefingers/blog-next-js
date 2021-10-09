@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, InputHTMLAttributes } from 'react';
 import MenuLink from '../UI/MenuLink';
 import { useRouter } from 'next/router';
 import { FaSearch, FaTimes, FaHome, FaEllipsisH } from 'react-icons/fa';
@@ -16,11 +16,11 @@ const linkList = [
     name: 'Our Story',
   },
   {
-    path: '/for-english',
-    name: 'For English',
+    path: '/english',
+    name: 'English',
   },
   {
-    path: '/project-program',
+    path: '/project',
     name: 'Project/Program',
   },
   {
@@ -37,6 +37,8 @@ const Header = ({ loading }) => {
   const [goingUp, setGoingUp] = useState(true);
 
   const headerRef = useRef<HTMLBaseElement>();
+  const searchRef = useRef<HTMLInputElement>();
+
   const router = useRouter();
   const searchPush = () => {
     setShow(false);
@@ -74,15 +76,22 @@ const Header = ({ loading }) => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [top]);
+  useEffect(() => {
+    if (show && searchRef) {
+      console.log(searchRef);
+      searchRef?.current.focus();
+    }
+  }, [show, searchRef]);
   const renderSearchBar = () => {
     let xhtml = null;
     xhtml = (
-      <div className={styles.SearchModal}>
+      <div className={`${styles.SearchModal} ${show ? styles.active : ''}`}>
         <div className={styles.SearchModalBody}>
           <input
             placeholder="Search here..."
             type="text"
             onChange={(e) => setSearch(e.target.value)}
+            ref={searchRef}
           />
           <button onClick={() => searchPush()}>
             <FaSearch />
@@ -196,7 +205,7 @@ const Header = ({ loading }) => {
             </span>
             {mMenu ? (
               <span className={styles.menu_dropdown}>
-                <Link href="/project-program">
+                <Link href="/project">
                   <a>
                     <span>
                       <FaHome />
@@ -204,12 +213,12 @@ const Header = ({ loading }) => {
                     <span>Project</span>
                   </a>
                 </Link>
-                <Link href="/for-english">
+                <Link href="/english">
                   <a>
                     <span>
                       <FaHome />
                     </span>
-                    <span>For English</span>
+                    <span>English</span>
                   </a>
                 </Link>
                 <Link href="/contact">
@@ -227,7 +236,7 @@ const Header = ({ loading }) => {
           </li>
         </ul>
       </header>
-      {show ? renderSearchBar() : ''}
+      {renderSearchBar()}
     </>
   );
 };

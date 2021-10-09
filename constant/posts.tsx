@@ -140,6 +140,47 @@ export const FetchAllPost = client.query({
   `,
 });
 
+export const fetchEnglishQuery = ({ first, after }) => {
+  const res = client.query({
+    query: gql`
+      query MyQuery($after: String, $first: Int = 12) {
+        allEnglish(first: $first, after: $after) {
+          edges {
+            node {
+              id
+              title
+              slug
+              uri
+              views {
+                views
+              }
+              featuredImage {
+                node {
+                  sourceUrl(size: MEDIUM)
+                }
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            seo {
+              schema {
+                raw
+              }
+            }
+            hasNextPage
+          }
+        }
+      }
+    `,
+    variables: {
+      first,
+      after,
+    },
+  });
+  return res;
+};
+
 export const searchQuery = ({ search, first, last, before, after }) => {
   const query = client.query({
     query: gql`

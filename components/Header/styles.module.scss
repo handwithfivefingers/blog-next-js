@@ -261,7 +261,12 @@
   width: 100%;
   background-color: rgb(255, 255, 255, 0.9);
   z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
   .SearchModalBody {
+    transition: 0.3s;
+    opacity: 0;
     top: 50%;
     position: relative;
     display: flex;
@@ -274,25 +279,38 @@
       max-width: 400px;
       min-width: 200px;
       width: calc(100% - 60px);
-      border: 1px solid transparent;
+      border: 2px solid transparent;
       background: rgb(0, 0, 0, 0.1);
       padding: 8px 20px;
       border-radius: 5px 0 0 5px;
       box-sizing: border-box;
+      transition: 0.4s;
+      &:focus {
+        border: 2px solid var(--main-second-color);
+      }
     }
     button {
       width: 50px;
       border-radius: 0 5px 5px 0;
       cursor: pointer;
+      background-color:var(--main-second-color);
       svg {
+        transition:0.2s;
         transform: translateY(2px);
       }
       &:hover {
         svg {
-          color: var(--main-second-color);
+          color: #fff;
         }
       }
     }
+  }
+}
+.active {
+  opacity: 1;
+  visibility: visible;
+  .SearchModalBody {
+    opacity: 1;
   }
 }
 .GoBack {
@@ -301,6 +319,9 @@
   top: 30px;
   font-size: 24px;
   cursor: pointer;
+  svg {
+    transition: 0.2s;
+  }
   &:hover {
     svg {
       color: var(--main-second-color);

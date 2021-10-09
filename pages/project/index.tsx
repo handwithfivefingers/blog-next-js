@@ -5,7 +5,7 @@ import parser from 'react-html-parser';
 import Head from 'next/head';
 import client from '../../apollo-client';
 import { gql, useQuery } from '@apollo/client';
-import CardProject from './../../components/UI/CardProject';
+import CardProject from '../../components/UI/CardProject';
 import Content from '../../components/Content';
 const Project = (props) => {
   const { loading, error, data, refetch } = useQuery(

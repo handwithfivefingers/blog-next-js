@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import CardPostStyle1 from '../CardPost/CardPostStyle1';
 import VideoPost from '../VideoPost';
-import styles from './Carousel.module.scss';
+import styles from './style.module.scss';
+import Image from 'next/image';
 
 /**
  * @function renderCarousel
@@ -10,7 +11,7 @@ import styles from './Carousel.module.scss';
  * @param { null } typpe
  * @returns { Carousel }
  */
-const Carousel = ({ item, column, type = null }) => {
+const CarouselBanner = ({ item, column }) => {
   const [current, setCurrent] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -25,63 +26,30 @@ const Carousel = ({ item, column, type = null }) => {
   // }, []);
   const renderListSlider = () => {
     let xhtml = [];
-    if (!type) {
-      for (let i = 0; i < item.length; i++) {
-        let style = {
-          '--offset': i - current,
-          '--dir': column,
-        } as React.CSSProperties;
-        xhtml.push(
-          <div className={styles.slide} style={style} key={i}>
-            <div className={styles.slide_wrapper}>
-              <CardPostStyle1
-                id={item[i].id}
-                title={item[i].title}
-                image={item[i].featuredImage?.node.sourceUrl}
-                categories={item[i].categories}
-                link={item[i].uri}
-                views={item[i].views}
-              />
-            </div>
-          </div>,
-        );
-      }
-    } else if (type === 'link') {
-      for (let i = 0; i < item.length; i++) {
-        let style = {
-          '--offset': i - current,
-          '--dir': column,
-        } as React.CSSProperties;
-        xhtml.push(
-          <div className={styles.slide} style={style} key={i}>
-            <div className={styles.slide_wrapper}>
-              {/* <CardPostStyle1 type="link" link={item[i]?.section2LinkItem} /> */}
-              <VideoPost link={item[i]?.section2LinkItem} />
-            </div>
-          </div>,
-        );
-      }
-    } else if (type === 'banner') {
-      for (let i = 0; i < item.length; i++) {
-        let style = {
-          '--offset': i - current,
-          '--dir': column,
-        } as React.CSSProperties;
-        xhtml.push(
-          <div className={styles.slide} style={style} key={i}>
-            <div className={styles.slide_wrapper}>
-              <CardPostStyle1
-                id={item[i].id}
-                title={item[i].title}
-                image={item[i].featuredImage?.node.sourceUrl}
-                categories={item[i].categories}
-                link={item[i].uri}
-                views={item[i].views}
-              />
-            </div>
-          </div>,
-        );
-      }
+    for (let i = 0; i < item.length; i++) {
+      let style = {
+        '--offset': i - current,
+        '--dir': column,
+      } as React.CSSProperties;
+      xhtml.push(
+        <div className={styles.slide} style={style} key={i}>
+          <div className={styles.slide_wrapper}>
+            <Image
+              src={item[i].image}
+              width={1200}
+              height={300}
+              layout="responsive"
+              unoptimized={true}
+              alt="..."
+            />
+          </div>
+          <div className={styles.content}>
+            <h2>{item[i].title}</h2>
+            <p>.......... ..... .... ........ ............</p>
+            <button className="btn"> Xem Thêm</button>
+          </div>
+        </div>,
+      );
     }
 
     return xhtml;
@@ -134,31 +102,32 @@ const Carousel = ({ item, column, type = null }) => {
   };
   const condition = () => {
     // Desktop low and high resolution
-    if (column === 2 && winWidth > 990) {
-      return 2;
-    } else if (column === 3 && winWidth > 990) {
-      return 3;
-    } else if (column === 4 && winWidth > 990) {
-      return 4;
-    } else if (column === 5 && winWidth > 990) {
-      return 5;
-    }
-    // Tablet high resolution
-    else if (column > 2 && winWidth <= 990 && winWidth > 768) {
-      return 2;
-    } else if (column === 2 && winWidth <= 990 && winWidth > 768) {
-      return 2;
-    }
-    // Tablet low resolution
-    else if (column > 1 && winWidth <= 768 && winWidth > 550) {
-      return 2;
-    } else if (column === 1 && winWidth <= 768 && winWidth > 550) {
-      return 1;
-    }
-    // Mobile
-    else if (column >= 1 && winWidth <= 550) {
-      return 1;
-    }
+    // if (column === 2 && winWidth > 990) {
+    //   return 2;
+    // } else if (column === 3 && winWidth > 990) {
+    //   return 3;
+    // } else if (column === 4 && winWidth > 990) {
+    //   return 4;
+    // } else if (column === 5 && winWidth > 990) {
+    //   return 5;
+    // }
+    // // Tablet high resolution
+    // else if (column > 2 && winWidth <= 990 && winWidth > 768) {
+    //   return 2;
+    // } else if (column === 2 && winWidth <= 990 && winWidth > 768) {
+    //   return 2;
+    // }
+    // // Tablet low resolution
+    // else if (column > 1 && winWidth <= 768 && winWidth > 550) {
+    //   return 2;
+    // } else if (column === 1 && winWidth <= 768 && winWidth > 550) {
+    //   return 1;
+    // }
+    // // Mobile
+    // else if (column >= 1 && winWidth <= 550) {
+    //   return 1;
+    // }
+    return 1;
   };
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
@@ -178,11 +147,6 @@ const Carousel = ({ item, column, type = null }) => {
       prevEvent(width);
     }
   };
-
-  // const matchScreenSize = () => {
-  //   const handler = (e) => setWindowMatches(e.matches);
-  //   window.matchMedia('(max-width: 1300px)').addListener(handler);
-  // };
 
   return (
     <div className={styles.row}>
@@ -215,4 +179,4 @@ const Carousel = ({ item, column, type = null }) => {
   );
 };
 
-export default Carousel;
+export default CarouselBanner;

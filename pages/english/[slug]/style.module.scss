@@ -1,0 +1,44 @@
+.header_content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 20px 10px;
+  .imageFeature {
+    width: 50%;
+    max-width: 50%;
+    height: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .title {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+  }
+  @media (max-width: 990px) {
+  }
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    .imageFeature {
+      width: auto;
+      max-width: 100%;
+    }
+    h1.title {
+      text-align: center;
+    }
+  }
+  @media (max-width: 525px) {
+    .imageFeature {
+      width: auto;
+      max-width: 100%;
+    }
+  }
+  @media (max-width: 425px) {
+    .imageFeature {
+      width: auto;
+      max-width: 100%;
+    }
+  }
+}

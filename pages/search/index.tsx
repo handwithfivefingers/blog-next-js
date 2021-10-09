@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
 import Content from '../../components/Content';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import SkeletonLoading from '../../components/UI/SkeletonLoading';
 const Search = (props) => {
   const [post, setPost] = useState(null);
   const router = useRouter();
@@ -77,15 +78,7 @@ const Search = (props) => {
               next={() => fetchData({ after: pagi?.end })}
               hasMore={pagi.after}
               endMessage={<p>Found Nothing ...</p>}
-              loader={
-                <>
-                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
-                    <Skeleton style={{ paddingBottom: '75%' }} duration={2} />
-                    <Skeleton duration={2} />
-                    <Skeleton count={4} duration={2} />
-                  </div>
-                </>
-              }
+              loader={<SkeletonLoading />}
             >
               {post?.map((item) => {
                 return (

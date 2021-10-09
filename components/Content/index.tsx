@@ -7,15 +7,19 @@ import Breadcrumb from './../Breadcrumb';
 const Content = (props) => {
   return (
     <>
-      <div
-        className={styles.page_image}
-        style={{ backgroundImage: `url(${props.img})` }}
-      >
-        {props.img ? '' : <Skeleton height={300} />}
-        <div className={styles.breadcrumb}>
-          <Breadcrumb title={props.title} />
+      {props.carousel ? (
+        props.carousel
+      ) : (
+        <div
+          className={styles.page_image}
+          style={{ backgroundImage: `url(${props.img})` }}
+        >
+          {props.img ? '' : <Skeleton height={300} />}
+          <div className={styles.breadcrumb}>
+            <Breadcrumb title={props.title} />
+          </div>
         </div>
-      </div>
+      )}
       <div className="wrapper">
         {props.singlePost ? '' : <PageHeader title={props.title} />}
         {props.content}
