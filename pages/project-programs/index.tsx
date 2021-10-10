@@ -6,7 +6,7 @@ import Head from 'next/head';
 import styles from './style.module.scss';
 import CarouselBanner from '../../components/UI/CarouselBanner';
 import Content from '../../components/Content';
-import { fetchEnglishQuery } from '../../constant/posts';
+import { fetchProjectQuery } from '../../constant/posts';
 import SkeletonLoading from '../../components/UI/SkeletonLoading';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import UserContext from '../../helper/Context';
@@ -17,7 +17,7 @@ import Skeleton from 'react-loading-skeleton';
 
 const baseURL = '/english';
 
-const ForEnglish = (props) => {
+const Project = (props) => {
   const [post, setPost] = useState(null);
   const [pagi, setPagi] = useState({
     after: false,
@@ -27,14 +27,14 @@ const ForEnglish = (props) => {
   const { rowLayout } = useContext<any>(UserContext);
 
   useEffect(() => {
-    fetchEnglishPost({});
+    fetchProjectPost({});
   }, []);
 
-  const fetchEnglishPost = async ({ first = 12, after = '' }) => {
-    const { data } = await fetchEnglishQuery({ first, after });
+  const fetchProjectPost = async ({ first = 12, after = '' }) => {
+    const { data } = await fetchProjectQuery({ first, after });
     console.log(data);
-    let defaultData = data.allEnglish.edges;
-    let pageInfo = data.allEnglish.pageInfo;
+    let defaultData = data.allProject.edges;
+    let pageInfo = data.allProject.pageInfo;
     setPagi((prevState) => {
       if (prevState.end == pageInfo.endCursor) {
         return prevState;
@@ -123,15 +123,16 @@ const ForEnglish = (props) => {
     }
     return xhtml;
   };
+  console.log(post);
   return (
     <>
       <Head>{parser(props?.data.page.seo.fullHead)}</Head>
       <Content
-        title="For English"
+        title="Project/Programs"
         carousel={
           <div className={styles.banner_scroll}>
             {renderSectionTest()}
-            <button className={styles.readMore}>Xem hết khóa học</button>
+            {/* <button className={styles.readMore}>Xem hết khóa học</button> */}
           </div>
         }
         content={
@@ -140,7 +141,7 @@ const ForEnglish = (props) => {
               className="row"
               style={{ overflow: 'unset' }}
               dataLength={post?.length}
-              next={() => fetchEnglishPost({ after: pagi?.end })}
+              next={() => fetchProjectPost({ after: pagi?.end })}
               hasMore={pagi.after}
               endMessage={<p>Found Nothing ...</p>}
               loader={<SkeletonLoading />}
@@ -161,7 +162,7 @@ const ForEnglish = (props) => {
                         link={`${item.node.uri}`}
                         title={item.node.title}
                         image={item.node.featuredImage?.node.mediaItemUrl}
-                        categories={item.node.englishCategories}
+                        categories={item.node.projectCategories}
                         views={item.node.views.views}
                       />
                     ) : (
@@ -170,7 +171,7 @@ const ForEnglish = (props) => {
                         link={`${item.node.uri}`}
                         title={item.node.title}
                         image={item.node.featuredImage?.node.mediaItemUrl}
-                        categories={item.node.englishCategories}
+                        categories={item.node.projectCategories}
                         views={item.node.views.views}
                       />
                     )}
@@ -187,10 +188,10 @@ const ForEnglish = (props) => {
   );
 };
 
-export default ForEnglish;
+export default Project;
 
 export const getServerSideProps = async (context) => {
-  const { data } = await getSinglePage(Pages.ForEnglish);
+  const { data } = await getSinglePage(Pages.Project);
   return {
     props: {
       data: data,

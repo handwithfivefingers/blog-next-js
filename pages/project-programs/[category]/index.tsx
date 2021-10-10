@@ -1,23 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
-import client from '../../../apollo-client';
 import { gql } from '@apollo/client';
-import { useRouter } from 'next/router';
-import styles from './style.module.scss';
-import CardPostStyle1 from '../../../components/UI/CardPost/CardPostStyle1';
-import PageHeader from '../../../components/UI/PageHeader';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useState } from 'react';
 import parser from 'react-html-parser';
-import Skeleton from 'react-loading-skeleton';
-import Loading from '../../../components/Loading';
-import Content from '../../../components/Content';
-import {
-  getCategoriesBySlug,
-  getEnglishCategoriesSlug,
-} from '../../../constant/category';
-import UserContext from '../../../helper/Context';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Skeleton from 'react-loading-skeleton';
+import client from '../../../apollo-client';
+import Content from '../../../components/Content';
+import CardPostStyle1 from '../../../components/UI/CardPost/CardPostStyle1';
 import CardPostStyle2 from '../../../components/UI/CardPost/CardPostStyle2';
 import SkeletonLoading from '../../../components/UI/SkeletonLoading';
+import {
+  getProjectCategoriesSlug
+} from '../../../constant/category';
+import UserContext from '../../../helper/Context';
+import styles from './style.module.scss';
 const Categories = ({ cate }) => {
   const router = useRouter();
   const [post, setPost] = useState(null);
@@ -33,16 +30,17 @@ const Categories = ({ cate }) => {
   }, [router.query.category]);
 
   const fetchPost = async ({ first = 12, after = '' }) => {
-    const { data } = await getEnglishCategoriesSlug({
+    const { data } = await getProjectCategoriesSlug({
       first,
       slug: router.query.category,
       after,
     });
-    let defaultData = data.allEnglishCategories.edges[0].node.english.nodes;
-    let pageInfo = data.allEnglishCategories.edges[0].node.english.pageInfo;
-    title == data.allEnglishCategories.edges[0].node.name
+    console.log('data',data)
+    let defaultData = data.allProjectCategories.edges[0].node.project.nodes;
+    let pageInfo = data.allProjectCategories.edges[0].node.project.pageInfo;
+    title == data.allProjectCategories.edges[0].node.name
       ? ''
-      : setTitle(data.allEnglishCategories.edges[0].node.name);
+      : setTitle(data.allProjectCategories.edges[0].node.name);
     setPagi((prevState) => {
       if (prevState.end == pageInfo.endCursor) {
         return prevState;
@@ -126,7 +124,7 @@ const Categories = ({ cate }) => {
                           link={item.uri}
                           title={item.title}
                           image={item.featuredImage?.node.mediaItemUrl}
-                          categories={item.englishCategories}
+                          categories={item.projectCategories}
                           views={item.views.views}
                         />
                       ) : (
@@ -135,7 +133,7 @@ const Categories = ({ cate }) => {
                           link={`${item.uri}`}
                           title={item.title}
                           image={item.featuredImage?.node.mediaItemUrl}
-                          categories={item.englishCategories}
+                          categories={item.projectCategories}
                           views={item.views.views}
                         />
                       )}

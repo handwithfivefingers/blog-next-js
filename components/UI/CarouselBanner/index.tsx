@@ -17,13 +17,27 @@ const CarouselBanner = ({ item, column }) => {
   const [touchEnd, setTouchEnd] = useState(0);
   const [winWidth, setWidth] = useState(null);
   // const [winMatches, setWindowMatches] = useState(false);
+  const [autoSlide, setAutoSlide] = useState(null);
   useEffect(() => {
     setWidth(window.innerWidth);
+    return () => clearInterval(autoSlide);
   }, [winWidth]);
 
   // useEffect(() => {
   //   matchScreenSize();
   // }, []);
+  useEffect(() => {
+    autoRun();
+    return () => clearInterval(autoSlide);
+  }, []);
+
+  const autoRun = () => {
+    const auto = setInterval(() => {
+      nextEvent();
+    }, 5000);
+    setAutoSlide(auto);
+  };
+
   const renderListSlider = () => {
     let xhtml = [];
     for (let i = 0; i < item.length; i++) {
@@ -92,7 +106,7 @@ const CarouselBanner = ({ item, column }) => {
       } else {
         setCurrent((prevState) => {
           if (prevState >= item.length - columnCondition) {
-            return prevState;
+            return 0;
           } else if (prevState + 1 === item.length - columnCondition) {
             return item.length - columnCondition;
           } else {
@@ -103,32 +117,6 @@ const CarouselBanner = ({ item, column }) => {
     }
   };
   const condition = () => {
-    // Desktop low and high resolution
-    // if (column === 2 && winWidth > 990) {
-    //   return 2;
-    // } else if (column === 3 && winWidth > 990) {
-    //   return 3;
-    // } else if (column === 4 && winWidth > 990) {
-    //   return 4;
-    // } else if (column === 5 && winWidth > 990) {
-    //   return 5;
-    // }
-    // // Tablet high resolution
-    // else if (column > 2 && winWidth <= 990 && winWidth > 768) {
-    //   return 2;
-    // } else if (column === 2 && winWidth <= 990 && winWidth > 768) {
-    //   return 2;
-    // }
-    // // Tablet low resolution
-    // else if (column > 1 && winWidth <= 768 && winWidth > 550) {
-    //   return 2;
-    // } else if (column === 1 && winWidth <= 768 && winWidth > 550) {
-    //   return 1;
-    // }
-    // // Mobile
-    // else if (column >= 1 && winWidth <= 550) {
-    //   return 1;
-    // }
     return 1;
   };
   const handleTouchStart = (e) => {
@@ -159,6 +147,8 @@ const CarouselBanner = ({ item, column }) => {
           onTouchStart={(touchStartEvent) => handleTouchStart(touchStartEvent)}
           onTouchMove={(touchMoveEvent) => handleTouchMove(touchMoveEvent)}
           onTouchEnd={() => handleTouchEnd()}
+          onMouseEnter={() => clearInterval(autoSlide)}
+          onMouseLeave={() => autoRun()}
         >
           {renderListSlider()}
         </div>

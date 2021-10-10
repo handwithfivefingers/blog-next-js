@@ -119,13 +119,6 @@ export const BlogPage = client.query({
   `,
 });
 
-// export const contactPage = client.query({
-//   query: gql``,
-// });
-
-// export const forEnglishPage = client.query({
-//   query: gql``,
-// });
 export const getSinglePage = (id) => {
   const res = client.query({
     query: gql`

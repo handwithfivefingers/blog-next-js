@@ -20,7 +20,7 @@ const linkList = [
     name: 'English',
   },
   {
-    path: '/project',
+    path: '/project-programs',
     name: 'Project/Program',
   },
   {
@@ -213,7 +213,7 @@ const Header = ({ loading }) => {
             </span>
             {mMenu ? (
               <span className={styles.menu_dropdown}>
-                <Link href="/project">
+                <Link href="/project-programs">
                   <a>
                     <span>
                       <FaHome />

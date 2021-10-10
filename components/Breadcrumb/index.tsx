@@ -11,9 +11,8 @@ const Breadcrumb = (props) => {
     let path = router.asPath;
 
     xhtml = path.split('/').map((item, index) => {
-      let alotOfPath = RouterPath.filter(
-        (routerItem) => routerItem.path === item,
-      );
+      let pathArr = RouterPath.filter((routerItem) => routerItem.path === item);
+      console.log(pathArr);
       if (index === path.split('/').length - 1) {
         return (
           <li key={index}>
@@ -29,10 +28,8 @@ const Breadcrumb = (props) => {
       if (RouterPath.filter((routerItem) => routerItem.path === item)) {
         return (
           <li key={item}>
-            <Link href={`${alotOfPath[0].pathname}`}>
-              <a>
-                {alotOfPath[0].icon ? alotOfPath[0].icon : alotOfPath[0].name}
-              </a>
+            <Link href={`${pathArr[0].pathname}`}>
+              <a>{pathArr[0].icon ? pathArr[0].icon : pathArr[0].name}</a>
             </Link>
           </li>
         );

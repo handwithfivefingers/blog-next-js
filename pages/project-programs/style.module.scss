@@ -1,0 +1,12 @@
+.banner_scroll {
+  margin-top: 60px;
+  position: relative;
+  @media (max-width: 768px) {
+    margin-top: unset;
+  }
+  .readMore {
+    position: absolute;
+    right:0;
+    bottom:0;
+  }
+}

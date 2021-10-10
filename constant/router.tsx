@@ -33,8 +33,8 @@ export const RouterPath = [
     name: 'About Us',
   },
   {
-    path: 'project',
-    pathname: '/project',
+    path: 'project-programs',
+    pathname: '/project-programs',
     name: 'Project/Programs',
   },
   {

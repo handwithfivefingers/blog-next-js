@@ -195,6 +195,55 @@ export const fetchEnglishQuery = ({ first, after }) => {
   });
   return res;
 };
+export const fetchProjectQuery = ({ first, after }) => {
+  const res = client.query({
+    query: gql`
+      query MyQuery($after: String, $first: Int = 12) {
+        allProject(first: $first, after: $after) {
+          edges {
+            node {
+              id
+              title
+              slug
+              uri
+              views {
+                views
+              }
+              featuredImage {
+                node {
+                  sourceUrl(size: MEDIUM)
+                }
+              }
+              projectCategories {
+                edges {
+                  node {
+                    name
+                    uri
+                  }
+                }
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+            seo {
+              schema {
+                raw
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      first,
+      after,
+    },
+  });
+  return res;
+};
+
 export const fetchPostBySlug = ({ slug }) => {
   const res = client.query({
     query: gql`
