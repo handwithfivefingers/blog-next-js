@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import client from '../apollo-client';
 
-export const getPostQuery = ({ after, before, last, first }) => {
+export const getPostQuery = ({ after, before, last, first, tag }) => {
   const res = client.query({
     query: gql`
       query MyQuery(
@@ -9,8 +9,15 @@ export const getPostQuery = ({ after, before, last, first }) => {
         $last: Int = null
         $before: String = ""
         $after: String = ""
+        $tag: [String] = null
       ) {
-        posts(first: $first, after: $after, before: $before, last: $last) {
+        posts(
+          first: $first
+          after: $after
+          before: $before
+          last: $last
+          where: { tagSlugIn: $tag }
+        ) {
           pageInfo {
             hasNextPage
             hasPreviousPage
@@ -49,7 +56,7 @@ export const getPostQuery = ({ after, before, last, first }) => {
         }
       }
     `,
-    variables: { after, before, first, last },
+    variables: { after, before, first, last, tag },
     notifyOnNetworkStatusChange: true,
   });
   return res;
@@ -159,16 +166,24 @@ export const fetchEnglishQuery = ({ first, after }) => {
                   sourceUrl(size: MEDIUM)
                 }
               }
+              englishCategories {
+                edges {
+                  node {
+                    name
+                    uri
+                  }
+                }
+              }
             }
           }
           pageInfo {
             endCursor
+            hasNextPage
             seo {
               schema {
                 raw
               }
             }
-            hasNextPage
           }
         }
       }
@@ -177,6 +192,76 @@ export const fetchEnglishQuery = ({ first, after }) => {
       first,
       after,
     },
+  });
+  return res;
+};
+export const fetchPostBySlug = ({ slug }) => {
+  const res = client.query({
+    query: gql`
+      query MyQuery($slug: String = "") {
+        postBy(slug: $slug) {
+          title
+          content
+          link
+          postId
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+          categories {
+            edges {
+              node {
+                name
+              }
+            }
+          }
+          tags {
+            edges {
+              node {
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      slug,
+    },
+  });
+  return res;
+};
+
+export const fetchPostsByTag = ({ tag }) => {
+  const res = client.query({
+    query: gql`
+      query MyQuery($tag: [String] = "") {
+        posts(where: { tagSlugIn: $tag }) {
+          edges {
+            node {
+              id
+              uri
+              title
+              featuredImage {
+                node {
+                  sourceUrl
+                }
+              }
+              views {
+                views
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    `,
+    variables: { tag },
   });
   return res;
 };

@@ -1,7 +1,7 @@
 import Aos from 'aos';
-import 'aos/dist/aos.css';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import parser from 'react-html-parser';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -15,11 +15,6 @@ import { getPostQuery } from '../../constant/posts';
 import UserContext from '../../helper/Context';
 import styles from './style.module.scss';
 
-type BLogType = {
-  data: any;
-  posts: any;
-};
-
 const Blog = (props) => {
   const [pagi, setPagi] = useState({
     after: false,
@@ -28,24 +23,23 @@ const Blog = (props) => {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState(null);
   const { rowLayout } = useContext<any>(UserContext);
+  const router = useRouter();
 
   useEffect(() => {
     Aos.init({ duration: 1200, delay: 100 });
-  }, []);
-
-  useEffect(() => {
     fetchSinglePost({});
-  }, []);
+  }, []); // componentDidMount
 
   const fetchSinglePost = async ({
     first = 12,
     last = null,
     before = '',
     after = '',
+    tag = router.query.tag || null,
   }) => {
     setLoading(true);
 
-    const { data } = await getPostQuery({ first, last, before, after });
+    const { data } = await getPostQuery({ first, last, before, after, tag });
     let defaultData = data.posts.edges;
     let pageInfo = data.posts.pageInfo;
     setPagi((prevState) => {
@@ -115,7 +109,9 @@ const Blog = (props) => {
                 className="row"
                 style={{ overflow: 'unset' }}
                 dataLength={posts?.length}
-                next={() => fetchSinglePost({ after: pagi?.end })}
+                next={() =>
+                  fetchSinglePost({ after: pagi?.end, tag: router.query?.tag })
+                }
                 hasMore={pagi.after}
                 endMessage={<p>Found Nothing ...</p>}
                 loader={<SkeletonLoading />}

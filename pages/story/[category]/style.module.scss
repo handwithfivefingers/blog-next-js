@@ -42,3 +42,24 @@
     }
   }
 }
+
+.tag_component {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  padding-top: 10px;
+  .tag {
+    padding: 4px 8px;
+    box-shadow: var(--main-box-shadow);
+    background: #fff;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.75);
+    font-size:14px;
+    text-align: center;
+    transition:0.2s;
+    &:hover {
+      background:var(--main-second-color);
+      color:#fff;
+
+    }
+  }
+}

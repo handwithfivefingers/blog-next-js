@@ -3,7 +3,7 @@ import CardPostStyle1 from '../CardPost/CardPostStyle1';
 import VideoPost from '../VideoPost';
 import styles from './style.module.scss';
 import Image from 'next/image';
-
+import Link from 'next/link';
 /**
  * @function renderCarousel
  * @param {  id,title,image,categories,link,views} item
@@ -45,8 +45,10 @@ const CarouselBanner = ({ item, column }) => {
           </div>
           <div className={styles.content}>
             <h2>{item[i].title}</h2>
-            <p>.......... ..... .... ........ ............</p>
-            <button className="btn"> Xem Thêm</button>
+            <p>{item[i].content}</p>
+            <Link href={item[i]?.link}>
+              <a className="btn">Xem Thêm</a>
+            </Link>
           </div>
         </div>,
       );

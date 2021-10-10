@@ -11,8 +11,6 @@ import { useRouter } from 'next/router';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import Link from 'next/link';
-import { useAppSelector } from '../redux/store/hook';
-import CarouselBanner from '../components/UI/CarouselBanner';
 
 export default function Home({ page }) {
   const [name, setName] = useState('');

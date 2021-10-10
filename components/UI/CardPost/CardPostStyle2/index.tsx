@@ -74,7 +74,9 @@ const CardPostStyle2 = (props) => {
                   return (
                     <Link
                       key={item.node.uri + '-' + index}
-                      href={`${item.node.uri}`}
+                      href={{
+                        pathname: item.node.uri,
+                      }}
                     >
                       <a> {item.node.name}</a>
                     </Link>

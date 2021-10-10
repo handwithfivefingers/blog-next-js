@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import client from '../../../apollo-client';
 import { gql } from '@apollo/client';
-import { FetchAllPost, FetchSinglePost } from '../../../constant/posts';
-import { FaSignLanguage } from 'react-icons/fa';
 import { useRouter } from 'next/router';
-import styles from './style.module.scss';
+import React, { useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import Sidebar from '../../../components/Sidebar';
-import { NextSeo } from 'next-seo';
+import client from '../../../apollo-client';
 import Content from '../../../components/Content';
+import styles from './style.module.scss';
+import Head from 'next/head';
+import parser from 'react-html-parser';
 const Post = ({ englishBy }) => {
   const router = useRouter();
   useEffect(() => {
-
     // Count views
     if (englishBy?.englishId) {
       const res = fetch(
@@ -24,7 +21,7 @@ const Post = ({ englishBy }) => {
       res
         .then((res) => {
           // console.clear();
-        console.log('done');
+          console.log('done');
         })
         .catch((error) => {
           console.log('error', error);
@@ -53,6 +50,7 @@ const Post = ({ englishBy }) => {
   }
   return (
     <div>
+      <Head> {parser(englishBy?.seo.fullHead)}</Head>
       <Content
         singlePost
         title={englishBy?.title}
@@ -104,6 +102,9 @@ export const getStaticProps = async (context) => {
             node {
               mediaItemUrl
             }
+          }
+          seo {
+            fullHead
           }
         }
       }

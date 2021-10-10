@@ -36,7 +36,7 @@ const Project = (props) => {
     },
   );
   if (loading) return 'loading ....';
-  console.log(data.allProject);
+  console.log(data?.allProject);
   if (data) {
     return (
       <>

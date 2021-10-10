@@ -28,6 +28,7 @@ const ForEnglish = (props) => {
 
   useEffect(() => {
     fetchEnglishPost({});
+    
   }, []);
 
   const fetchEnglishPost = async ({ first = 12, after = '' }) => {
@@ -123,7 +124,7 @@ const ForEnglish = (props) => {
     }
     return xhtml;
   };
-
+  console.log(post);
   return (
     <>
       {/* <Head>{parser(props?.data.page.seo.fullHead)}</Head> */}
@@ -159,19 +160,19 @@ const ForEnglish = (props) => {
                     {rowLayout ? (
                       <CardPostStyle1
                         id={item.node.id}
-                        link={`${baseURL}/${item.node.slug}`}
+                        link={`${item.node.uri}`}
                         title={item.node.title}
                         image={item.node.featuredImage?.node.mediaItemUrl}
-                        // categories={item.node.categories}
+                        categories={item.node.englishCategories}
                         views={item.node.views.views}
                       />
                     ) : (
                       <CardPostStyle2
                         id={item.node.id}
-                        link={`${baseURL}/${item.node.slug}`}
+                        link={`${item.node.uri}`}
                         title={item.node.title}
                         image={item.node.featuredImage?.node.mediaItemUrl}
-                        // categories={item.node.categories}
+                        categories={item.node.englishCategories}
                         views={item.node.views.views}
                       />
                     )}
@@ -190,11 +191,11 @@ const ForEnglish = (props) => {
 
 export default ForEnglish;
 
-// export const getServerSideProps = async (context) => {
-//   const { data } = await getSinglePage(Pages.ForEnglish);
-//   return {
-//     props: {
-//       data: data,
-//     },
-//   };
-// };
+export const getServerSideProps = async (context) => {
+  const { data } = await getSinglePage(Pages.ForEnglish);
+  return {
+    props: {
+      data: data,
+    },
+  };
+};

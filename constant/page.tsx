@@ -182,7 +182,7 @@ export const Pages = {
   AboutUs: 'cG9zdDoxMjk=',
   Story: 'cG9zdDo3',
   Search: 'cG9zdDoyNTkz',
-  ForEnglish: 'cG9zdDoyNjEz',
+  ForEnglish: 'cG9zdDoyNjQz',
   Project: 'cG9zdDo3Mg==',
   ContactUs: 'cG9zdDoyMzA3',
 };

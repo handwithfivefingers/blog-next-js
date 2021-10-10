@@ -82,6 +82,7 @@ const Header = ({ loading }) => {
       searchRef?.current.focus();
     }
   }, [show, searchRef]);
+
   const renderSearchBar = () => {
     let xhtml = null;
     xhtml = (
@@ -129,11 +130,18 @@ const Header = ({ loading }) => {
           <div className={styles.list_menu}>
             <ul className={styles.menu_item}>
               {linkList.map((item) => {
+                // console.log(item.path);
+                // console.log()
+                let routeLength = router.route.split('/');
+                let match = routeLength.filter(
+                  (routeMatch) => routeMatch === item.path.split('/')[1],
+                );
+
                 return (
                   <li
                     key={item.path}
                     className={`${styles.item} ${
-                      router.route === item.path ? styles.menu_active : ''
+                      match.length > 0 ? styles.menu_active : ''
                     }`}
                   >
                     <Link href={item.path}>
