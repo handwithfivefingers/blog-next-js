@@ -16,6 +16,7 @@
     "@types/react-redux": "^7.1.18",
     "aos": "^2.3.4",
     "axios": "^0.21.1",
+    "emailjs-com": "^3.2.0",
     "gatsby": "^3.12.1",
     "graphql": "^15.5.1",
     "mongoose": "^6.0.2",
