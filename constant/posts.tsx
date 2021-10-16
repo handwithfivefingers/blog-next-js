@@ -57,8 +57,8 @@ export const getPostQuery = ({ after, before, last, first, tag }) => {
       }
     `,
     variables: { after, before, first, last, tag },
-    // notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-first',
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'network-only',
   });
   return res;
 };
@@ -193,7 +193,8 @@ export const fetchEnglishQuery = ({ first, after }) => {
       first,
       after,
     },
-    fetchPolicy: 'cache-first',
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'network-only',
   });
   return res;
 };
@@ -242,7 +243,8 @@ export const fetchProjectQuery = ({ first, after }) => {
       first,
       after,
     },
-    fetchPolicy: 'cache-first',
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'network-only',
   });
   return res;
 };
