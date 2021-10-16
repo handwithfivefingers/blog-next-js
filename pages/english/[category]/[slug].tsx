@@ -21,7 +21,7 @@ const Post = ({ englishBy }) => {
       res
         .then((res) => {
           // console.clear();
-          console.log('done');
+          // console.log('done');
         })
         .catch((error) => {
           console.log('error', error);
@@ -54,17 +54,14 @@ const Post = ({ englishBy }) => {
       <Content
         singlePost
         title={englishBy?.title}
-        img={englishBy?.featuredImage?.node.mediaItemUrl}
+        img={
+          englishBy?.featuredImage?.node?.mediaItemUrl ||
+          'https://i.ytimg.com/vi/L1tx-wAI6Nw/maxresdefault.jpg'
+        }
         content={
           <div className="post-content row" style={{ margin: 0 }}>
             <div className={`col-12 post-header ${styles.header_content}`}>
               <h1 className={`title ${styles.title}`}>{englishBy?.title}</h1>
-              {/* <div
-                className={styles.imageFeature}
-                style={{
-                  backgroundImage: `url(${englishBy?.featuredImage?.node.mediaItemUrl})`,
-                }}
-              /> */}
             </div>
             <div className="row" style={{ padding: 0, margin: '0 auto' }}>
               <div className="col-md-12 col-sm-12 col-xs-12">
@@ -116,7 +113,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       englishBy: data.englishBy,
-      revalidate:60*60*24
+      revalidate: 60 * 60 * 24,
     },
   };
 };

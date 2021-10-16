@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
+  // basePath: '/apps/blog-nextjs',
   async redirects() {
     return [
       {
@@ -20,27 +21,6 @@ module.exports = {
           },
         ],
       },
-      // {
-      //   test: /\.scss$/,
-      //   exclude: /node_modules/,
-      //   use: [
-      //     {
-      //       loader: 'style-loader',
-      //     },
-      //     {
-      //       loader: 'css-loader',
-      //       options: {
-      //         sourceMap: true,
-      //       },
-      //     },
-      //     {
-      //       loader: 'sass-loader',
-      //       options: {
-      //         sourceMap: true,
-      //       },
-      //     },
-      //   ],
-      // },
     )
     return config
   }

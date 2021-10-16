@@ -21,7 +21,7 @@ const Post = ({ projectBy }) => {
       res
         .then((res) => {
           // console.clear();
-          console.log('done');
+          // console.log('done');
         })
         .catch((error) => {
           console.log('error', error);
@@ -54,7 +54,7 @@ const Post = ({ projectBy }) => {
       <Content
         singlePost
         title={projectBy?.title}
-        img={projectBy?.featuredImage?.node.mediaItemUrl}
+        img={projectBy?.featuredImage?.node?.mediaItemUrl || 'https://i.ytimg.com/vi/L1tx-wAI6Nw/maxresdefault.jpg'}
         content={
           <div className="post-content row" style={{ margin: 0 }}>
             <div className={`col-12 post-header ${styles.header_content}`}>

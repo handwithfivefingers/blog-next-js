@@ -14,7 +14,7 @@ const ModalVideos = (props) => {
         isOpen={ModalReducer ? ModalReducer.show : false}
         videoId={ModalReducer?.link !== null ? ModalReducer.link : null}
         onClose={() => {
-          console.log('close');
+          // console.log('close');
           dispatch(HideModal());
         }}
       />

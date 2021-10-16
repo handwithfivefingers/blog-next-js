@@ -33,7 +33,7 @@ const Categories = ({ cate }) => {
       slug: router.query.category,
       after,
     });
-    console.log('data', data);
+    // console.log('data', data);
     let defaultData = data.allProjectCategories.edges[0].node.project.nodes;
     let pageInfo = data.allProjectCategories.edges[0].node.project.pageInfo;
     title == data.allProjectCategories.edges[0].node.name
@@ -88,7 +88,7 @@ const Categories = ({ cate }) => {
     }
     return xhtml;
   };
-  console.log(post);
+  // console.log(post);
   return (
     <div>
       <Head>{parser(cate[0].seo.fullHead)}</Head>

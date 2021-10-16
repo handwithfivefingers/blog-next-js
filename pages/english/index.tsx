@@ -33,7 +33,7 @@ const ForEnglish = (props) => {
 
   const fetchEnglishPost = async ({ first = 12, after = '' }) => {
     const { data } = await fetchEnglishQuery({ first, after });
-    console.log(data);
+    // console.log(data);
     let defaultData = data.allEnglish.edges;
     let pageInfo = data.allEnglish.pageInfo;
     setPagi((prevState) => {

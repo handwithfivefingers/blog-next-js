@@ -78,7 +78,7 @@ const Header = ({ loading }) => {
   }, [top]);
   useEffect(() => {
     if (show && searchRef) {
-      console.log(searchRef);
+      // console.log(searchRef);
       searchRef?.current.focus();
     }
   }, [show, searchRef]);

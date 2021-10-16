@@ -33,7 +33,7 @@ const Project = (props) => {
 
   const fetchProjectPost = async ({ first = 12, after = '' }) => {
     const { data } = await fetchProjectQuery({ first, after });
-    console.log(data);
+    // console.log(data);
     let defaultData = data.allProject.edges;
     let pageInfo = data.allProject.pageInfo;
     setPagi((prevState) => {
@@ -124,7 +124,7 @@ const Project = (props) => {
     }
     return xhtml;
   };
-  console.log(post);
+  // console.log(post);
   return (
     <>
       <Head>{parser(props?.data.page.seo.fullHead)}</Head>

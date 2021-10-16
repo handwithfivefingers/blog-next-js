@@ -33,7 +33,7 @@ const Post = ({ postBy }) => {
           console.log('error', error);
         });
     }
-    console.log(postBy);
+    // console.log(postBy);
   }, [postBy]);
   if (router.isFallback) {
     return (
@@ -74,7 +74,7 @@ const Post = ({ postBy }) => {
           },
           images: [
             {
-              url: postBy?.featuredImage.node.mediaItemUrl,
+              url: postBy?.featuredImage?.node?.mediaItemUrl,
               width: 800,
               height: 600,
               alt: 'Featured Image',
@@ -85,7 +85,10 @@ const Post = ({ postBy }) => {
       <Content
         singlePost
         title={postBy?.title}
-        img={postBy?.featuredImage?.node.mediaItemUrl}
+        img={
+          postBy?.featuredImage?.node.mediaItemUrl ||
+          'https://i.ytimg.com/vi/L1tx-wAI6Nw/maxresdefault.jpg'
+        }
         content={
           <div className="post-content row" style={{ margin: 0 }}>
             <div className={`col-12 post-header ${styles.header_content}`}>
@@ -134,7 +137,8 @@ const Post = ({ postBy }) => {
 export default Post;
 
 export const getStaticProps = async (context) => {
-  const { data } = await fetchPostBySlug({ slug: context.params.slug });
+  let { data } = await fetchPostBySlug({ slug: context.params.slug });
+  // console.log(data);
   return {
     props: {
       postBy: data.postBy,
@@ -146,6 +150,7 @@ export const getStaticProps = async (context) => {
 export const getStaticPaths = async () => {
   return {
     paths: [],
+    // fallback: 'blocking',
     fallback: true,
   };
 };
