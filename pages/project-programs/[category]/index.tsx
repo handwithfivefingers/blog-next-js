@@ -180,7 +180,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       cate: data.allProjectCategories.nodes,
-      relivadate: 60 * 60,
+      revalidate: 60 * 60,
     },
   };
 };

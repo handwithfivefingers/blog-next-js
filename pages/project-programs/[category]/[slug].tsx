@@ -116,7 +116,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       projectBy: data.projectBy,
-      relivadate: 60 * 60,
+      revalidate: 60 * 60,
     },
   };
 };
