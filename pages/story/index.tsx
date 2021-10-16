@@ -169,10 +169,10 @@ const Blog = (props) => {
 };
 
 export default Blog;
-export const getStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data } = await BlogPage;
   return {
     props: data,
-    revalidate: 60 * 60,
+    // revalidate: 60 * 60,
   };
 };

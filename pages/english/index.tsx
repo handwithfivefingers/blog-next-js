@@ -14,6 +14,7 @@ import UserContext from '../../helper/Context';
 import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
 import CardPostStyle2 from '../../components/UI/CardPost/CardPostStyle2';
 import Skeleton from 'react-loading-skeleton';
+import { GetServerSideProps } from 'next';
 
 const baseURL = '/english';
 
@@ -189,12 +190,12 @@ const ForEnglish = (props) => {
 
 export default ForEnglish;
 
-export const getStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data } = await getSinglePage(Pages.ForEnglish);
   return {
     props: {
       data: data,
-      relivadate: 60 * 60,
+      // relivadate: 60 * 60,
     },
   };
 };
