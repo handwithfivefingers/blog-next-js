@@ -197,7 +197,6 @@ export default function Home({ page }) {
          */}
         {section.section3 ? renderSection3() : ''}
 
-    
         <div
           className="row"
           data-aos="fade-zoom-in"
@@ -321,18 +320,10 @@ export default function Home({ page }) {
   );
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const { data } = await homeQuery;
   return {
     props: { page: data?.page },
+    revalidate: 60 * 60,
   };
 };
-
-// export async function getStaticProps(context) {
-//   const { data } = await homeQuery;
-//   return {
-//     props: {
-//       page: data.page,
-//     },
-//   };
-// }

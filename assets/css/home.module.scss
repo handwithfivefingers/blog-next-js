@@ -122,6 +122,7 @@
       box-sizing: border-box;
       transition: all 0.3s ease-out;
       padding: 10px 20px;
+      background:#fff;
       &:focus {
         border: 1px solid var(--main-second-color);
         outline: none;

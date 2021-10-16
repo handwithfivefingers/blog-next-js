@@ -189,11 +189,12 @@ const ForEnglish = (props) => {
 
 export default ForEnglish;
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
   const { data } = await getSinglePage(Pages.ForEnglish);
   return {
     props: {
       data: data,
+      relivadate: 60 * 60,
     },
   };
 };

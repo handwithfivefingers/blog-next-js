@@ -57,7 +57,7 @@ export const getPostQuery = ({ after, before, last, first, tag }) => {
       }
     `,
     variables: { after, before, first, last, tag },
-    notifyOnNetworkStatusChange: true,
+    // notifyOnNetworkStatusChange: true,
   });
   return res;
 };

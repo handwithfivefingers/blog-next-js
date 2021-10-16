@@ -181,6 +181,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       cate: data.categories.nodes,
+      revalidate: 60 * 60,
     },
   };
 };

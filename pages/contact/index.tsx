@@ -81,11 +81,12 @@ const Contact = (props) => {
 
 export default Contact;
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
   const { data } = await getSinglePage(Pages.ContactUs);
   return {
     props: {
       data: data,
+      relivadate: 60 * 60,
     },
   };
 };

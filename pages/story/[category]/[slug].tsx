@@ -138,6 +138,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       postBy: data.postBy,
+      revalidate: 60 * 60,
     },
   };
 };

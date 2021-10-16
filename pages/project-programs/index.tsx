@@ -190,11 +190,13 @@ const Project = (props) => {
 
 export default Project;
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
   const { data } = await getSinglePage(Pages.Project);
   return {
     props: {
       data: data,
+      relivadate: 60 * 60,
+
     },
   };
 };

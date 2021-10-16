@@ -12,7 +12,6 @@ const Breadcrumb = (props) => {
 
     xhtml = path.split('/').map((item, index) => {
       let pathArr = RouterPath.filter((routerItem) => routerItem.path === item);
-      console.log(pathArr);
       if (index === path.split('/').length - 1) {
         return (
           <li key={index}>

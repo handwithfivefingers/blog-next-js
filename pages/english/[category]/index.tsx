@@ -57,7 +57,6 @@ const Categories = ({ cate }) => {
       post?.length > 0 ? post.concat(defaultData) : defaultData || defaultData;
     setPost(() => Array.from(new Set(newData)));
   };
-
   const renderLoading = () => {
     let xhtml = [];
     if (rowLayout) {
@@ -92,7 +91,6 @@ const Categories = ({ cate }) => {
     }
     return xhtml;
   };
-console.log(post);
   return (
     <div>
       <Head>{parser(cate[0].seo.fullHead)}</Head>
@@ -184,6 +182,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       cate: data.allEnglishCategories.nodes,
+      revalidate: 60 * 60 * 24,
     },
   };
 };

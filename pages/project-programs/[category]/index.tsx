@@ -10,9 +10,7 @@ import Content from '../../../components/Content';
 import CardPostStyle1 from '../../../components/UI/CardPost/CardPostStyle1';
 import CardPostStyle2 from '../../../components/UI/CardPost/CardPostStyle2';
 import SkeletonLoading from '../../../components/UI/SkeletonLoading';
-import {
-  getProjectCategoriesSlug
-} from '../../../constant/category';
+import { getProjectCategoriesSlug } from '../../../constant/category';
 import UserContext from '../../../helper/Context';
 import styles from './style.module.scss';
 const Categories = ({ cate }) => {
@@ -35,7 +33,7 @@ const Categories = ({ cate }) => {
       slug: router.query.category,
       after,
     });
-    console.log('data',data)
+    console.log('data', data);
     let defaultData = data.allProjectCategories.edges[0].node.project.nodes;
     let pageInfo = data.allProjectCategories.edges[0].node.project.pageInfo;
     title == data.allProjectCategories.edges[0].node.name
@@ -182,6 +180,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       cate: data.allProjectCategories.nodes,
+      relivadate: 60 * 60,
     },
   };
 };

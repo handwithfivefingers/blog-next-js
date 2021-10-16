@@ -71,11 +71,12 @@ const About: React.FC = (props: any) => {
 
 export default About;
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
   const { data } = await aboutUsPage;
   return {
     props: {
       data: data,
+      revalidate: 60 * 60,
     },
   };
 };

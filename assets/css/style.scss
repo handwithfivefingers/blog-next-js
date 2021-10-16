@@ -2,11 +2,14 @@
   padding: 0;
   margin: 0;
 }
-input {
+input,
+textarea,
+select {
   border-radius: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background: #fff;
 }
 input[type='text'],
 input[type='button'],

@@ -29,3 +29,29 @@ export const postSitemap = client.query({
     }
   `,
 });
+export const englishSitemap = client.query({
+  query: gql`
+    query MyQuery {
+      allEnglish(first: 9999) {
+        edges {
+          node {
+            uri
+          }
+        }
+      }
+    }
+  `,
+});
+export const projectSitemap = client.query({
+  query: gql`
+    query MyQuery {
+      allProject(first: 9999) {
+        edges {
+          node {
+            uri
+          }
+        }
+      }
+    }
+  `,
+});

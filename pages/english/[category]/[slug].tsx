@@ -116,6 +116,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       englishBy: data.englishBy,
+      revalidate:60*60*24
     },
   };
 };
