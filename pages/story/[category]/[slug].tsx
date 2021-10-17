@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import client from '../../../apollo-client';
-import { gql } from '@apollo/client';
-import {
-  FetchAllPost,
-  fetchPostBySlug,
-  FetchSinglePost,
-} from '../../../constant/posts';
-import { FaSignLanguage } from 'react-icons/fa';
-import { useRouter } from 'next/router';
-import styles from './style.module.scss';
-import Skeleton from 'react-loading-skeleton';
-import Sidebar from '../../../components/Sidebar';
 import { NextSeo } from 'next-seo';
-import Content from '../../../components/Content';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import Content from '../../../components/Content';
+import Sidebar from '../../../components/Sidebar';
+import { fetchPostBySlug } from '../../../constant/posts';
+import styles from './style.module.scss';
 const Post = ({ postBy }) => {
   const router = useRouter();
   useEffect(() => {
@@ -123,8 +116,7 @@ const Post = ({ postBy }) => {
                 ))}
               </div>
               <div className="col-md-12 col-sm-12 col-xs-12">
-                Related Post
-                {/* <Sidebar categoryPost={router.query.category} /> */}
+                <Sidebar type={'post'} categoryPost={router.query.category} />
               </div>
             </div>
           </div>

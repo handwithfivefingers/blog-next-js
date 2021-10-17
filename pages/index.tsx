@@ -112,6 +112,7 @@ export default function Home({ page }) {
   };
   //Section 3
   const renderSection3 = () => {
+
     // console.log(section?.section3);
     let xhtml = null;
     let section3 = section?.section3;

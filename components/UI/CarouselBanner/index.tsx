@@ -61,7 +61,7 @@ const CarouselBanner = ({ item, column }) => {
             <h2>{item[i].title}</h2>
             <p>{item[i].content}</p>
             <Link href={item[i]?.link}>
-              <a className="btn">Xem Thêm</a>
+              <a className={`btn ${styles.custombtn}`}>Xem Thêm</a>
             </Link>
           </div>
         </div>,

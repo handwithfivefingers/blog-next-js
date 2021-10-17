@@ -7,6 +7,7 @@ import Content from '../../../components/Content';
 import styles from './style.module.scss';
 import Head from 'next/head';
 import parser from 'react-html-parser';
+import Sidebar from '../../../components/Sidebar';
 const Post = ({ projectBy }) => {
   const router = useRouter();
   useEffect(() => {
@@ -54,7 +55,10 @@ const Post = ({ projectBy }) => {
       <Content
         singlePost
         title={projectBy?.title}
-        img={projectBy?.featuredImage?.node?.mediaItemUrl || 'https://i.ytimg.com/vi/L1tx-wAI6Nw/maxresdefault.jpg'}
+        img={
+          projectBy?.featuredImage?.node?.mediaItemUrl ||
+          'https://i.ytimg.com/vi/L1tx-wAI6Nw/maxresdefault.jpg'
+        }
         content={
           <div className="post-content row" style={{ margin: 0 }}>
             <div className={`col-12 post-header ${styles.header_content}`}>
@@ -77,7 +81,7 @@ const Post = ({ projectBy }) => {
               </div>
               <div className="col-md-12 col-sm-12 col-xs-12">
                 Related Post
-                {/* <Sidebar categoryPost={router.query.category} /> */}
+                <Sidebar categoryPost={router.query.category} type="project" />
               </div>
             </div>
           </div>

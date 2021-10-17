@@ -183,7 +183,7 @@ const Carousel = ({ item, column, type = null }) => {
   //   const handler = (e) => setWindowMatches(e.matches);
   //   window.matchMedia('(max-width: 1300px)').addListener(handler);
   // };
-
+  console.log(item);
   return (
     <div className={styles.row}>
       {/** Slide Render  */}

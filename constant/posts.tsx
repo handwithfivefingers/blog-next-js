@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import client from '../apollo-client';
-
+// Blog Post
 export const getPostQuery = ({ after, before, last, first, tag }) => {
   const res = client.query({
     query: gql`
@@ -62,92 +62,7 @@ export const getPostQuery = ({ after, before, last, first, tag }) => {
   });
   return res;
 };
-
-export const FetchSinglePost = gql`
-  query MyQuery($slug: String = "") {
-    postBy(slug: $slug) {
-      title
-      content
-      link
-      postId
-      featuredImage {
-        node {
-          mediaItemUrl
-        }
-      }
-      categories {
-        edges {
-          node {
-            name
-          }
-        }
-      }
-    }
-  }
-`;
-export const SearchPostQuery = gql`
-  query MyQuery($search: String = "") {
-    posts(where: { search: $search }) {
-      edges {
-        node {
-          id
-          title
-          uri
-          views {
-            views
-          }
-          categories {
-            edges {
-              node {
-                uri
-                name
-              }
-            }
-          }
-
-          featuredImage {
-            node {
-              mediaItemUrl
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const FetchAllPost = client.query({
-  query: gql`
-    query MyQuery {
-      posts(first: 999) {
-        nodes {
-          ...PostFragment
-          title
-          categories {
-            ...PostToCategoryConnectionFragment
-          }
-          uri
-        }
-      }
-    }
-
-    fragment PostFragment on Post {
-      id
-    }
-
-    fragment CategoryFragment on Category {
-      name
-      uri
-    }
-
-    fragment PostToCategoryConnectionFragment on PostToCategoryConnection {
-      nodes {
-        ...CategoryFragment
-      }
-    }
-  `,
-});
-
+//English Post
 export const fetchEnglishQuery = ({ first, after }) => {
   const res = client.query({
     query: gql`
@@ -198,6 +113,7 @@ export const fetchEnglishQuery = ({ first, after }) => {
   });
   return res;
 };
+// Project Post
 export const fetchProjectQuery = ({ first, after }) => {
   const res = client.query({
     query: gql`
@@ -248,7 +164,7 @@ export const fetchProjectQuery = ({ first, after }) => {
   });
   return res;
 };
-
+// Single Post
 export const fetchPostBySlug = ({ slug }) => {
   const res = client.query({
     query: gql`
@@ -287,7 +203,7 @@ export const fetchPostBySlug = ({ slug }) => {
   });
   return res;
 };
-
+// Single Post
 export const fetchPostsByTag = ({ tag }) => {
   const res = client.query({
     query: gql`
@@ -320,6 +236,106 @@ export const fetchPostsByTag = ({ tag }) => {
   return res;
 };
 
+//Categories Relate Post
+export const FetchPostRelative = ({ type, categoriesName }) => {
+  let res = null;
+  switch (type) {
+    case 'post':
+      return (res = client.query({
+        query: gql`
+          query MyQuery($categoriesName: String = "") {
+            posts(first: 8, where: { categoryName: $categoriesName }) {
+              edges {
+                node {
+                  id
+                  uri
+                  title
+                  featuredImage {
+                    node {
+                      sourceUrl(size: MEDIUM)
+                    }
+                  }
+                  views {
+                    views
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: { categoriesName },
+      }));
+    case 'english':
+      return (res = client.query({
+        query: gql`
+          query MyQuery($categoriesName: [String] = "") {
+            allEnglishCategories(where: { slug: $categoriesName }) {
+              edges {
+                node {
+                  english {
+                    edges {
+                      node {
+                        uri
+                        title
+                        id
+                        englishId
+                        featuredImage {
+                          node {
+                            id
+                            sourceUrl(size: MEDIUM)
+                          }
+                        }
+                        views {
+                          views
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: { categoriesName },
+      }));
+    case 'project':
+      return (res = client.query({
+        query: gql`
+          query MyQuery($categoriesName: [String] = "") {
+            allProjectCategories(where: { slug: $categoriesName }) {
+              edges {
+                node {
+                  project {
+                    edges {
+                      node {
+                        uri
+                        title
+                        id
+                        projectId
+                        featuredImage {
+                          node {
+                            id
+                            sourceUrl(size: MEDIUM)
+                          }
+                        }
+                        views {
+                          views
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: { categoriesName },
+      }));
+    default:
+      return res;
+  }
+};
+// Search Post
 export const searchQuery = ({ search, first, last, before, after }) => {
   const query = client.query({
     query: gql`

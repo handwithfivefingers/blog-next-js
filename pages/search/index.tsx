@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
-import Skeleton from 'react-loading-skeleton';
-import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
-import { SearchPostQuery, searchQuery } from '../../constant/posts';
 import { useRouter } from 'next/router';
-import styles from './styles.module.scss';
-import Content from '../../components/Content';
+import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Skeleton from 'react-loading-skeleton';
+import Content from '../../components/Content';
+import CardPostStyle1 from '../../components/UI/CardPost/CardPostStyle1';
 import SkeletonLoading from '../../components/UI/SkeletonLoading';
+import { searchQuery } from '../../constant/posts';
+import styles from './styles.module.scss';
 const Search = (props) => {
   const [post, setPost] = useState(null);
   const router = useRouter();

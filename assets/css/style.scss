@@ -272,12 +272,12 @@ footer {
 }
 
 .sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  margin-right: 25px;
+  // position: -webkit-sticky;
+  // position: sticky;
+  // top: 0;
+  // margin-right: 25px;
   @media (max-width: 768px) {
-    margin: 25px;
+    // margin: 25px;
   }
 }
 

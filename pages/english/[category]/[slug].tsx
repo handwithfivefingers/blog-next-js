@@ -7,6 +7,7 @@ import Content from '../../../components/Content';
 import styles from './style.module.scss';
 import Head from 'next/head';
 import parser from 'react-html-parser';
+import Sidebar from '../../../components/Sidebar';
 const Post = ({ englishBy }) => {
   const router = useRouter();
   useEffect(() => {
@@ -74,7 +75,7 @@ const Post = ({ englishBy }) => {
               </div>
               <div className="col-md-12 col-sm-12 col-xs-12">
                 Related Post
-                {/* <Sidebar categoryPost={router.query.category} /> */}
+                <Sidebar categoryPost={router.query.category} type="english" />
               </div>
             </div>
           </div>

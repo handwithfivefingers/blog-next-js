@@ -52,5 +52,11 @@
       &:after {
       }
     }
+
+    @media (max-width:525px) {
+      right:15px;
+      bottom: 15px;
+      padding:4px 8px;
+    }
   }
 }
