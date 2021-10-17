@@ -35,6 +35,5 @@ yarn-error.log*
 
 # vercel
 .vercel
-.server.js
 /public/robot.txt
 /public/sitemap.xml
