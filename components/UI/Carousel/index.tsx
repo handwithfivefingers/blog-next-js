@@ -162,19 +162,25 @@ const Carousel = ({ item, column, type = null }) => {
   };
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(e.targetTouches[0].clientX);
   };
   const handleTouchMove = (e) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e) => {
     let width = touchStart - touchEnd;
+    let touchmove = touchEnd;
+
     if (touchStart - touchEnd > 75) {
       // do your stuff here for left swipe
+      // console.log(touchStart - touchEnd);
       nextEvent(width);
     }
 
     if (touchStart - touchEnd < -75) {
       // do your stuff here for right swipe
+      // console.log(touchStart - touchEnd);
+
       prevEvent(width);
     }
   };
@@ -183,7 +189,7 @@ const Carousel = ({ item, column, type = null }) => {
   //   const handler = (e) => setWindowMatches(e.matches);
   //   window.matchMedia('(max-width: 1300px)').addListener(handler);
   // };
-  console.log(item);
+  // console.log(item);
   return (
     <div className={styles.row}>
       {/** Slide Render  */}
@@ -192,7 +198,7 @@ const Carousel = ({ item, column, type = null }) => {
           className={styles.sliders}
           onTouchStart={(touchStartEvent) => handleTouchStart(touchStartEvent)}
           onTouchMove={(touchMoveEvent) => handleTouchMove(touchMoveEvent)}
-          onTouchEnd={() => handleTouchEnd()}
+          onTouchEnd={(e) => handleTouchEnd(e)}
         >
           {renderListSlider()}
         </div>
