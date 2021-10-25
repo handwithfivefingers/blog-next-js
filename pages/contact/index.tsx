@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { getSinglePage, Pages } from '../../constant/page';
-// import { contactPage } from '../../constant/page';
 import parser from 'react-html-parser';
 import Head from 'next/head';
 import Content from '../../components/Content';
@@ -100,7 +99,7 @@ const Contact = (props) => {
 
 export default Contact;
 
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const { data } = await getSinglePage(Pages.ContactUs);
   return {
     props: {
