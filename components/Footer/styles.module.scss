@@ -1,6 +1,6 @@
 .scroll_top {
   position: fixed;
-  bottom: 10px;
+  bottom: 70px;
   right: 20px;
   background: rgba(0, 0, 0, 0.2);
   padding: 3px 8px;
@@ -13,5 +13,56 @@
   &:hover {
     background-color: rgba(255, 255, 255, 0.5);
     color: rgba(0, 0, 0, 0.2);
+  }
+}
+.footer {
+  padding: 50px;
+  margin-top: 50px;
+  .footer_top {
+    display: flex;
+    flex-direction: row;
+    padding: 25px 0;
+    .footer_link {
+      display: flex;
+      flex-basis: calc(100% / 3);
+      flex-direction: column;
+      text-align: center;
+      justify-content: center;
+      list-style-type: none;
+      padding: 12px 0;
+      li {
+        padding: 5px;
+      }
+    }
+    .footer_map {
+      flex: 1;
+      iframe {
+        border: 1px solid #eee;
+        flex: 1;
+        outline: none;
+        border-radius: 5px;
+        width: 100%;
+      }
+    }
+  }
+  .footer_bottom {
+    display: flex;
+    justify-content: space-around;
+  }
+  @media (max-width: 768px) {
+    .footer_bottom {
+      margin-bottom: 60px;
+    }
+  }
+  @media (max-width: 650px) {
+    padding: 0;
+    .footer_top {
+      flex-direction: column;
+    }
+    .footer_bottom {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

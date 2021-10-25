@@ -54,7 +54,6 @@ const Header = ({ loading }) => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY; // current
-      // headerRef.current = currentScrollY;
       setTop((prevState) => {
         previousTop = prevState;
         if (previousTop < currentScrollY && currentScrollY > 65) {
@@ -66,13 +65,6 @@ const Header = ({ loading }) => {
         return currentScrollY;
       });
     };
-    // if (headerRef.current) {
-    //   if (top + 30 < headerRef.current.offsetHeight) {
-    //     headerRef.current.setAttribute('style', 'position:relative')
-    //   } else {
-    //     headerRef.current.setAttribute('style', 'position:fixed')
-    //   }
-    // }
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [top]);

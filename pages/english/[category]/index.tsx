@@ -93,7 +93,7 @@ const Categories = ({ cate }) => {
   };
   return (
     <div>
-      <Head>{parser(cate[0].seo.fullHead)}</Head>
+      <Head>{parser(cate[0]?.seo.fullHead)}</Head>
       {post ? (
         <Content
           title={title}

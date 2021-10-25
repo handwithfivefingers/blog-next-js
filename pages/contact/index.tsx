@@ -10,16 +10,32 @@ import emailjs from 'emailjs-com';
 const Contact = (props) => {
   const [done, setDone] = useState(false);
   const handleSubmit = (e) => {
-    e.preventDefault();
+    console.log(e.target.querySelectorAll('input'));
+    let input = e.target.querySelectorAll('input');
+    for (let inp of input) {
+      if (inp.value.length <= 1) {
+        return;
+      }
+      if (inp.name === 'phone') {
+        if (inp.value.length <= 5) {
+          return;
+        }
+      }
+    }
+    mailSend(e.target);
+  };
+
+  const mailSend = (form) => {
     emailjs
       .sendForm(
         'email_truyenmaiblog',
         'template_uanusgb',
-        e.target,
+        form,
         'user_KMOFfk2s3H8Q3yRiCYwGH',
       )
       .then((res) => setDone(true))
-      .catch((err) => console.log(err.repsonse));
+      .catch((err) => console.log(err.repsonse))
+      .finally(() => setDone(true));
   };
   return (
     <>
@@ -30,7 +46,6 @@ const Contact = (props) => {
         content={
           <div className="row" style={{ margin: 0 }}>
             <h2>Contact</h2>
-            {/* {parser(props?.data.page.content)} */}
             {done ? (
               <h2>Cảm ơn bạn, chúng tôi sẽ phản hồi lại sớm nhất</h2>
             ) : (
@@ -39,9 +54,9 @@ const Contact = (props) => {
                 <div className={style.form_item}>
                   <input
                     placeholder="Họ và Tên:"
-                    defaultValue=""
                     type="text"
                     name="name"
+                    required
                   />
                   <span></span>
                 </div>
@@ -50,7 +65,7 @@ const Contact = (props) => {
                     placeholder="Số Điện Thoại:"
                     type="text"
                     name="phone"
-                    defaultValue=""
+                    required
                   />
                   <span></span>
                 </div>
@@ -59,7 +74,7 @@ const Contact = (props) => {
                     placeholder="Email Liên Lạc:"
                     type="email"
                     name="email"
-                    defaultValue=""
+                    required
                   />
                   <span></span>
                 </div>
