@@ -5,12 +5,11 @@ import parser from 'react-html-parser';
 import Head from 'next/head';
 import Content from '../../components/Content';
 import style from './style.module.scss';
-import axios from 'axios';
 import emailjs from 'emailjs-com';
 const Contact = (props) => {
   const [done, setDone] = useState(false);
   const handleSubmit = (e) => {
-    console.log(e.target.querySelectorAll('input'));
+    e.preventDefault();
     let input = e.target.querySelectorAll('input');
     for (let inp of input) {
       if (inp.value.length <= 1) {
@@ -22,21 +21,26 @@ const Contact = (props) => {
         }
       }
     }
-    mailSend(e.target);
-  };
-
-  const mailSend = (form) => {
     emailjs
       .sendForm(
         'email_truyenmaiblog',
         'template_uanusgb',
-        form,
+        e.target,
         'user_KMOFfk2s3H8Q3yRiCYwGH',
       )
       .then((res) => setDone(true))
       .catch((err) => console.log(err.repsonse))
-      .finally(() => setDone(true));
+      .finally(() => {
+        setDone(true);
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+      });
   };
+
+  const mailSend = (form) => {};
   return (
     <>
       <Head>{parser(props?.data.page.seo.fullHead)}</Head>
@@ -47,7 +51,7 @@ const Contact = (props) => {
           <div className="row" style={{ margin: 0 }}>
             <h2>Contact</h2>
             {done ? (
-              <h2>Cảm ơn bạn, chúng tôi sẽ phản hồi lại sớm nhất</h2>
+              <p>Cảm ơn bạn, chúng tôi sẽ phản hồi lại sớm nhất</p>
             ) : (
               <form onSubmit={handleSubmit} className={style.form_control}>
                 <h3>Contact Us </h3>
